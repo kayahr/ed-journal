@@ -36,6 +36,7 @@
     },
     "files": [
         "lib/main/",
+        "lib/*.schema.json",
         "src/main/"
     ],
     "main": "./lib/main/index.js",
