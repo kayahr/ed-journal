@@ -5,6 +5,7 @@ import { LineReader } from "../../main/util/LineReader";
 
 const textsDir = path.join(__dirname, "../../../src/test/data/texts");
 const testTxt = path.join(textsDir, "test.txt");
+const smallTxt = path.join(textsDir, "small.txt");
 
 describe("LineReader", () => {
     it("iterates over the file line-by-line", async () => {
@@ -22,14 +23,14 @@ describe("LineReader", () => {
         }
     });
     it("works with buffer size 1", async () => {
-        const reader = new LineReader(testTxt, 0, 1, 1);
+        const reader = new LineReader(smallTxt, 0, 1, 1);
         try {
             let text = "";
             for await (const line of reader) {
                 expect(line.endsWith("\n")).toBe(true);
                 text += line;
             }
-            const origText = fs.readFileSync(testTxt).toString();
+            const origText = fs.readFileSync(smallTxt).toString();
             expect(text).toBe(origText);
         } catch (e) {
             await reader.close();
