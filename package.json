@@ -27,7 +27,7 @@
         "compile": "tsc",
         "watch": "tsc -w",
         "check": "jest",
-        "doc": "typedoc --excludePrivate --disableSources --tsconfig tsconfig.json --out doc/api/ src/main/index.ts",
+        "doc": "typedoc",
         "lint": "eslint --max-warnings 0 --ext .ts src",
         "cspell": "cspell --no-progress",
         "prepare": "npm run clean && npm run compile && npm run schema",

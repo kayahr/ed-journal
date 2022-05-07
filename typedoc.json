@@ -1,0 +1,6 @@
+{
+    "entryPoints": [ "src/main/index.ts" ],
+    "out": "doc/api",
+    "excludePrivate": true,
+    "disableSources": true
+}
