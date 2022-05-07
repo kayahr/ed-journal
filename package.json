@@ -39,6 +39,8 @@
         "src/main/"
     ],
     "main": "./lib/main/index.js",
+    "types": "./lib/main/index.d.ts",
+    "exports": "./lib/main/index.js",
     "funding": {
         "url": "https://github.com/kayahr/ed-journal?sponsor=1"
     },
