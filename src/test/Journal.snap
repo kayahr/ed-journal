@@ -1,0 +1,217 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Journal can watch new journal events only 1`] = `
+Array [
+  Object {
+    "Part": 2,
+    "event": "Continued",
+    "timestamp": "2023-01-01T00:00:02Z",
+  },
+  Object {
+    "event": "Died",
+    "timestamp": "2023-01-01T00:00:03Z",
+  },
+]
+`;
+
+exports[`Journal reads a journal in chronological order 1`] = `
+Array [
+  Object {
+    "Odyssey": true,
+    "build": "r271793/r0 ",
+    "event": "Fileheader",
+    "gameversion": "4.0.0.600",
+    "language": "English\\\\UK",
+    "part": 1,
+    "timestamp": "2020-01-01T00:00:00Z",
+  },
+  Object {
+    "event": "Shutdown",
+    "timestamp": "2020-01-01T00:00:01Z",
+  },
+  Object {
+    "Odyssey": true,
+    "build": "r271793/r0 ",
+    "event": "Fileheader",
+    "gameversion": "4.0.0.600",
+    "language": "English\\\\UK",
+    "part": 1,
+    "timestamp": "2021-01-01T00:00:00Z",
+  },
+  Object {
+    "event": "Shutdown",
+    "timestamp": "2021-01-01T00:00:01Z",
+  },
+  Object {
+    "Odyssey": true,
+    "build": "r271793/r0 ",
+    "event": "Fileheader",
+    "gameversion": "4.0.0.600",
+    "language": "English\\\\UK",
+    "part": 1,
+    "timestamp": "2022-01-01T00:00:00Z",
+  },
+  Object {
+    "event": "Shutdown",
+    "timestamp": "2022-01-01T00:00:01Z",
+  },
+  Object {
+    "Odyssey": true,
+    "build": "r271793/r0 ",
+    "event": "Fileheader",
+    "gameversion": "4.0.0.600",
+    "language": "English\\\\UK",
+    "part": 1,
+    "timestamp": "2023-01-01T00:00:00Z",
+  },
+  Object {
+    "event": "Shutdown",
+    "timestamp": "2023-01-01T00:00:01Z",
+  },
+]
+`;
+
+exports[`Journal reads a journal starting at given position 1`] = `
+Array [
+  Object {
+    "event": "Shutdown",
+    "timestamp": "2021-01-01T00:00:01Z",
+  },
+  Object {
+    "Odyssey": true,
+    "build": "r271793/r0 ",
+    "event": "Fileheader",
+    "gameversion": "4.0.0.600",
+    "language": "English\\\\UK",
+    "part": 1,
+    "timestamp": "2022-01-01T00:00:00Z",
+  },
+  Object {
+    "event": "Shutdown",
+    "timestamp": "2022-01-01T00:00:01Z",
+  },
+  Object {
+    "Odyssey": true,
+    "build": "r271793/r0 ",
+    "event": "Fileheader",
+    "gameversion": "4.0.0.600",
+    "language": "English\\\\UK",
+    "part": 1,
+    "timestamp": "2023-01-01T00:00:00Z",
+  },
+  Object {
+    "event": "Shutdown",
+    "timestamp": "2023-01-01T00:00:01Z",
+  },
+]
+`;
+
+exports[`Journal watches a journal in chronological order 1`] = `
+Array [
+  Object {
+    "Odyssey": true,
+    "build": "r271793/r0 ",
+    "event": "Fileheader",
+    "gameversion": "4.0.0.600",
+    "language": "English\\\\UK",
+    "part": 1,
+    "timestamp": "2020-01-01T00:00:00Z",
+  },
+  Object {
+    "event": "Shutdown",
+    "timestamp": "2020-01-01T00:00:01Z",
+  },
+  Object {
+    "Odyssey": true,
+    "build": "r271793/r0 ",
+    "event": "Fileheader",
+    "gameversion": "4.0.0.600",
+    "language": "English\\\\UK",
+    "part": 1,
+    "timestamp": "2021-01-01T00:00:00Z",
+  },
+  Object {
+    "event": "Shutdown",
+    "timestamp": "2021-01-01T00:00:01Z",
+  },
+  Object {
+    "Odyssey": true,
+    "build": "r271793/r0 ",
+    "event": "Fileheader",
+    "gameversion": "4.0.0.600",
+    "language": "English\\\\UK",
+    "part": 1,
+    "timestamp": "2022-01-01T00:00:00Z",
+  },
+  Object {
+    "event": "Shutdown",
+    "timestamp": "2022-01-01T00:00:01Z",
+  },
+  Object {
+    "Odyssey": true,
+    "build": "r271793/r0 ",
+    "event": "Fileheader",
+    "gameversion": "4.0.0.600",
+    "language": "English\\\\UK",
+    "part": 1,
+    "timestamp": "2023-01-01T00:00:00Z",
+  },
+  Object {
+    "event": "Shutdown",
+    "timestamp": "2023-01-01T00:00:01Z",
+  },
+  Object {
+    "Part": 2,
+    "event": "Continued",
+    "timestamp": "2023-01-01T00:00:02Z",
+  },
+  Object {
+    "event": "Died",
+    "timestamp": "2023-01-01T00:00:03Z",
+  },
+]
+`;
+
+exports[`Journal watches a journal starting at given position 1`] = `
+Array [
+  Object {
+    "event": "Shutdown",
+    "timestamp": "2021-01-01T00:00:01Z",
+  },
+  Object {
+    "Odyssey": true,
+    "build": "r271793/r0 ",
+    "event": "Fileheader",
+    "gameversion": "4.0.0.600",
+    "language": "English\\\\UK",
+    "part": 1,
+    "timestamp": "2022-01-01T00:00:00Z",
+  },
+  Object {
+    "event": "Shutdown",
+    "timestamp": "2022-01-01T00:00:01Z",
+  },
+  Object {
+    "Odyssey": true,
+    "build": "r271793/r0 ",
+    "event": "Fileheader",
+    "gameversion": "4.0.0.600",
+    "language": "English\\\\UK",
+    "part": 1,
+    "timestamp": "2023-01-01T00:00:00Z",
+  },
+  Object {
+    "event": "Shutdown",
+    "timestamp": "2023-01-01T00:00:01Z",
+  },
+  Object {
+    "Part": 2,
+    "event": "Continued",
+    "timestamp": "2023-01-01T00:00:02Z",
+  },
+  Object {
+    "event": "Died",
+    "timestamp": "2023-01-01T00:00:03Z",
+  },
+]
+`;

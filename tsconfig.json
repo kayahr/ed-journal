@@ -1,0 +1,36 @@
+{
+    "$schema": "http://json.schemastore.org/tsconfig",
+    "compilerOptions": {
+        "target": "ESNext",
+        "lib": [ "ES2020", "ES2020.Symbol.WellKnown", "DOM", "ES2021.WeakRef" ],
+        "module": "CommonJS",
+        "moduleResolution": "Node",
+        "rootDir": "src",
+        "outDir": "lib",
+        "noImplicitAny": true,
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "sourceMap": true,
+        "declaration": true,
+        "importsNotUsedAsValues": "error",
+        "experimentalDecorators": true,
+        "useDefineForClassFields": true,
+        "emitDecoratorMetadata": true,
+        "strict": true,
+        "strictPropertyInitialization": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": false,
+        "skipLibCheck": true,
+        "importHelpers": true,
+        "downlevelIteration": true,
+        "preserveSymlinks": true,
+        "allowSyntheticDefaultImports": true
+    },
+    "exclude": [
+        "lib",
+        "node_modules",
+        "doc",
+        "coverage"
+    ]
+}

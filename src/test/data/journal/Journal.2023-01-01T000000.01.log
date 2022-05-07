@@ -1,0 +1,2 @@
+{ "timestamp":"2023-01-01T00:00:00Z", "event":"Fileheader", "part":1, "language":"English\\UK", "Odyssey":true, "gameversion":"4.0.0.600", "build":"r271793/r0 " }
+{ "timestamp":"2023-01-01T00:00:01Z", "event":"Shutdown" }
