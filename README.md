@@ -41,7 +41,7 @@ try {
 Options
 -------
 
-You can pass an [JournalOptions] when opening a [Journal] with the following properties:
+You can pass [JournalOptions] when opening a [Journal] with the following properties:
 
 | Option      | Description
 | ----------- | -------------------------------------------------------------------------------------------------------
