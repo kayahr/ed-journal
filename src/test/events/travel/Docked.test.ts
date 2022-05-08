@@ -1,12 +1,12 @@
-import * as path from "path";
+import { join } from "path";
 
 import { Journal } from "../../../main/Journal";
 
-const directory = path.join(__dirname, "../../../../src/test/data/events/Docked");
+const directory = join(__dirname, "../../../../src/test/data/events/Docked");
 
 describe("Docked", () => {
     it("updates old properties to new properties", async () => {
-        const journal = new Journal({ directory });
+        const journal = await Journal.create({ directory });
         const event = await journal.next();
         expect(event?.event).toBe("Docked");
         if (event?.event === "Docked") {
@@ -27,7 +27,7 @@ describe("Docked", () => {
         }
     });
     it("updates StationFaction string to object", async () => {
-        const journal = new Journal({
+        const journal = await Journal.create({
             directory,
             position: { file: "Journal.190119140425.01.log", offset: 0, line: 1 }
         });
@@ -39,7 +39,7 @@ describe("Docked", () => {
         }
     });
     it("updates station services from old names to new names", async () => {
-        const journal = new Journal({
+        const journal = await Journal.create({
             directory,
             position: { file: "Journal.190119140425.01.log", offset: 0, line: 1 }
         });

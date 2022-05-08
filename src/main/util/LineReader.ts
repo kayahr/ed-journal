@@ -3,12 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import * as fs from "fs";
-import { promisify } from "util";
-
-const open = promisify(fs.open);
-const close = promisify(fs.close);
-const read = promisify(fs.read);
+import { FileHandle, open } from "fs/promises";
 
 /**
  * Concatenates given byte arrays and returns new byte array.
@@ -36,7 +31,7 @@ export class LineReader implements AsyncIterable<string> {
     private readonly buffer: Uint8Array;
 
     /** The file handle to read from. Null if file is not open. */
-    private descriptor: number | null = null;
+    private fileHandle: FileHandle | null = null;
 
     /** The current read position in the file. */
     private readPosition: number;
@@ -94,15 +89,15 @@ export class LineReader implements AsyncIterable<string> {
     }
 
     /**
-     * Internally opens the file for reading if not already done and returns the file descriptor.
+     * Internally opens the file for reading if not already done and returns the file handle.
      *
-     * @return The open file descriptor.
+     * @return The open file handle.
      */
-    private async open(): Promise<number> {
-        if (this.descriptor == null) {
-            this.descriptor = await open(this.file, "r");
+    private async open(): Promise<FileHandle> {
+        if (this.fileHandle == null) {
+            this.fileHandle = await open(this.file, "r");
         }
-        return this.descriptor;
+        return this.fileHandle;
     }
 
     /**
@@ -110,9 +105,9 @@ export class LineReader implements AsyncIterable<string> {
      * method.
      */
     public async close(): Promise<void> {
-        if (this.descriptor != null) {
-            await close(this.descriptor);
-            this.descriptor = null;
+        if (this.fileHandle != null) {
+            await this.fileHandle.close();
+            this.fileHandle = null;
         }
     }
 
@@ -127,8 +122,8 @@ export class LineReader implements AsyncIterable<string> {
     public async next(): Promise<string | null> {
         // Fill buffer if empty
         if (this.bufferStart >= this.bufferEnd) {
-            const descriptor = this.descriptor == null ? await this.open() : this.descriptor;
-            const { bytesRead } = await read(descriptor, this.buffer, 0, this.buffer.length, this.readPosition);
+            const fileHandle = this.fileHandle == null ? await this.open() : this.fileHandle;
+            const { bytesRead } = await fileHandle.read({ buffer: this.buffer, position: this.readPosition });
             if (bytesRead > 0) {
                 this.bufferStart = 0;
                 this.bufferEnd = bytesRead;

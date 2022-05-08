@@ -1,12 +1,12 @@
-import * as path from "path";
+import { join } from "path";
 
 import { Journal } from "../../../main/Journal";
 
-const directory = path.join(__dirname, "../../../../src/test/data/events/CarrierStats");
+const directory = join(__dirname, "../../../../src/test/data/events/CarrierStats");
 
 describe("CarrierStats", () => {
     it("updates old TaxRate to new TaxRate_rearm, TaxRate_refuel and TaxRate_repair", async () => {
-        const journal = new Journal({ directory });
+        const journal = await Journal.create({ directory });
         const event = await journal.next();
         expect(event?.event).toBe("CarrierStats");
         if (event?.event === "CarrierStats") {

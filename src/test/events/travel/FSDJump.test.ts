@@ -1,12 +1,12 @@
-import * as path from "path";
+import { join } from "path";
 
 import { Journal } from "../../../main/Journal";
 
-const directory = path.join(__dirname, "../../../../src/test/data/events/FSDJump");
+const directory = join(__dirname, "../../../../src/test/data/events/FSDJump");
 
 describe("FSDJump", () => {
     it("updates old properties to new properties", async () => {
-        const journal = new Journal({ directory });
+        const journal = await Journal.create({ directory });
         const event = await journal.next();
         expect(event?.event).toBe("FSDJump");
         if (event?.event === "FSDJump") {
@@ -31,7 +31,7 @@ describe("FSDJump", () => {
         }
     });
     it("updates SystemFaction string to object", async () => {
-        const journal = new Journal({
+        const journal = await Journal.create({
             directory,
             position: { file: "Journal.190119140425.01.log", offset: 0, line: 1 }
         });

@@ -18,12 +18,12 @@ Install the dependency:
 $ npm install @kayahr/ed-journal
 ```
 
-The following simple example shows how to use the [Journal] type to read all events from all journal files in chronological order and print the timestamp and event name and specially handle the `Music` event to print the music track.
+The following simple example shows how to use the [Journal] class to read all events from all journal files in chronological order and print the timestamp and event name and specially handle the `Music` event to print the music track.
 
 ```typescript
 import { Journal } from "@kayahr/ed-journal";
 
-const journal = new Journal();
+const journal = await Journal.create();
 for await (const event of journal) {
     console.log(event.timestamp, event.event);
     if (event.event === "Music") {
@@ -37,7 +37,7 @@ for await (const event of journal) {
 Options
 -------
 
-You can pass an [JournalOptions] object to the [Journal] constructor with the following properties:
+You can pass an [JournalOptions] when creating a [Journal] instance with the following properties:
 
 | Option      | Description
 | ----------- | -------------------------------------------------------------------------------------------------------
@@ -49,7 +49,7 @@ You can pass an [JournalOptions] object to the [Journal] constructor with the fo
 Resume journal watching
 -----------------------
 
-If you want your application to remember the journal position on shutdown and continue from this position when application is started again you can read the current [JournalPosition] (consisting of `file`, `offset` and `line`) from the journal object, persist it in some way and pass it back to the constructor when starting the application again. Example:
+If you want your application to remember the journal position on shutdown and continue from this position when application is started again you can read the current [JournalPosition] (consisting of `file`, `offset` and `line`) from the journal object, persist it in some way and use it again when starting the application again. Example:
 
 ```typescript
 // Read previously persisted journal position
@@ -60,7 +60,7 @@ let position: JournalPosition = {
     line: 95
 };
 
-const journal = new Journal({ watch: true, position });
+const journal = await Journal.create({ watch: true, position });
 for await (const event of journal) {
     // Do something with the events.
     // At some point call `journal.close()` to stop watching and
@@ -81,7 +81,7 @@ The location of the journal directory is automatically determined by looking at 
 * *$HOME/.local/share/Steam/steamapps/compatdata/359320/pfx/drive_c/users/steamuser/Saved Games/Frontier Developments/Elite Dangerous* (For Steam Proton on Linux)
 * *$ED_JOURNAL_DIR*
 
-When the library does not find your journal directory then you can either use the `directory` constructor option to specify it manually or define the `$ED_JOURNAL_DIR` environment variable.
+When the library does not find your journal directory then you can either use the `directory` option to specify it manually or define the `$ED_JOURNAL_DIR` environment variable.
 
 [Frontier]: https://www.frontier.co.uk/
 [Elite: Dangerous]: https://www.elitedangerous.com/

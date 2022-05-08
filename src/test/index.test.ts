@@ -1,12 +1,12 @@
-import * as path from "path";
+import { join } from "path";
 
 import * as edj from "../main/index";
 
-const journalDir = path.join(__dirname, "../../src/test/data/journal");
+const journalDir = join(__dirname, "../../src/test/data/journal");
 
 describe("ed-journal", () => {
-    it("exports the Journal class", () => {
-        const journal = new edj.Journal({ directory: journalDir });
+    it("exports the Journal class", async () => {
+        const journal = await edj.Journal.create({ directory: journalDir });
         expect(journal).toBeInstanceOf(edj.Journal);
     });
     it("exports shared types", () => {

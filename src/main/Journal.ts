@@ -13,18 +13,17 @@ import "./events/exploration/Scan";
 import "./events/startup/Statistics";
 import "./events/other/Synthesis";
 
-import * as chokidar from "chokidar";
-import * as fs from "fs";
-import * as glob from "glob";
-import * as os from "os";
-import * as path from "path";
-import { promisify } from "util";
+import { watch } from "chokidar";
+import { open, readdir } from "fs/promises";
+import { homedir } from "os";
+import { join } from "path";
 
 import type { AnyJournalEvent } from "./AnyJournalEvent";
 import { JournalError } from "./JournalError";
 import { updateJournalEvent } from "./JournalEvent";
 import type { JournalPosition } from "./JournalPosition";
 import { getErrorMessage } from "./util/error";
+import { isDirectory, isPathReadable } from "./util/fs";
 import { LineReader } from "./util/LineReader";
 import { Notifier } from "./util/Notifier";
 
@@ -43,6 +42,19 @@ function journalTimeCompare(a: string, b: string): number {
         // Different length means the date format has changed. The newer one is longer
         return a.length - b.length;
     }
+}
+
+/** Regular expression to match the name of a journal file. */
+const journalFileRegExp = /^Journal\.([0-9]{12}|[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{6})\.[0-9]{2}\.log$/;
+
+/**
+ * Checks if given filename is a journal file.
+ *
+ * @param The filename to check.
+ * @return True if filename is a journal file, false it not.
+ */
+function isJournalFile(filename: string): boolean {
+    return journalFileRegExp.test(filename);
 }
 
 /**
@@ -90,22 +102,29 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
     /** The abort controller used to stop watch mode. */
     private readonly abortController: AbortController;
 
+    private constructor(directory: string, position: JournalPosition, watch: boolean) {
+        this.directory = directory;
+        this.position = position;
+        this.abortController = new AbortController();
+        this.generator = this.createGenerator(watch, this.abortController.signal);
+    }
+
     /**
      * Creates journal reader.
      */
-    public constructor(
-        {
-            directory = Journal.findDirectory(),
-            position = "start",
-            watch = false
-        }: JournalOptions = {}
-    ) {
-        this.directory = directory;
-        this.position = position === "start" ? { file: "", offset: 0, line: 1 }
-            : position === "end" ? this.findEnd()
-            : { ...position };
-        this.abortController = new AbortController();
-        this.generator = this.createGenerator(watch, this.abortController.signal);
+    public static async create({ directory, position = "start", watch = false }: JournalOptions = {}):
+            Promise<Journal> {
+        if (directory == null) {
+            directory = await this.findDirectory();
+        }
+        if (position === "start") {
+            position = { file: "", offset: 0, line: 1 };
+        } else if (position === "end") {
+            position = await this.findEnd(directory);
+        } else {
+            position = { ...position };
+        }
+        return new Journal(directory, position, watch);
     }
 
     /**
@@ -118,24 +137,25 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      * @return The found journal directory.
      * @throws JournalError - When journal directory was not found.
      */
-    public static findDirectory(): string {
-        const nativeHome = os.homedir();
+    public static async findDirectory(): Promise<string> {
+        const nativeHome = homedir();
         const protonHome = ".local/share/Steam/steamapps/compatdata/359320/pfx/drive_c/users/steamuser";
         const eliteDir = "Saved Games/Frontier Developments/Elite Dangerous";
         const candidates = [
-            path.join(nativeHome, eliteDir),
-            path.join(nativeHome, protonHome, eliteDir)
+            join(nativeHome, eliteDir),
+            join(nativeHome, protonHome, eliteDir)
         ];
         const dirFromEnv = process.env["ED_JOURNAL_DIR"];
         if (dirFromEnv != null) {
-            // Check ED_JOURNAL_DIR first if present
+            // Check ED_JOURNAL_DIR environment variable first if present
             candidates.unshift(dirFromEnv);
         }
-        const journalDirectory = candidates.find(candidate => fs.existsSync(candidate));
-        if (journalDirectory == null) {
-            throw new JournalError("Unable to find Elite Dangerous Journal directory");
+        for (const candidate of candidates) {
+            if (await isPathReadable(candidate) && await isDirectory(candidate)) {
+                return candidate;
+            }
         }
-        return journalDirectory;
+        throw new JournalError("Unable to find Elite Dangerous Journal directory");
     }
 
     /**
@@ -169,29 +189,32 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      *
      * @return End position of the journal.
      */
-    public findEnd(): JournalPosition {
-        const file = glob.sync("Journal.*.log", { cwd: this.directory }).sort(journalTimeCompare).reverse()[0];
-        if (file == null) {
+    public static async findEnd(directory: string): Promise<JournalPosition> {
+        const filename = (await readdir(directory)).filter(isJournalFile).sort(journalTimeCompare).reverse()[0];
+        if (filename == null) {
             // No journal file found, return start as end
             return { file: "", offset: 0, line: 1 };
         }
 
         // Find last line number and also create the end offset (which is the same as the file size) during the process
-        const descriptor = fs.openSync(path.join(this.directory, file), "r");
-        const buffer = new Uint8Array(8192);
-        let offset = 0;
-        let line = 1;
-        let read;
-        while ((read = fs.readSync(descriptor, buffer)) > 0) {
-            offset += read;
-            for (let i = 0; i < read; i++) {
-                if (buffer[i] === 10) {
-                    line++;
+        const file = await open(join(directory, filename), "r");
+        try {
+            const buffer = new Uint8Array(8192);
+            let offset = 0;
+            let line = 1;
+            let read: number;
+            while ((read = (await file.read({ buffer })).bytesRead) > 0) {
+                offset += read;
+                for (let i = 0; i < read; i++) {
+                    if (buffer[i] === 10) {
+                        line++;
+                    }
                 }
             }
+            return { file: filename, offset, line };
+        } finally {
+            await file.close();
         }
-
-        return { file, offset, line };
     }
 
     /**
@@ -210,7 +233,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
         const queue: string[] = [];
         const initialFiles: string[] = [];
         let ready = false;
-        const watcher = chokidar.watch("Journal.*.log", {
+        const watcher = watch("Journal.*.log", {
             cwd: this.directory,
             depth: 0,
             ignoreInitial: false,
@@ -281,8 +304,9 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      * @return The found journal files.
      */
     private async listJournalFiles(startFile: string): Promise<string[]> {
-        const matches = await promisify(glob)("Journal.*.log", { cwd: this.directory });
-        return matches.sort(journalTimeCompare).filter(file => journalTimeCompare(file, startFile) >= 0);
+        return (await readdir(this.directory))
+            .filter(filename => isJournalFile(filename) && journalTimeCompare(filename, startFile) >= 0)
+            .sort(journalTimeCompare);
     }
 
     /**
@@ -322,7 +346,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
             // Create line reader or replace it when new journal file has been opened
             if (lineReader == null || file !== this.position.file) {
                 lineReader = new LineReader(
-                    path.join(this.directory, file), file === this.position.file ? this.position.offset : 0,
+                    join(this.directory, file), file === this.position.file ? this.position.offset : 0,
                     file === this.position.file ? this.position.line : 1);
             }
 

@@ -1,12 +1,12 @@
-import * as path from "path";
+import { join } from "path";
 
 import { Journal } from "../../../main/Journal";
 
-const directory = path.join(__dirname, "../../../../src/test/data/events/Backpack");
+const directory = join(__dirname, "../../../../src/test/data/events/Backpack");
 
 describe("Scan", () => {
     it("rename BackPack and BackPackMaterials event to Backpack", async () => {
-        const journal = new Journal({ directory });
+        const journal = await Journal.create({ directory });
         const event1 = await journal.next();
         expect(event1?.event).toBe("Backpack");
         const event2 = await journal.next();

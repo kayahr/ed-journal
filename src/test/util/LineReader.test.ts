@@ -1,11 +1,11 @@
-import * as fs from "fs";
-import * as path from "path";
+import { readFile } from "fs/promises";
+import { join } from "path";
 
 import { LineReader } from "../../main/util/LineReader";
 
-const textsDir = path.join(__dirname, "../../../src/test/data/texts");
-const testTxt = path.join(textsDir, "test.txt");
-const smallTxt = path.join(textsDir, "small.txt");
+const textsDir = join(__dirname, "../../../src/test/data/texts");
+const testTxt = join(textsDir, "test.txt");
+const smallTxt = join(textsDir, "small.txt");
 
 describe("LineReader", () => {
     it("iterates over the file line-by-line", async () => {
@@ -16,7 +16,7 @@ describe("LineReader", () => {
                 expect(line.endsWith("\n")).toBe(true);
                 text += line;
             }
-            const origText = fs.readFileSync(testTxt).toString();
+            const origText = (await readFile(testTxt)).toString();
             expect(text).toBe(origText);
         } catch (e) {
             await reader.close();
@@ -30,7 +30,7 @@ describe("LineReader", () => {
                 expect(line.endsWith("\n")).toBe(true);
                 text += line;
             }
-            const origText = fs.readFileSync(smallTxt).toString();
+            const origText = (await readFile(smallTxt)).toString();
             expect(text).toBe(origText);
         } catch (e) {
             await reader.close();

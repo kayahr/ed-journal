@@ -1,12 +1,12 @@
-import * as path from "path";
+import { join } from "path";
 
 import { Journal } from "../../../main/Journal";
 
-const directory = path.join(__dirname, "../../../../src/test/data/events/Synthesis");
+const directory = join(__dirname, "../../../../src/test/data/events/Synthesis");
 
 describe("Synthesis", () => {
     it("updates Materials object to array", async () => {
-        const journal = new Journal({ directory });
+        const journal = await Journal.create({ directory });
         const event = await journal.next();
         expect(event?.event).toBe("Synthesis");
         if (event?.event === "Synthesis") {

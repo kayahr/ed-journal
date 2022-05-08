@@ -11,9 +11,9 @@
 
 import "source-map-support/register";
 
-import * as fs from "fs";
+import { readFile } from "fs/promises";
 import { Schema, Validator } from "jsonschema";
-import * as path from "path";
+import { join } from "path";
 
 import type { AnyJournalEvent } from "../main/AnyJournalEvent";
 import { Journal } from "../main/Journal";
@@ -24,22 +24,23 @@ if (position !== "start" && position !== "end") {
     position = { file: position, offset: 0, line: 1 };
 }
 
-const validator = new Validator();
-const schema = JSON.parse(fs.readFileSync(path.join(__dirname, "..",
-    "journal-event.schema.json")).toString()) as Schema;
-const narrowedSchemas = new Map<string, Schema>();
-
 class ValidationError extends Error {
     public constructor(message: string, event: AnyJournalEvent) {
         super(`${message}:\n\n${JSON.stringify(event, undefined, 4)}`);
     }
 }
 
-const journal = new Journal({ position, watch: true });
-process.on("SIGINT", () => {
-    journal.close();
-});
 (async () => {
+    const validator = new Validator();
+    const schema = JSON.parse((await readFile(join(__dirname, "..",
+        "journal-event.schema.json"))).toString()) as Schema;
+    const narrowedSchemas = new Map<string, Schema>();
+
+
+    const journal = await Journal.create({ position, watch: true });
+    process.on("SIGINT", () => {
+        journal.close();
+    });
     let currentFile = "";
     for await(const event of journal) {
         const file = journal.getPosition().file;
