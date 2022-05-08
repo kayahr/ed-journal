@@ -55,11 +55,11 @@ export class LineReader implements AsyncIterable<string> {
      * Constructs a new line reader reading from the given file and position.
      *
      * @param file       - The file to read from.
-     * @param offset     - The file offset to start reading from. Defaults to 0 (Beginning of file).
-     * @param line       - The line number to start counting with. Defaults to 1 (First line).
-     * @param bufferSize - The size of the read buffer in bytes. Defaults to 8 KB.
+     * @param offset     - The file offset to start reading from.
+     * @param line       - The line number to start counting with.
+     * @param bufferSize - The size of the read buffer in bytes.
      */
-    private constructor(file: FileHandle, offset: number = 0, line: number = 1, bufferSize = 8192) {
+    private constructor(file: FileHandle, offset: number, line: number, bufferSize: number) {
         this.file = file;
         this.readPosition = offset;
         this.currentOffset = offset;
@@ -76,8 +76,7 @@ export class LineReader implements AsyncIterable<string> {
      * @param bufferSize - The size of the read buffer in bytes. Defaults to 8 KB.
      * @return The created line reader.
      */
-    public static async create(filename: string, offset: number = 0, line: number = 1, bufferSize = 8192):
-            Promise<LineReader> {
+    public static async create(filename: string, offset = 0, line = 1, bufferSize = 8192): Promise<LineReader> {
         const file = await open(filename, "r");
         return new LineReader(file, offset, line, bufferSize);
     }
