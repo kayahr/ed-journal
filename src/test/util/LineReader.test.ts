@@ -63,6 +63,11 @@ describe("LineReader", () => {
                 await reader.close();
             }
         });
+        it("returns null whn file handle has already been closed", async () => {
+            const reader = await LineReader.create(testTxt, 21493, 15);
+            await reader.close();
+            expect(await reader.next()).toBeNull();
+        });
     });
     describe("getLine", () => {
         it("returns the line number of the next line to read", async () => {
