@@ -9,7 +9,7 @@ const smallTxt = join(textsDir, "small.txt");
 
 describe("LineReader", () => {
     it("iterates over the file line-by-line", async () => {
-        const reader = new LineReader(testTxt);
+        const reader = await LineReader.create(testTxt);
         try {
             let text = "";
             for await (const line of reader) {
@@ -18,12 +18,12 @@ describe("LineReader", () => {
             }
             const origText = (await readFile(testTxt)).toString();
             expect(text).toBe(origText);
-        } catch (e) {
+        } finally {
             await reader.close();
         }
     });
     it("works with buffer size 1", async () => {
-        const reader = new LineReader(smallTxt, 0, 1, 1);
+        const reader = await LineReader.create(smallTxt, 0, 1, 1);
         try {
             let text = "";
             for await (const line of reader) {
@@ -32,21 +32,21 @@ describe("LineReader", () => {
             }
             const origText = (await readFile(smallTxt)).toString();
             expect(text).toBe(origText);
-        } catch (e) {
+        } finally {
             await reader.close();
         }
     });
     it("can start at arbitrary offsets", async () => {
-        const reader = new LineReader(testTxt, 42997, 16);
+        const reader = await LineReader.create(testTxt, 42997, 16);
         try {
             expect(await reader.next()).toBe("End\n");
-        } catch (e) {
+        } finally {
             await reader.close();
         }
     });
     describe("next", () => {
         it("reads next line of a file", async () => {
-            const reader = new LineReader(testTxt);
+            const reader = await LineReader.create(testTxt);
             try {
                 expect(await reader.next()).toBe("a\n");
                 expect(await reader.next()).toBe("\n");
@@ -66,7 +66,7 @@ describe("LineReader", () => {
     });
     describe("getLine", () => {
         it("returns the line number of the next line to read", async () => {
-            const reader = new LineReader(testTxt);
+            const reader = await LineReader.create(testTxt);
             try {
                 for (let i = 1; i < 17; i++) {
                     expect(reader.getLine()).toBe(i);
@@ -84,7 +84,7 @@ describe("LineReader", () => {
     describe("getOffset", () => {
         it("returns the byte offset of the next line to read", async () => {
             const encoder = new TextEncoder();
-            const reader = new LineReader(testTxt);
+            const reader = await LineReader.create(testTxt);
             try {
                 let offset = 0;
                 expect(reader.getOffset()).toBe(offset);

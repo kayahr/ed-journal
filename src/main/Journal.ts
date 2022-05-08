@@ -102,6 +102,9 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
     /** The abort controller used to stop watch mode. */
     private readonly abortController: AbortController;
 
+    /** The currently open line reader. */
+    private lineReader: LineReader | null = null;
+
     private constructor(directory: string, position: JournalPosition, watch: boolean) {
         this.directory = directory;
         this.position = position;
@@ -180,8 +183,12 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      * Closes the journal. This only has a meaning when running in watch mode. The watcher is aborted and does not
      * report any more updates.
      */
-    public close(): void {
+    public async close(): Promise<void> {
         this.abortController.abort();
+        if (this.lineReader != null) {
+            await this.lineReader.close();
+            this.lineReader = null;
+        }
     }
 
     /**
@@ -336,16 +343,17 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
             ? this.watchJournalFiles(this.position.file, abortSignal)
             : await this.listJournalFiles(this.position.file);
 
-        // Line reader is re-used until a new journal file is opened
-        let lineReader: LineReader | null = null;
-
         // Iterate over all journal files in chronological order. In watch mode, when the last line of the last file
         // has been read this loop waits until the files generator reports the current journal file again when it has
         // been changed or a new journal file was found. Reading is then continued at this point.
         for await (const file of files) {
             // Create line reader or replace it when new journal file has been opened
+            let lineReader = this.lineReader;
             if (lineReader == null || file !== this.position.file) {
-                lineReader = new LineReader(
+                if (lineReader != null) {
+                    await lineReader.close();
+                }
+                lineReader = this.lineReader = await LineReader.create(
                     join(this.directory, file), file === this.position.file ? this.position.offset : 0,
                     file === this.position.file ? this.position.line : 1);
             }

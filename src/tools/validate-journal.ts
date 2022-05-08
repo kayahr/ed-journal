@@ -39,7 +39,7 @@ class ValidationError extends Error {
 
     const journal = await Journal.create({ position, watch: true });
     process.on("SIGINT", () => {
-        journal.close();
+        void journal.close();
     });
     let currentFile = "";
     for await(const event of journal) {

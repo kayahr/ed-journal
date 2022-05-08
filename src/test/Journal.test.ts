@@ -40,15 +40,19 @@ describe("Journal", () => {
     it("reads a journal in chronological order", async () => {
         const events: AnyJournalEvent[] = [];
         const journal = await Journal.create({ directory: journalDir });
-        for await (const event of journal) {
-            events.push(event);
+        try {
+            for await (const event of journal) {
+                events.push(event);
+            }
+            expect(events).toMatchSnapshot();
+            expect(journal.getPosition()).toEqual({
+                file: "Journal.2023-01-01T000000.01.log",
+                offset: 222,
+                line: 3
+            });
+        } finally {
+            await journal.close();
         }
-        expect(events).toMatchSnapshot();
-        expect(journal.getPosition()).toEqual({
-            file: "Journal.2023-01-01T000000.01.log",
-            offset: 222,
-            line: 3
-        });
     });
 
     it("reads a journal starting at given position", async () => {
@@ -57,15 +61,19 @@ describe("Journal", () => {
             directory: journalDir,
             position: { file: "Journal.210101000000.01.log", offset: 163, line: 2 }
         });
-        for await (const record of journal) {
-            events.push(record);
+        try {
+            for await (const record of journal) {
+                events.push(record);
+            }
+            expect(events).toMatchSnapshot();
+            expect(journal.getPosition()).toEqual({
+                file: "Journal.2023-01-01T000000.01.log",
+                offset: 222,
+                line: 3
+            });
+        } finally {
+            await journal.close();
         }
-        expect(events).toMatchSnapshot();
-        expect(journal.getPosition()).toEqual({
-            file: "Journal.2023-01-01T000000.01.log",
-            offset: 222,
-            line: 3
-        });
     });
 
     it("watches a journal in chronological order", async () => {
@@ -77,7 +85,7 @@ describe("Journal", () => {
                 for await (const event of journal) {
                     events.push(event);
                     if (event.event === "Died") {
-                        journal.close();
+                        await journal.close();
                     }
                 }
             })();
@@ -110,7 +118,7 @@ describe("Journal", () => {
                 for await (const record of journal) {
                     records.push(record);
                     if (record.event === "Died") {
-                        journal.close();
+                        await journal.close();
                     }
                 }
             })();
@@ -143,7 +151,7 @@ describe("Journal", () => {
                 for await (const event of journal) {
                     records.push(event);
                     if (event.event === "Died") {
-                        journal.close();
+                        await journal.close();
                     }
                 }
             })();
@@ -176,12 +184,16 @@ describe("Journal", () => {
                 directory: journalDirectory,
                 watch: true
             });
-            const promise = (async () => {
-                for await (const event of journal) {
-                    expect(event).not.toBeDefined();
-                }
-            })();
-            await expect(promise).rejects.toThrow();
+            try {
+                const promise = (async () => {
+                    for await (const event of journal) {
+                        expect(event).not.toBeDefined();
+                    }
+                })();
+                await expect(promise).rejects.toThrow();
+            } finally {
+                await journal.close();
+            }
         } finally {
             await rm(parentDirectory, { recursive: true });
         }
@@ -189,13 +201,17 @@ describe("Journal", () => {
 
     it("throws error when reading broken journal", async () => {
         const journal = await Journal.create({ directory: join(__dirname, "../../src/test/data/broken") });
-        const promise = (async () => {
-            for await (const event of journal) {
-                expect(event).toBeDefined();
-            }
-        })();
-        await expect(promise).rejects.toThrow("Parse error in Journal.2023-01-01T000000.01.log:2: "
-            + "Unexpected token ] in JSON at position 38: { \"timestamp\":\"2023-01-01T00:00:01Z\", ]");
+        try {
+            const promise = (async () => {
+                for await (const event of journal) {
+                    expect(event).toBeDefined();
+                }
+            })();
+            await expect(promise).rejects.toThrow("Parse error in Journal.2023-01-01T000000.01.log:2: "
+                + "Unexpected token ] in JSON at position 38: { \"timestamp\":\"2023-01-01T00:00:01Z\", ]");
+        } finally {
+            await journal.close();
+        }
     });
 
     describe("findDirectory", () => {
@@ -250,20 +266,28 @@ describe("Journal", () => {
         });
     });
 
-    describe("constructor", () => {
+    describe("create", () => {
         it("automatically determines journal directory if not specified", async () => {
             const origEnv = process.env["ED_JOURNAL_DIR"];
             try {
                 process.env["ED_JOURNAL_DIR"] = journalDir;
                 const journal = await Journal.create();
-                expect(journal.getDirectory()).toBe(journalDir);
+                try {
+                    expect(journal.getDirectory()).toBe(journalDir);
+                } finally {
+                    await journal.close();
+                }
             } finally {
                 process.env["ED_JOURNAL_DIR"] = origEnv;
             }
         });
         it("opens journal in given directory", async () => {
             const journal = await Journal.create({ directory: __dirname });
-            expect(journal.getDirectory()).toBe(__dirname);
+            try {
+                expect(journal.getDirectory()).toBe(__dirname);
+            } finally {
+                await journal.close();
+            }
         });
     });
 
@@ -283,13 +307,17 @@ describe("Journal", () => {
                 directory: journalDir,
                 position: { file: "Journal.2022-01-01T000000.01.log", offset: 163, line: 2 }
             });
-            expect(await journal.next()).toEqual({ "timestamp": "2022-01-01T00:00:01Z", "event": "Shutdown" });
-            expect(await journal.next()).toEqual({ "timestamp": "2023-01-01T00:00:00Z", "event": "Fileheader",
-                "part": 1, "language": "English\\UK", "Odyssey": true, "gameversion": "4.0.0.600",
-                "build": "r271793/r0 " });
-            expect(await journal.next()).toEqual({ "timestamp": "2023-01-01T00:00:01Z", "event": "Shutdown" });
-            expect(await journal.next()).toBeNull();
-            expect(await journal.next()).toBeNull();
+            try {
+                expect(await journal.next()).toEqual({ "timestamp": "2022-01-01T00:00:01Z", "event": "Shutdown" });
+                expect(await journal.next()).toEqual({ "timestamp": "2023-01-01T00:00:00Z", "event": "Fileheader",
+                    "part": 1, "language": "English\\UK", "Odyssey": true, "gameversion": "4.0.0.600",
+                    "build": "r271793/r0 " });
+                expect(await journal.next()).toEqual({ "timestamp": "2023-01-01T00:00:01Z", "event": "Shutdown" });
+                expect(await journal.next()).toBeNull();
+                expect(await journal.next()).toBeNull();
+            } finally {
+                await journal.close();
+            }
         });
         it("waits for next event in watch mode", async () => {
             const writer = await JournalWriter.create(journalDir);
@@ -299,13 +327,16 @@ describe("Journal", () => {
                     watch: true,
                     position: { file: "Journal.2023-01-01T000000.01.log", offset: 163, line: 2 }
                 });
-                expect(await journal.next()).toEqual({ "timestamp": "2023-01-01T00:00:01Z", "event": "Shutdown" });
-                const promise = journal.next();
-                await sleep(50);
-                await writer.write("Journal.2023-01-01T000000.02.log",
-                    `{ "timestamp":"2023-01-01T00:00:03Z", "event":"Died" }`);
-                expect(await promise).toEqual({ "timestamp": "2023-01-01T00:00:03Z", "event": "Died" });
-                journal.close();
+                try {
+                    expect(await journal.next()).toEqual({ "timestamp": "2023-01-01T00:00:01Z", "event": "Shutdown" });
+                    const promise = journal.next();
+                    await sleep(50);
+                    await writer.write("Journal.2023-01-01T000000.02.log",
+                        `{ "timestamp":"2023-01-01T00:00:03Z", "event":"Died" }`);
+                    expect(await promise).toEqual({ "timestamp": "2023-01-01T00:00:03Z", "event": "Died" });
+                } finally {
+                    await journal.close();
+                }
             } finally {
                 await writer.done();
             }

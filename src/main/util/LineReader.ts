@@ -24,14 +24,11 @@ function concat(a: Uint8Array, b: Uint8Array): Uint8Array {
  * Reads lines from a UTF-8 encoded file.
  */
 export class LineReader implements AsyncIterable<string> {
-    /** The file to read from. */
-    private readonly file: string;
-
     /** The read buffer. */
     private readonly buffer: Uint8Array;
 
-    /** The file handle to read from. Null if file is not open. */
-    private fileHandle: FileHandle | null = null;
+    /** The file to read from. Null if file is not open. */
+    private readonly file: FileHandle;
 
     /** The current read position in the file. */
     private readPosition: number;
@@ -62,12 +59,27 @@ export class LineReader implements AsyncIterable<string> {
      * @param line       - The line number to start counting with. Defaults to 1 (First line).
      * @param bufferSize - The size of the read buffer in bytes. Defaults to 8 KB.
      */
-    public constructor(file: string, offset: number = 0, line: number = 1, bufferSize = 8192) {
+    private constructor(file: FileHandle, offset: number = 0, line: number = 1, bufferSize = 8192) {
         this.file = file;
         this.readPosition = offset;
         this.currentOffset = offset;
         this.currentLine = line;
         this.buffer = new Uint8Array(bufferSize);
+    }
+
+    /**
+     * Creates a new line reader reading from the given file and position.
+     *
+     * @param filename       - The file to read from.
+     * @param offset     - The file offset to start reading from. Defaults to 0 (Beginning of file).
+     * @param line       - The line number to start counting with. Defaults to 1 (First line).
+     * @param bufferSize - The size of the read buffer in bytes. Defaults to 8 KB.
+     * @return The created line reader.
+     */
+    public static async create(filename: string, offset: number = 0, line: number = 1, bufferSize = 8192):
+            Promise<LineReader> {
+        const file = await open(filename, "r");
+        return new LineReader(file, offset, line, bufferSize);
     }
 
     /**
@@ -89,26 +101,10 @@ export class LineReader implements AsyncIterable<string> {
     }
 
     /**
-     * Internally opens the file for reading if not already done and returns the file handle.
-     *
-     * @return The open file handle.
-     */
-    private async open(): Promise<FileHandle> {
-        if (this.fileHandle == null) {
-            this.fileHandle = await open(this.file, "r");
-        }
-        return this.fileHandle;
-    }
-
-    /**
-     * Closes the file if not already done. Note that the file will be re-opened when you call the [[readLine]]()
-     * method.
+     * Closes the file reader and releases the file handle it uses.
      */
     public async close(): Promise<void> {
-        if (this.fileHandle != null) {
-            await this.fileHandle.close();
-            this.fileHandle = null;
-        }
+        await this.file.close();
     }
 
     /**
@@ -122,8 +118,11 @@ export class LineReader implements AsyncIterable<string> {
     public async next(): Promise<string | null> {
         // Fill buffer if empty
         if (this.bufferStart >= this.bufferEnd) {
-            const fileHandle = this.fileHandle == null ? await this.open() : this.fileHandle;
-            const { bytesRead } = await fileHandle.read({ buffer: this.buffer, position: this.readPosition });
+            if (this.file.fd === -1) {
+                // Check if file handle has already been closed
+                return null;
+            }
+            const { bytesRead } = await this.file.read({ buffer: this.buffer, position: this.readPosition });
             if (bytesRead > 0) {
                 this.bufferStart = 0;
                 this.bufferEnd = bytesRead;
