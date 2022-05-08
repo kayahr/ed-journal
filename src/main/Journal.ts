@@ -247,13 +247,14 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
         const initialFiles: string[] = [];
         let ready = false;
         const watcher = watch("Journal.*.log", {
+
             cwd: this.directory,
             depth: 0,
             ignoreInitial: false,
             usePolling: false
         });
         watcher.on("add", file => {
-            if (journalTimeCompare(file, startFile) >= 0) {
+            if (isJournalFile(file) && journalTimeCompare(file, startFile) >= 0) {
                 if (ready) {
                     if (startFile != null) {
                         // Also push the current file again in case the new file is reported before the change in the
@@ -270,7 +271,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
             }
         });
         watcher.on("change", file => {
-            if (ready && journalTimeCompare(file, startFile) >= 0) {
+            if (ready && isJournalFile(file) && journalTimeCompare(file, startFile) >= 0) {
                 queue.push(file);
                 notifier.notify();
             }
