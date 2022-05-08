@@ -203,6 +203,10 @@ describe("Journal", () => {
     });
 
     it("throws error when watching inaccessible directory", async () => {
+        if (process.platform === "win32") {
+            // No idea how to test this on windows
+            return;
+        }
         const parentDirectory = await mkdtemp(join(tmpdir(), "ed-journal-test-"));
         try {
             const journalDirectory = join(parentDirectory, "journal");
