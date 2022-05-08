@@ -6,7 +6,7 @@ const directory = join(__dirname, "../../../../src/test/data/events/Location");
 
 describe("Location", () => {
     it("updates old properties to new properties", async () => {
-        const journal = await Journal.create({ directory });
+        const journal = await Journal.open({ directory });
         try {
             const event = await journal.next();
             expect(event?.event).toBe("Location");
@@ -35,7 +35,7 @@ describe("Location", () => {
         }
     });
     it("updates SystemFaction/StationFaction string to object", async () => {
-        const journal = await Journal.create({
+        const journal = await Journal.open({
             directory,
             position: { file: "Journal.190119140425.01.log", offset: 0, line: 1 }
         });

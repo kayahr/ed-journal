@@ -6,7 +6,7 @@ const directory = join(__dirname, "../../../../src/test/data/events/CarrierStats
 
 describe("CarrierStats", () => {
     it("updates old TaxRate to new TaxRate_rearm, TaxRate_refuel and TaxRate_repair", async () => {
-        const journal = await Journal.create({ directory });
+        const journal = await Journal.open({ directory });
         try {
             const event = await journal.next();
             expect(event?.event).toBe("CarrierStats");

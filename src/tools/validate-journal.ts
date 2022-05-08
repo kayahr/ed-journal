@@ -37,7 +37,7 @@ class ValidationError extends Error {
     const narrowedSchemas = new Map<string, Schema>();
 
 
-    const journal = await Journal.create({ position, watch: true });
+    const journal = await Journal.open({ position, watch: true });
     process.on("SIGINT", () => {
         void journal.close();
     });

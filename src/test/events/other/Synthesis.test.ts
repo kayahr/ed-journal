@@ -6,7 +6,7 @@ const directory = join(__dirname, "../../../../src/test/data/events/Synthesis");
 
 describe("Synthesis", () => {
     it("updates Materials object to array", async () => {
-        const journal = await Journal.create({ directory });
+        const journal = await Journal.open({ directory });
         try {
             const event = await journal.next();
             expect(event?.event).toBe("Synthesis");

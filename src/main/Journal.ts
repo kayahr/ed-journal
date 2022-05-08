@@ -99,23 +99,29 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
     /** The generator used for reading journal events. */
     private readonly generator: AsyncGenerator<AnyJournalEvent>;
 
-    /** The abort controller used to stop watch mode. */
-    private readonly abortController: AbortController;
-
-    /** The currently open line reader. */
+    /** The currently open line reader. Null if currently none open. */
     private lineReader: LineReader | null = null;
 
+    /** Function to stop watch mode. Null if not running in watch mode. */
+    private stopWatch: (() => Promise<void>) | null = null;
+
+    /**
+     * Creates journal read from given directory at given position.
+     *
+     * @param directory - The journal directory.
+     * @param position  - The position to start reading from.
+     * @param watch     - True to watch journal, false to just read it.
+     */
     private constructor(directory: string, position: JournalPosition, watch: boolean) {
         this.directory = directory;
         this.position = position;
-        this.abortController = new AbortController();
-        this.generator = this.createGenerator(watch, this.abortController.signal);
+        this.generator = this.createGenerator(watch);
     }
 
     /**
-     * Creates journal reader.
+     * Opens the journal.
      */
-    public static async create({ directory, position = "start", watch = false }: JournalOptions = {}):
+    public static async open({ directory, position = "start", watch = false }: JournalOptions = {}):
             Promise<Journal> {
         if (directory == null) {
             directory = await this.findDirectory();
@@ -180,11 +186,12 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
     }
 
     /**
-     * Closes the journal. This only has a meaning when running in watch mode. The watcher is aborted and does not
-     * report any more updates.
+     * Closes the journal by stopping the watcher (if any) and closing the line reader.
      */
     public async close(): Promise<void> {
-        this.abortController.abort();
+        if (this.stopWatch != null) {
+            await this.stopWatch();
+        }
         if (this.lineReader != null) {
             await this.lineReader.close();
             this.lineReader = null;
@@ -232,10 +239,9 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      *
      * @param startFile   - Optional starting file. If not specified then the watcher starts with the oldest available
      *                      journal file.
-     * @param abortSignal - Optional abort signal to abort watching.
      * @return New/changed journal files in chronological order.
      */
-    private async* watchJournalFiles(startFile: string, abortSignal?: AbortSignal): AsyncGenerator<string> {
+    private async* watchJournalFiles(startFile: string): AsyncGenerator<string> {
         const notifier = new Notifier();
         const queue: string[] = [];
         const initialFiles: string[] = [];
@@ -244,7 +250,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
             cwd: this.directory,
             depth: 0,
             ignoreInitial: false,
-            usePolling: true
+            usePolling: false
         });
         watcher.on("add", file => {
             if (journalTimeCompare(file, startFile) >= 0) {
@@ -282,11 +288,13 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
         });
 
         let aborted = false;
-        abortSignal?.addEventListener("abort", () => {
-            void watcher.close();
+
+        this.stopWatch = async () => {
+            this.stopWatch = null;
+            await watcher.close();
             aborted = true;
             notifier.notify();
-        });
+        };
 
         try {
             while (!aborted) {
@@ -330,17 +338,16 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
     }
 
     /**
-     * Reads the journal from the given directory.
+     * Creates the journal event generator.
      *
-     * @param directory - The journal directory.
-     * @param options   - Optional journal reading options.
-     * @return Stream of journal events.
+     * @param watch - True to watch the journal instead of just reading it.
+     * @return The created journal event generator.
      */
-    private async* createGenerator(watch: boolean, abortSignal?: AbortSignal): AsyncGenerator<AnyJournalEvent> {
+    private async* createGenerator(watch: boolean): AsyncGenerator<AnyJournalEvent> {
         // Get the list of journal files to read/watch. In watch mode this is a generator which produces changed/new
-        // files until it is aborted
+        // files until journal is closed.
         const files = watch
-            ? this.watchJournalFiles(this.position.file, abortSignal)
+            ? this.watchJournalFiles(this.position.file)
             : await this.listJournalFiles(this.position.file);
 
         // Iterate over all journal files in chronological order. In watch mode, when the last line of the last file
@@ -385,7 +392,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
 
     /**
      * Returns the next event from the journal. When end of journal is reached then in watch mode this method waits
-     * until a new event arrives. When not in watch mode or when watching is aborted this method returns null when no
+     * until a new event arrives. When not in watch mode or when journal is closed this method returns null when no
      * more events are available.
      *
      * @return The next journal event or null when end is reached.

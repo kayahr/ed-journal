@@ -6,7 +6,7 @@ const directory = join(__dirname, "../../../../src/test/data/events/Docked");
 
 describe("Docked", () => {
     it("updates old properties to new properties", async () => {
-        const journal = await Journal.create({ directory });
+        const journal = await Journal.open({ directory });
         try {
             const event = await journal.next();
             expect(event?.event).toBe("Docked");
@@ -32,7 +32,7 @@ describe("Docked", () => {
         }
     });
     it("updates StationFaction string to object", async () => {
-        const journal = await Journal.create({
+        const journal = await Journal.open({
             directory,
             position: { file: "Journal.190119140425.01.log", offset: 0, line: 1 }
         });
@@ -48,7 +48,7 @@ describe("Docked", () => {
         }
     });
     it("updates station services from old names to new names", async () => {
-        const journal = await Journal.create({
+        const journal = await Journal.open({
             directory,
             position: { file: "Journal.190119140425.01.log", offset: 0, line: 1 }
         });

@@ -39,7 +39,7 @@ class JournalWriter {
 describe("Journal", () => {
     it("reads a journal in chronological order", async () => {
         const events: AnyJournalEvent[] = [];
-        const journal = await Journal.create({ directory: journalDir });
+        const journal = await Journal.open({ directory: journalDir });
         try {
             for await (const event of journal) {
                 events.push(event);
@@ -57,7 +57,7 @@ describe("Journal", () => {
 
     it("reads a journal starting at given position", async () => {
         const events: AnyJournalEvent[] = [];
-        const journal = await Journal.create({
+        const journal = await Journal.open({
             directory: journalDir,
             position: { file: "Journal.210101000000.01.log", offset: 163, line: 2 }
         });
@@ -80,13 +80,17 @@ describe("Journal", () => {
         const writer = await JournalWriter.create(journalDir);
         try {
             const events: AnyJournalEvent[] = [];
-            const journal = await Journal.create({ directory: writer.directory, watch: true });
             const promise = (async () => {
-                for await (const event of journal) {
-                    events.push(event);
-                    if (event.event === "Died") {
-                        await journal.close();
+                const journal = await Journal.open({ directory: writer.directory, watch: true });
+                try {
+                    for await (const event of journal) {
+                        events.push(event);
+                        if (event.event === "Died") {
+                            break;
+                        }
                     }
+                } finally {
+                    await journal.close();
                 }
             })();
 
@@ -108,18 +112,22 @@ describe("Journal", () => {
     it("watches a journal starting at given position", async () => {
         const writer = await JournalWriter.create(journalDir);
         try {
-            const journal = await Journal.create({
-                directory: writer.directory,
-                watch: true,
-                position: { file: "Journal.210101000000.01.log", offset: 163, line: 2 }
-            });
             const records: AnyJournalEvent[] = [];
             const promise = (async () => {
-                for await (const record of journal) {
-                    records.push(record);
-                    if (record.event === "Died") {
-                        await journal.close();
+                const journal = await Journal.open({
+                    directory: writer.directory,
+                    watch: true,
+                    position: { file: "Journal.210101000000.01.log", offset: 163, line: 2 }
+                });
+                try {
+                    for await (const record of journal) {
+                        records.push(record);
+                        if (record.event === "Died") {
+                            break;
+                        }
                     }
+                } finally {
+                    await journal.close();
                 }
             })();
 
@@ -141,18 +149,22 @@ describe("Journal", () => {
     it("can watch new journal events only", async () => {
         const writer = await JournalWriter.create(journalDir);
         try {
-            const journal = await Journal.create({
-                directory: writer.directory,
-                watch: true,
-                position: "end"
-            });
             const records: AnyJournalEvent[] = [];
             const promise = (async () => {
-                for await (const event of journal) {
-                    records.push(event);
-                    if (event.event === "Died") {
-                        await journal.close();
+                const journal = await Journal.open({
+                    directory: writer.directory,
+                    watch: true,
+                    position: "end"
+                });
+                try {
+                    for await (const event of journal) {
+                        records.push(event);
+                        if (event.event === "Died") {
+                            break;
+                        }
                     }
+                } finally {
+                    await journal.close();
                 }
             })();
 
@@ -180,7 +192,7 @@ describe("Journal", () => {
         try {
             const journalDirectory = join(parentDirectory, "journal");
             await chmod(parentDirectory, 0);
-            const journal = await Journal.create({
+            const journal = await Journal.open({
                 directory: journalDirectory,
                 watch: true
             });
@@ -200,7 +212,7 @@ describe("Journal", () => {
     });
 
     it("throws error when reading broken journal", async () => {
-        const journal = await Journal.create({ directory: join(__dirname, "../../src/test/data/broken") });
+        const journal = await Journal.open({ directory: join(__dirname, "../../src/test/data/broken") });
         try {
             const promise = (async () => {
                 for await (const event of journal) {
@@ -271,7 +283,7 @@ describe("Journal", () => {
             const origEnv = process.env["ED_JOURNAL_DIR"];
             try {
                 process.env["ED_JOURNAL_DIR"] = journalDir;
-                const journal = await Journal.create();
+                const journal = await Journal.open();
                 try {
                     expect(journal.getDirectory()).toBe(journalDir);
                 } finally {
@@ -282,7 +294,7 @@ describe("Journal", () => {
             }
         });
         it("opens journal in given directory", async () => {
-            const journal = await Journal.create({ directory: __dirname });
+            const journal = await Journal.open({ directory: __dirname });
             try {
                 expect(journal.getDirectory()).toBe(__dirname);
             } finally {
@@ -303,7 +315,7 @@ describe("Journal", () => {
 
     describe("next", () => {
         it("returns the next event in the journal", async () => {
-            const journal = await Journal.create({
+            const journal = await Journal.open({
                 directory: journalDir,
                 position: { file: "Journal.2022-01-01T000000.01.log", offset: 163, line: 2 }
             });
@@ -322,7 +334,7 @@ describe("Journal", () => {
         it("waits for next event in watch mode", async () => {
             const writer = await JournalWriter.create(journalDir);
             try {
-                const journal = await Journal.create({
+                const journal = await Journal.open({
                     directory: writer.directory,
                     watch: true,
                     position: { file: "Journal.2023-01-01T000000.01.log", offset: 163, line: 2 }

@@ -6,7 +6,7 @@ const journalDir = join(__dirname, "../../src/test/data/journal");
 
 describe("ed-journal", () => {
     it("exports the Journal class", async () => {
-        const journal = await edj.Journal.create({ directory: journalDir });
+        const journal = await edj.Journal.open({ directory: journalDir });
         expect(journal).toBeInstanceOf(edj.Journal);
     });
     it("exports shared types", () => {

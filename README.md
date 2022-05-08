@@ -23,21 +23,25 @@ The following simple example shows how to use the [Journal] class to read all ev
 ```typescript
 import { Journal } from "@kayahr/ed-journal";
 
-const journal = await Journal.create();
-for await (const event of journal) {
-    console.log(event.timestamp, event.event);
-    if (event.event === "Music") {
-        // TypeScript automatically infers the event to be "Music"
-        // so it knows its properties
-        console.log(event.MusicTrack);
-    }
-});
+const journal = await Journal.open();
+try {
+    for await (const event of journal) {
+        console.log(event.timestamp, event.event);
+        if (event.event === "Music") {
+            // TypeScript automatically infers the event to be "Music"
+            // so it knows its properties
+            console.log(event.MusicTrack);
+        }
+    });
+} finally {
+    await journal.close();
+}
 ```
 
 Options
 -------
 
-You can pass an [JournalOptions] when creating a [Journal] instance with the following properties:
+You can pass an [JournalOptions] when opening a [Journal] with the following properties:
 
 | Option      | Description
 | ----------- | -------------------------------------------------------------------------------------------------------
@@ -60,15 +64,20 @@ let position: JournalPosition = {
     line: 95
 };
 
-const journal = await Journal.create({ watch: true, position });
-for await (const event of journal) {
-    // Do something with the events.
-    // At some point call `journal.close()` to stop watching and
-    // exiting this loop
-});
+const journal = await Journal.open({ watch: true, position });
+try {
+    for await (const event of journal) {
+        // Do something with the events.
 
-// Get current position from journal and persist it somewhere
-position = journal.getPosition();
+        // At some point use `break` to stop watching
+    }
+
+    // Get current position from journal and persist it somewhere
+    position = journal.getPosition();
+} finally {
+    await journal.close();
+}
+
 ```
 
 

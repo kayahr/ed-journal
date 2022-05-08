@@ -6,7 +6,7 @@ const directory = join(__dirname, "../../../../src/test/data/events/FSDJump");
 
 describe("FSDJump", () => {
     it("updates old properties to new properties", async () => {
-        const journal = await Journal.create({ directory });
+        const journal = await Journal.open({ directory });
         try {
             const event = await journal.next();
             expect(event?.event).toBe("FSDJump");
@@ -35,7 +35,7 @@ describe("FSDJump", () => {
         }
     });
     it("updates SystemFaction string to object", async () => {
-        const journal = await Journal.create({
+        const journal = await Journal.open({
             directory,
             position: { file: "Journal.190119140425.01.log", offset: 0, line: 1 }
         });
