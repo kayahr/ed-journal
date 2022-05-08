@@ -13,6 +13,21 @@ async function sleep(ms: number): Promise<void> {
     return new Promise<void>(resolve => setTimeout(resolve, ms));
 }
 
+async function withTmpHome(action: (home: string) => Promise<void>): Promise<void> {
+    const origHome = process.env["HOME"];
+    const origUserProfile = process.env["USERPROFILE"];
+    const home = await mkdtemp(join(tmpdir(), "ed-journal-test-"));
+    process.env["HOME"] = home;
+    process.env["USERPROFILE"] = home;
+    try {
+        await action(home);
+    } finally {
+        process.env["HOME"] = origHome;
+        process.env["USERPROFILE"] = origUserProfile;
+        await rm(home, { recursive: true });
+    }
+}
+
 class JournalWriter {
     private constructor(public readonly directory: string) {}
 
@@ -237,44 +252,26 @@ describe("Journal", () => {
             }
         });
         it("returns journal directory on windows if present", async () => {
-            const origHome = process.env["HOME"];
-            const home = await mkdtemp(join(tmpdir(), "ed-journal-test-"));
-            process.env["HOME"] = home;
-            try {
+            await withTmpHome(async home => {
                 const journalDir = join(home, "Saved Games/Frontier Developments/Elite Dangerous");
                 await mkdir(journalDir, { recursive: true });
                 expect(await Journal.findDirectory()).toBe(journalDir);
-            } finally {
-                await rm(home, { recursive: true });
-                process.env["HOME"] = origHome;
-            }
+            });
         });
         it("returns journal directory on Linux (Proton) if present", async () => {
-            const origHome = process.env["HOME"];
-            const home = await mkdtemp(join(tmpdir(), "ed-journal-test-"));
-            process.env["HOME"] = home;
-            try {
+            await withTmpHome(async home => {
                 const journalDir = join(home,
                     ".local/share/Steam/steamapps/compatdata/359320/pfx/drive_c/users/steamuser",
                     "Saved Games/Frontier Developments/Elite Dangerous");
                 await mkdir(journalDir, { recursive: true });
                 expect(await Journal.findDirectory()).toBe(journalDir);
-            } finally {
-                await rm(home, { recursive: true });
-                process.env["HOME"] = origHome;
-            }
+            });
         });
         it("throws error when journal directory was not found", async () => {
-            const origHome = process.env["HOME"];
-            const home = await mkdtemp(join(tmpdir(), "ed-journal-test-"));
-            process.env["HOME"] = home;
-            try {
+            await withTmpHome(async () => {
                 await expect(Journal.findDirectory()).rejects.toThrow(
                     new JournalError("Unable to find Elite Dangerous Journal directory"));
-            } finally {
-                await rm(home, { recursive: true });
-                process.env["HOME"] = origHome;
-            }
+            });
         });
     });
 
