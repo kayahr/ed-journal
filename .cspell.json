@@ -13,6 +13,7 @@
         "coverage",
         "doc/api/**",
         "src/sandbox/**",
+        "src/test/data/texts/**",
         "package-lock.json",
         "git",
         "lib",
