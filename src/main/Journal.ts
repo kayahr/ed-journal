@@ -13,8 +13,7 @@ import "./events/exploration/Scan";
 import "./events/startup/Statistics";
 import "./events/other/Synthesis";
 
-import { watch } from "chokidar";
-import { open, readdir } from "fs/promises";
+import { open, readdir, watch } from "fs/promises";
 import { homedir } from "os";
 import { join } from "path";
 
@@ -25,7 +24,6 @@ import type { JournalPosition } from "./JournalPosition";
 import { getErrorMessage } from "./util/error";
 import { isDirectory, isPathReadable } from "./util/fs";
 import { LineReader } from "./util/LineReader";
-import { Notifier } from "./util/Notifier";
 
 /**
  * Compare function to sort journal file names by time. Empty string is always earlier than any journal file.
@@ -102,8 +100,8 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
     /** The currently open line reader. Null if currently none open. */
     private lineReader: LineReader | null = null;
 
-    /** Function to stop watch mode. Null if not running in watch mode. */
-    private stopWatch: (() => Promise<void>) | null = null;
+    /** Controller to abort watch mode. */
+    private readonly abortController = new AbortController();
 
     /**
      * Creates journal read from given directory at given position.
@@ -189,9 +187,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      * Closes the journal by stopping the watcher (if any) and closing the line reader.
      */
     public async close(): Promise<void> {
-        if (this.stopWatch != null) {
-            await this.stopWatch();
-        }
+        this.abortController.abort();
         if (this.lineReader != null) {
             await this.lineReader.close();
             this.lineReader = null;
@@ -242,72 +238,18 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      * @return New/changed journal files in chronological order.
      */
     private async* watchJournalFiles(startFile: string): AsyncGenerator<string> {
-        const notifier = new Notifier();
-        const queue: string[] = [];
-        const initialFiles: string[] = [];
-        let ready = false;
-        const watcher = watch("Journal.*.log", {
+        // First yield all existing files
+        for (const file of await this.listJournalFiles(startFile)) {
+            yield file;
+            startFile = file;
+        }
 
-            cwd: this.directory,
-            depth: 0,
-            ignoreInitial: false,
-            usePolling: false
-        });
-        watcher.on("add", file => {
-            if (isJournalFile(file) && journalTimeCompare(file, startFile) >= 0) {
-                if (ready) {
-                    if (startFile != null) {
-                        // Also push the current file again in case the new file is reported before the change in the
-                        // current file is reported. Otherwise we would loose the new lines in the current file and
-                        // switch directly to the new file
-                        queue.push(startFile);
-                    }
-                    queue.push(file);
-                    notifier.notify();
-                    startFile = file;
-                } else {
-                    initialFiles.push(file);
-                }
+        // Now watch for changed files
+        for await (const { filename } of watch(this.directory, { signal: this.abortController.signal })) {
+            if (isJournalFile(filename) && journalTimeCompare(filename, startFile) >= 0) {
+                yield filename;
+                startFile = filename;
             }
-        });
-        watcher.on("change", file => {
-            if (ready && isJournalFile(file) && journalTimeCompare(file, startFile) >= 0) {
-                queue.push(file);
-                notifier.notify();
-            }
-        });
-        watcher.on("ready", () => {
-            ready = true;
-            initialFiles.sort(journalTimeCompare);
-            for (startFile of initialFiles) {
-                queue.push(startFile);
-            }
-            notifier.notify();
-        });
-        watcher.on("error", error => {
-            notifier.abort(error);
-        });
-
-        let aborted = false;
-
-        this.stopWatch = async () => {
-            this.stopWatch = null;
-            await watcher.close();
-            aborted = true;
-            notifier.notify();
-        };
-
-        try {
-            while (!aborted) {
-                const value = queue.shift();
-                if (value != null) {
-                    yield value;
-                } else {
-                    await notifier.wait();
-                }
-            }
-        } finally {
-            void watcher.close();
         }
     }
 

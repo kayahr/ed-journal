@@ -84,7 +84,6 @@
         "typescript-json-schema": "0.53.0"
     },
     "dependencies": {
-        "chokidar": "^3.5.3",
         "tslib": "^2.3.1"
     }
 }
