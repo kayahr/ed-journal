@@ -50,6 +50,7 @@ export interface MissionCompleted extends JournalEvent<"MissionCompleted"> {
         Count: number;
     }>;
     Target?: string;
+    Target_Localised?: string;
     TargetType?: string;
     TargetType_Localised?: string;
     TargetFaction?: string;

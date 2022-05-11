@@ -31,4 +31,5 @@ export interface CodexEntry extends JournalEvent<"CodexEntry"> {
     VoucherAmount?: number;
 
     Traits?: string[];
+    NewTraitsDiscovered?: boolean;
 }

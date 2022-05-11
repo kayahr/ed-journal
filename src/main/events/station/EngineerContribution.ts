@@ -12,6 +12,7 @@ export interface EngineerContribution extends JournalEvent<"EngineerContribution
     EngineerID?: number;
     Faction?: string;
     Material?: string;
+    Material_Localised?: string;
     Quantity: number;
     TotalQuantity: number;
     Type: string;
