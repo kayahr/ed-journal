@@ -81,6 +81,7 @@ export interface Scan extends JournalEvent<"Scan"> {
     Landable?: boolean;
     Materials?: Array<{
         Name: string;
+        Name_Localised?: string;
         Percent: number;
     }>;
     Composition?: {

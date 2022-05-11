@@ -142,6 +142,7 @@ import type { PowerplaySalary } from "./events/powerplay/PowerplaySalary";
 import type { PowerplayVote } from "./events/powerplay/PowerplayVote";
 import type { PowerplayVoucher } from "./events/powerplay/PowerplayVoucher";
 import type { AppliedToSquadron } from "./events/squadrons/AppliedToSquadron";
+import type { InvitedToSquadron } from "./events/squadrons/InvitedToSquadron";
 import type { JoinedSquadron } from "./events/squadrons/JoinedSquadron";
 import type { SquadronStartup } from "./events/squadrons/SquadronStartup";
 import type { Cargo } from "./events/startup/Cargo";
@@ -184,6 +185,7 @@ import type { MissionCompleted } from "./events/station/MissionCompleted";
 import type { MissionFailed } from "./events/station/MissionFailed";
 import type { MissionRedirected } from "./events/station/MissionRedirected";
 import type { ModuleBuy } from "./events/station/ModuleBuy";
+import type { ModuleBuyAndStore } from "./events/station/ModuleBuyAndStore";
 import type { ModuleRetrieve } from "./events/station/ModuleRetrieve";
 import type { ModuleSell } from "./events/station/ModuleSell";
 import type { ModuleSellRemote } from "./events/station/ModuleSellRemote";
@@ -344,6 +346,7 @@ export type AnyJournalEvent =
     | HullDamage
     | Interdicted
     | Interdiction
+    | InvitedToSquadron
     | JetConeBoost
     | JetConeDamage
     | JoinACrew
@@ -375,6 +378,7 @@ export type AnyJournalEvent =
     | MissionRedirected
     | Missions
     | ModuleBuy
+    | ModuleBuyAndStore
     | ModuleInfo
     | ModuleRetrieve
     | ModuleSellRemote
