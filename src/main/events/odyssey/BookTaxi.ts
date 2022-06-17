@@ -9,4 +9,7 @@ export interface BookTaxi extends JournalEvent<"BookTaxi"> {
     Cost: number;
     DestinationSystem: string;
     DestinationLocation: string;
+
+    /** Indicates if requested for exit from combat zone. */
+    Retreat?: boolean;
 }

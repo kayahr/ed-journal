@@ -12,5 +12,6 @@ export interface CarrierTradeOrder extends JournalEvent<"CarrierTradeOrder"> {
     Commodity_Localised?: string;
     CancelTrade?: boolean;
     PurchaseOrder?: number;
+    SaleOrder?: number;
     Price?: number;
 }

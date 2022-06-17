@@ -20,6 +20,7 @@ export interface CodexEntry extends JournalEvent<"CodexEntry"> {
     Region_Localised: string;
     System: string;
     SystemAddress: number;
+    BodyID?: number;
 
     /** Added if within 50km of a location listed in the navigation panel. */
     NearestDestination?: string;

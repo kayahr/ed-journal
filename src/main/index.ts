@@ -65,6 +65,7 @@ export * from "./events/odyssey/Disembark";
 export * from "./events/odyssey/DropItems";
 export * from "./events/odyssey/DropshipDeploy";
 export * from "./events/odyssey/Embark";
+export * from "./events/odyssey/FCMaterials";
 export * from "./events/odyssey/LoadoutEquipModule";
 export * from "./events/odyssey/RenameSuitLoadout";
 export * from "./events/odyssey/ScanOrganic";

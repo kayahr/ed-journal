@@ -29,9 +29,9 @@ export interface CarrierStats extends JournalEvent<"CarrierStats"> {
         ReserveBalance: number;
         AvailableBalance: number;
         ReservePercent?: number;
-        TaxRate_rearm: number;
-        TaxRate_refuel: number;
-        TaxRate_repair: number;
+        TaxRate_rearm?: number;
+        TaxRate_refuel?: number;
+        TaxRate_repair?: number;
     },
     Crew: Array<{
         CrewRole: string;

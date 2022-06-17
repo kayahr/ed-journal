@@ -64,6 +64,7 @@ import type { Disembark } from "./events/odyssey/Disembark";
 import type { DropItems } from "./events/odyssey/DropItems";
 import type { DropshipDeploy } from "./events/odyssey/DropshipDeploy";
 import type { Embark } from "./events/odyssey/Embark";
+import type { FCMaterials } from "./events/odyssey/FCMaterials";
 import type { LoadoutEquipModule } from "./events/odyssey/LoadoutEquipModule";
 import type { RenameSuitLoadout } from "./events/odyssey/RenameSuitLoadout";
 import type { ScanOrganic } from "./events/odyssey/ScanOrganic";
@@ -329,6 +330,7 @@ export type AnyJournalEvent =
     | EngineerProgress
     | EscapeInterdiction
     | FactionKillBond
+    | FCMaterials
     | FetchRemoteModule
     | FighterDestroyed
     | FighterRebuilt
