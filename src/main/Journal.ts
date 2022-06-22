@@ -241,7 +241,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      *                      journal file.
      * @return New/changed journal files in chronological order.
      */
-    private async* watchJournalFiles(startFile: string): AsyncGenerator<string> {
+    private async *watchJournalFiles(startFile: string): AsyncGenerator<string> {
         const notifier = new Notifier();
         const queue: string[] = [];
         const initialFiles: string[] = [];
@@ -344,7 +344,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      * @param watch - True to watch the journal instead of just reading it.
      * @return The created journal event generator.
      */
-    private async* createGenerator(watch: boolean): AsyncGenerator<AnyJournalEvent> {
+    private async *createGenerator(watch: boolean): AsyncGenerator<AnyJournalEvent> {
         // Get the list of journal files to read/watch. In watch mode this is a generator which produces changed/new
         // files until journal is closed.
         const files = watch

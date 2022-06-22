@@ -161,7 +161,7 @@ export class LineReader implements AsyncIterable<string> {
      *
      * @return The read lines as a generator.
      */
-    public async* [Symbol.asyncIterator](): AsyncGenerator<string> {
+    public async *[Symbol.asyncIterator](): AsyncGenerator<string> {
         let line: string | null;
         while ((line = await this.next()) != null) {
             yield line;
