@@ -249,6 +249,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
             depth: 0,
             ignoreInitial: false,
             usePolling: false,
+            useFsEvents: false,
             signal: this.abortController.signal
         });
         for await (const event of watcher) {
@@ -406,6 +407,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
             depth: 0,
             ignoreInitial: false,
             usePolling: false,
+            useFsEvents: false,
             signal: this.abortController.signal
         });
         for await (const event of watcher) {
