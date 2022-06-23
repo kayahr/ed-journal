@@ -126,6 +126,7 @@ export * from "./events/other/Scanned";
 export * from "./events/other/SelfDestruct";
 export * from "./events/other/SendText";
 export * from "./events/other/Shutdown";
+export * from "./events/other/Status";
 export * from "./events/other/Synthesis";
 export * from "./events/other/SystemsShutdown";
 export * from "./events/other/USSDrop";
