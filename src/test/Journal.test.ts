@@ -1,17 +1,15 @@
-import { chmod, mkdir, mkdtemp, open, rm } from "fs/promises";
+import { chmod, mkdir, mkdtemp, open, rm, writeFile } from "fs/promises";
 import { copy } from "fs-extra";
 import { tmpdir } from "os";
 import { join } from "path";
 
 import type { AnyJournalEvent } from "../main";
+import { Flag, Flag2, GuiFocus, Status } from "../main/events/other/Status";
 import { Journal } from "../main/Journal";
 import { JournalError } from "../main/JournalError";
+import { sleep } from "../main/util/async";
 
 const journalDir = join(__dirname, "../../src/test/data/journal");
-
-async function sleep(ms: number): Promise<void> {
-    return new Promise<void>(resolve => setTimeout(resolve, ms));
-}
 
 async function withTmpHome(action: (home: string) => Promise<void>): Promise<void> {
     const origHome = process.env["HOME"];
@@ -37,13 +35,17 @@ class JournalWriter {
         return new JournalWriter(directory);
     }
 
-    public async write(filename: string, line: string): Promise<void> {
+    public async append(filename: string, line: string): Promise<void> {
         const file = await open(join(this.directory, filename), "as");
         try {
-            await file.write(line + "\n");
+            await file.write(line + "\r\n");
         } finally {
             await file.close();
         }
+    }
+
+    public async write(filename: string, line: string): Promise<void> {
+        await writeFile(join(this.directory, filename), line + "\r\n");
     }
 
     public async done(): Promise<void> {
@@ -110,11 +112,11 @@ describe("Journal", () => {
             })();
 
             // Write line into existing file
-            await writer.write("Journal.2023-01-01T000000.01.log",
+            await writer.append("Journal.2023-01-01T000000.01.log",
                 `{ "timestamp":"2023-01-01T00:00:02Z", "event":"Continued", "Part": 2 }`);
 
             // Write line into new file
-            await writer.write("Journal.2023-01-01T000000.02.log",
+            await writer.append("Journal.2023-01-01T000000.02.log",
                 `{ "timestamp":"2023-01-01T00:00:03Z", "event":"Died" }`);
 
             await promise;
@@ -147,11 +149,11 @@ describe("Journal", () => {
             })();
 
             // Write line into existing file
-            await writer.write("Journal.2023-01-01T000000.01.log",
+            await writer.append("Journal.2023-01-01T000000.01.log",
                 `{ "timestamp":"2023-01-01T00:00:02Z", "event":"Continued", "Part": 2 }`);
 
             // Write line into new file
-            await writer.write("Journal.2023-01-01T000000.02.log",
+            await writer.append("Journal.2023-01-01T000000.02.log",
                 `{ "timestamp":"2023-01-01T00:00:03Z", "event":"Died" }`);
 
             await promise;
@@ -186,13 +188,13 @@ describe("Journal", () => {
             await sleep(100);
 
             // Write line into existing file
-            await writer.write("Journal.2023-01-01T000000.01.log",
+            await writer.append("Journal.2023-01-01T000000.01.log",
                 `{ "timestamp":"2023-01-01T00:00:02Z", "event":"Continued", "Part": 2 }`);
 
             await sleep(100);
 
             // Write line into new file
-            await writer.write("Journal.2023-01-01T000000.02.log",
+            await writer.append("Journal.2023-01-01T000000.02.log",
                 `{ "timestamp":"2023-01-01T00:00:03Z", "event":"Died" }`);
 
             await promise;
@@ -344,9 +346,112 @@ describe("Journal", () => {
                     expect(await journal.next()).toEqual({ "timestamp": "2023-01-01T00:00:01Z", "event": "Shutdown" });
                     const promise = journal.next();
                     await sleep(50);
-                    await writer.write("Journal.2023-01-01T000000.02.log",
+                    await writer.append("Journal.2023-01-01T000000.02.log",
                         `{ "timestamp":"2023-01-01T00:00:03Z", "event":"Died" }`);
                     expect(await promise).toEqual({ "timestamp": "2023-01-01T00:00:03Z", "event": "Died" });
+                } finally {
+                    await journal.close();
+                }
+            } finally {
+                await writer.done();
+            }
+        });
+    });
+
+    describe("readStatus", () => {
+        it("returns null when Status.json does not exist", async () => {
+            const writer = await JournalWriter.create(journalDir);
+            try {
+                const journal = await Journal.open({ directory: writer.directory });
+                try {
+                    expect(await journal.readStatus()).toBeNull();
+                } finally {
+                    await journal.close();
+                }
+            } finally {
+                await writer.done();
+            }
+        });
+        it("returns the current status", async () => {
+            const writer = await JournalWriter.create(journalDir);
+            try {
+                const status: Status = { timestamp: "2023-01-01T00:00:01Z", event: "Status", Flags: 42 };
+                await writer.write("Status.json", JSON.stringify(status));
+                const journal = await Journal.open({ directory: writer.directory });
+                try {
+                    expect(await journal.readStatus()).toEqual(status);
+                } finally {
+                    await journal.close();
+                }
+            } finally {
+                await writer.done();
+            }
+        });
+        it("waits for a complete JSON line", async () => {
+            const writer = await JournalWriter.create(journalDir);
+            try {
+                const status: Status = {
+                    timestamp: "2023-01-01T00:00:01Z",
+                    event: "Status",
+                    Flags: Flag.ANALYSIS_MODE | Flag.DOCKED,
+                    Flags2: Flag2.COLD | Flag2.IN_TAXI,
+                    GuiFocus: GuiFocus.FSS_MODE,
+                    LegalState: "IllegalCargo"
+                };
+                await writer.write("Status.json", JSON.stringify(status).substring(0, 15));
+                const journal = await Journal.open({ directory: writer.directory });
+                try {
+                    const promise = journal.readStatus();
+                    await sleep(50);
+                    await writer.write("Status.json", JSON.stringify(status));
+                    expect(await promise).toEqual(status);
+                } finally {
+                    await journal.close();
+                }
+            } finally {
+                await writer.done();
+            }
+        });
+    });
+
+    describe("watchStatus", () => {
+        it("watches the Status.json", async () => {
+            const writer = await JournalWriter.create(journalDir);
+            try {
+                const updateStatus = async (flags: number): Promise<void> => {
+                    const status: Status = { timestamp: "2023-01-01T00:00:01Z", event: "Status", Flags: flags };
+                    await writer.write("Status.json", JSON.stringify(status));
+                };
+                const journal = await Journal.open({ directory: writer.directory });
+                let index = 0;
+                setTimeout(() => updateStatus(++index), 25);
+                try {
+                    for await (const status of journal.watchStatus()) {
+                        expect(status.Flags).toBe(index);
+                        if (index < 3) {
+                            setTimeout(() => updateStatus(++index), 100);
+                        } else {
+                            break;
+                        }
+                    }
+                } finally {
+                    await journal.close();
+                }
+            } finally {
+                await writer.done();
+            }
+        });
+        it("reports the initial status", async () => {
+            const writer = await JournalWriter.create(journalDir);
+            try {
+                const initial: Status = { timestamp: "2023-01-01T00:00:01Z", event: "Status", Flags: 16 };
+                await writer.write("Status.json", JSON.stringify(initial));
+                const journal = await Journal.open({ directory: writer.directory });
+                try {
+                    for await (const status of journal.watchStatus()) {
+                        expect(status).toEqual(initial);
+                        break;
+                    }
                 } finally {
                     await journal.close();
                 }

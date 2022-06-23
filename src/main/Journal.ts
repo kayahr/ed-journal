@@ -13,19 +13,20 @@ import "./events/exploration/Scan";
 import "./events/startup/Statistics";
 import "./events/other/Synthesis";
 
-import { watch } from "chokidar";
-import { open, readdir } from "fs/promises";
+import { open, readdir, readFile } from "fs/promises";
 import { homedir } from "os";
 import { join } from "path";
 
 import type { AnyJournalEvent } from "./AnyJournalEvent";
+import type { Status } from "./events/other/Status";
 import { JournalError } from "./JournalError";
-import { updateJournalEvent } from "./JournalEvent";
+import { JournalEvent, updateJournalEvent } from "./JournalEvent";
 import type { JournalPosition } from "./JournalPosition";
+import { sleep } from "./util/async";
 import { getErrorMessage } from "./util/error";
 import { isDirectory, isPathReadable } from "./util/fs";
 import { LineReader } from "./util/LineReader";
-import { Notifier } from "./util/Notifier";
+import { watch } from "./util/watch";
 
 /**
  * Compare function to sort journal file names by time. Empty string is always earlier than any journal file.
@@ -102,8 +103,8 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
     /** The currently open line reader. Null if currently none open. */
     private lineReader: LineReader | null = null;
 
-    /** Function to stop watch mode. Null if not running in watch mode. */
-    private stopWatch: (() => Promise<void>) | null = null;
+    /** Controller used to abort watchers when journal is closed. */
+    private readonly abortController: AbortController;
 
     /**
      * Creates journal read from given directory at given position.
@@ -115,6 +116,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
     private constructor(directory: string, position: JournalPosition, watch: boolean) {
         this.directory = directory;
         this.position = position;
+        this.abortController = new AbortController();
         this.generator = this.createGenerator(watch);
     }
 
@@ -189,9 +191,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      * Closes the journal by stopping the watcher (if any) and closing the line reader.
      */
     public async close(): Promise<void> {
-        if (this.stopWatch != null) {
-            await this.stopWatch();
-        }
+        this.abortController.abort();
         if (this.lineReader != null) {
             await this.lineReader.close();
             this.lineReader = null;
@@ -237,77 +237,46 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      * directory is scanned and all found journal files are returned before starting to watch for changed or new
      * files.
      *
-     * @param startFile   - Optional starting file. If not specified then the watcher starts with the oldest available
-     *                      journal file.
+     * @param startFile - Optional starting file. If not specified then the watcher starts with the oldest available
+     *                    journal file.
      * @return New/changed journal files in chronological order.
      */
     private async *watchJournalFiles(startFile: string): AsyncGenerator<string> {
-        const notifier = new Notifier();
-        const queue: string[] = [];
         const initialFiles: string[] = [];
         let ready = false;
         const watcher = watch("Journal.*.log", {
-
             cwd: this.directory,
             depth: 0,
             ignoreInitial: false,
-            usePolling: false
+            usePolling: false,
+            signal: this.abortController.signal
         });
-        watcher.on("add", file => {
-            if (isJournalFile(file) && journalTimeCompare(file, startFile) >= 0) {
-                if (ready) {
-                    if (startFile != null) {
-                        // Also push the current file again in case the new file is reported before the change in the
-                        // current file is reported. Otherwise we would loose the new lines in the current file and
-                        // switch directly to the new file
-                        queue.push(startFile);
+        for await (const event of watcher) {
+            if (event.eventName === "add") {
+                if (isJournalFile(event.path) && journalTimeCompare(event.path, startFile) >= 0) {
+                    if (ready) {
+                        if (startFile != null) {
+                            // Also yield the current file again in case the new file is reported before the change in
+                            // the current file is reported. Otherwise we would loose the new lines in the current file
+                            // and switch directly to the new file
+                            yield startFile;
+                        }
+                        yield startFile = event.path;
+                    } else {
+                        initialFiles.push(event.path);
                     }
-                    queue.push(file);
-                    notifier.notify();
-                    startFile = file;
-                } else {
-                    initialFiles.push(file);
+                }
+            } else if (event.eventName === "change") {
+                if (ready && isJournalFile(event.path) && journalTimeCompare(event.path, startFile) >= 0) {
+                    yield event.path;
+                }
+            } else if (event.eventName === "ready") {
+                ready = true;
+                initialFiles.sort(journalTimeCompare);
+                for (startFile of initialFiles) {
+                    yield startFile;
                 }
             }
-        });
-        watcher.on("change", file => {
-            if (ready && isJournalFile(file) && journalTimeCompare(file, startFile) >= 0) {
-                queue.push(file);
-                notifier.notify();
-            }
-        });
-        watcher.on("ready", () => {
-            ready = true;
-            initialFiles.sort(journalTimeCompare);
-            for (startFile of initialFiles) {
-                queue.push(startFile);
-            }
-            notifier.notify();
-        });
-        watcher.on("error", error => {
-            notifier.abort(error);
-        });
-
-        let aborted = false;
-
-        this.stopWatch = async () => {
-            this.stopWatch = null;
-            await watcher.close();
-            aborted = true;
-            notifier.notify();
-        };
-
-        try {
-            while (!aborted) {
-                const value = queue.shift();
-                if (value != null) {
-                    yield value;
-                } else {
-                    await notifier.wait();
-                }
-            }
-        } finally {
-            void watcher.close();
         }
     }
 
@@ -401,5 +370,70 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
     public async next(): Promise<AnyJournalEvent | null> {
         const result = await this.generator.next();
         return result.done === true ? null : result.value;
+    }
+
+    /**
+     * Reads the given JSON file, parses it as at a journal event and returns it.
+     *
+     * @param filename - The filename of the JSON file to read. Relative to journal directory.
+     * @return The parsed journal event. Null when file is not present.
+     */
+    private async readFile<T extends JournalEvent>(filename: string): Promise<T | null> {
+        const path = join(this.directory, filename);
+        if (!(await isPathReadable(path))) {
+            return null;
+        }
+        const result = (await readFile(path)).toString();
+        if (!result.startsWith("{") || !result.endsWith("}\r\n")) {
+            // JSON file is not fully written yet. Wait a little bit and try again.
+            await sleep(25);
+            return this.readFile(filename);
+        }
+        return JSON.parse(result) as T;
+    }
+
+    /**
+     * Watches the given JSON file for changes and reports any new content. It always reports the current content as
+     * first change.
+     *
+     * @param filename - The filename of the JSON file to read and watch. Relative to journal directory.
+     * @return Async iterator watching content changes.
+     */
+    private async *watchFile<T extends JournalEvent>(filename: string): AsyncGenerator<T> {
+        const watcher = watch(filename, {
+            cwd: this.directory,
+            disableGlobbing: true,
+            depth: 0,
+            ignoreInitial: false,
+            usePolling: false,
+            signal: this.abortController.signal
+        });
+        for await (const event of watcher) {
+            if (event.eventName === "change" || event.eventName === "add") {
+                const content = await this.readFile<T>(filename);
+                if (content != null) {
+                    yield content;
+                }
+            }
+        }
+    }
+
+    /**
+     * Returns the current status read from the Status.json file.
+     *
+     * @return The current status. Null if Status.json file does not exist or is not readable.
+     */
+    public readStatus(): Promise<Status | null> {
+        return this.readFile("Status.json");
+    }
+
+    /**
+     * Watches the Status.json file for changes and reports any new status. It always reports the current status as
+     * first change.
+     *
+     * @return Async iterator watching status changes.
+     */
+    public watchStatus(): AsyncGenerator<Status> {
+        return this.watchFile("Status.json");
     }
 }

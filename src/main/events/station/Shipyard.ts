@@ -5,6 +5,9 @@
 
 import type { JournalEvent } from "../../JournalEvent";
 
+/**
+ * Written when accessing shipyard in a station.
+ */
 export interface Shipyard extends JournalEvent<"Shipyard"> {
     MarketID: number;
     StarSystem: string;

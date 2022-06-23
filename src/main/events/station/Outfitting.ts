@@ -5,6 +5,9 @@
 
 import type { JournalEvent } from "../../JournalEvent";
 
+/**
+ * Written when accessing the outfitting menu.
+ */
 export interface Outfitting extends JournalEvent<"Outfitting"> {
     MarketID: number;
     StarSystem: string;
