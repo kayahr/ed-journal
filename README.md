@@ -77,9 +77,73 @@ try {
 } finally {
     await journal.close();
 }
-
 ```
 
+Separate journal JSON files
+---------------------------
+
+The game writes some additional JSON files containing only a single event which is overwritten regularly. The current event from these files can be read with the following methods on the journal instance:
+
+* [readStatus]
+* TODO
+
+These methods return a single event object or `null` if the corresponding JSON file is not accessible (not yet present for example).
+
+Example:
+
+```typescript
+const journal = await Journal.open();
+try {
+    const status = await journal.readStatus();
+    console.log(status);
+} finally {
+    await journal.close();
+}
+```
+
+You can also watch these files for changes which works pretty much the same way as watching the normal journal events by using the following methods on the journal instance:
+
+* [watchStatus]
+* TODO
+
+These methods return an async generator to iterate. The current event is always reported as first change when the file already exists.
+
+Example:
+
+```typescript
+const journal = await Journal.open();
+try {
+    for await (const event of journal.watchStatus()) {
+        // Do something with the events
+
+        // At some point use `break` to stop watching
+    }
+} finally {
+    await journal.close();
+}
+```
+
+The generators automatically stop when journal is closed. So you might want to do the watching of various files in asynchronous background functions while your main application thread controls the journal. Example:
+
+```typescript
+async function watchStatus(journal: Journal): Promise<void> {
+    for await (const event of journal.watchStatus()) {
+        console.log(status);
+    }
+}
+
+const journal = await Journal.open();
+try {
+    // Returned promise is resolved when watching ends after journal
+    // is closed. But we don't need this promise, so voided here.
+    void watchStatus(journal);
+
+    // Run application here until it quits
+    ...
+} finally {
+    await journal.close();
+}
+```
 
 Journal directory location
 --------------------------
@@ -100,3 +164,5 @@ When the library does not find your journal directory then you can either use th
 [Journal]: https://kayahr.github.io/ed-journal/classes/Journal.html
 [JournalOptions]: https://kayahr.github.io/ed-journal/interfaces/JournalOptions.html
 [JournalPosition]: https://kayahr.github.io/ed-journal/interfaces/JournalPosition.html
+[readStatus]: https://kayahr.github.io/ed-journal/classes/Journal.html#readStatus
+[watchStatus]: https://kayahr.github.io/ed-journal/classes/Journal.html#watchStatus
