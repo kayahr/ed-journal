@@ -18,6 +18,7 @@ import { homedir } from "os";
 import { join } from "path";
 
 import type { AnyJournalEvent } from "./AnyJournalEvent";
+import type { ExtendedModuleInfo } from "./events/other/ModuleInfo";
 import type { Status } from "./events/other/Status";
 import type { ExtendedOutfitting } from "./events/station/Outfitting";
 import type { ExtendedShipyard } from "./events/station/Shipyard";
@@ -422,6 +423,26 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
             }
         }
     }
+
+    /**
+     * Returns the current modules info read from the ModulesInfo.json file.
+     *
+     * @return The current modules info. Null if ModulesInfo.json file does not exist or is not readable.
+     */
+    public readModulesInfo(): Promise<ExtendedModuleInfo | null> {
+        return this.readFile("ModulesInfo.json");
+    }
+
+    /**
+     * Watches the ModulesInfo.json file for changes and reports any new data. It always reports the current data as
+     * first change.
+     *
+     * @return Async iterator watching modules info changes.
+     */
+    public watchModulesInfo(): AsyncGenerator<ExtendedModuleInfo> {
+        return this.watchFile("ModulesInfo.json");
+    }
+
     /**
      * Returns the current nav route read from the NavRoute.json file.
      *
