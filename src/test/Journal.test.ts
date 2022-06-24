@@ -3,11 +3,14 @@ import { copy } from "fs-extra";
 import { tmpdir } from "os";
 import { join } from "path";
 
-import type { AnyJournalEvent, ExtendedShipyard, JournalEvent } from "../main";
 import { Flag, Flag2, GuiFocus, Status } from "../main/events/other/Status";
 import { Journal } from "../main/Journal";
 import { JournalError } from "../main/JournalError";
 import { sleep } from "../main/util/async";
+import type { AnyJournalEvent } from "../main/AnyJournalEvent";
+import type { ExtendedShipyard } from "../main/events/station/Shipyard";
+import type { ShipLocker } from "../main/events/odyssey/ShipLocker";
+import type { JournalEvent } from "../main/JournalEvent";
 
 const journalDir = join(__dirname, "../../src/test/data/journal");
 
@@ -358,7 +361,7 @@ describe("Journal", () => {
         });
     });
 
-    const fileTypes = [ "Status", "Shipyard" ] as const;
+    const fileTypes = [ "ShipLocker", "Shipyard", "Status" ] as const;
     const json = {
         "Status": {
             timestamp: "2023-01-01T00:00:01Z",
@@ -377,15 +380,21 @@ describe("Journal", () => {
             Horizons: true,
             AllowCobraMkIV: true,
             PriceList: []
-        } as ExtendedShipyard
+        } as ExtendedShipyard,
+        "ShipLocker": {
+            timestamp: "2023-01-01T00:00:01Z",
+            event: "ShipLocker"
+        } as ShipLocker
     };
     const readMethods: Record<string, () => Promise<JournalEvent | null>> = {
-        "Status": Journal.prototype.readStatus,
-        "Shipyard": Journal.prototype.readShipyard
+        "ShipLocker": Journal.prototype.readShipLocker,
+        "Shipyard": Journal.prototype.readShipyard,
+        "Status": Journal.prototype.readStatus
     };
     const watchMethods: Record<string, () => AsyncGenerator<JournalEvent>> = {
-        "Status": Journal.prototype.watchStatus,
-        "Shipyard": Journal.prototype.watchShipyard
+        "ShipLocker": Journal.prototype.watchShipLocker,
+        "Shipyard": Journal.prototype.watchShipyard,
+        "Status": Journal.prototype.watchStatus
     };
 
     for (const fileType of fileTypes) {

@@ -35,7 +35,8 @@
         "schema:event": "typescript-json-schema tsconfig.json AnyJournalEvent -o lib/journal-event.schema.json --refs --noExtraProps --required",
         "schema:status": "typescript-json-schema tsconfig.json Status -o lib/status.schema.json --refs --noExtraProps --required",
         "schema:shipyard": "typescript-json-schema tsconfig.json ExtendedShipyard -o lib/shipyard.schema.json --refs --noExtraProps --required",
-        "schema": "npm run schema:event && npm run schema:status && npm run schema:shipyard"
+        "schema:shiplocker": "typescript-json-schema tsconfig.json ShipLocker -o lib/shiplocker.schema.json --refs --noExtraProps --required",
+        "schema": "npm run schema:event && npm run schema:status && npm run schema:shipyard && npm run schema:shiplocker"
     },
     "files": [
         "lib/main/",

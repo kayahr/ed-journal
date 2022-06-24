@@ -7,7 +7,7 @@
  *
  * Usage: node lib/tools/validate-file TYPE
  *
- * TYPE can be 'status' or 'shipyard'
+ * TYPE can be 'shiplocker', 'shipyard' or 'status'
  */
 
 import "source-map-support/register";
@@ -19,12 +19,12 @@ import { join } from "path";
 import { Journal } from "../main/Journal";
 import type { JournalEvent } from "../main/JournalEvent";
 
-type Type = "status" | "shipyard";
-const type = (process.argv[2] ?? "status") as Type;
+const type = (process.argv[2] ?? "status");
 const schemaFile = `${type}.schema.json`;
-const methods: Record<Type, () => AsyncGenerator<JournalEvent>> = {
+const methods: Record<string, () => AsyncGenerator<JournalEvent>> = {
     "status": Journal.prototype.watchStatus,
-    "shipyard": Journal.prototype.watchShipyard
+    "shipyard": Journal.prototype.watchShipyard,
+    "shiplocker": Journal.prototype.watchShipLocker
 };
 
 class ValidationError extends Error {

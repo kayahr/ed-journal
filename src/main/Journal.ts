@@ -458,4 +458,23 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
     public watchShipyard(): AsyncGenerator<ExtendedShipyard> {
         return this.watchFile("Shipyard.json");
     }
+
+    /**
+     * Returns the current contents of the ship locker from the ShipLocker.json file.
+     *
+     * @return The current ship locker content. Null if ShipLocker.json file does not exist or is not readable.
+     */
+    public readShipLocker(): Promise<ExtendedShipyard | null> {
+        return this.readFile("ShipLocker.json");
+    }
+
+    /**
+     * Watches the ShipLocker.json file for changes and reports any new data. It always reports the current data as
+     * first change.
+     *
+     * @return Async iterator watching ship locker content changes.
+     */
+    public watchShipLocker(): AsyncGenerator<ExtendedShipyard> {
+        return this.watchFile("ShipLocker.json");
+    }
 }
