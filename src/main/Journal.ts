@@ -18,6 +18,7 @@ import { homedir } from "os";
 import { join } from "path";
 
 import type { AnyJournalEvent } from "./AnyJournalEvent";
+import type { ExtendedFCMaterials } from "./events/odyssey/FCMaterials";
 import type { ExtendedModuleInfo } from "./events/other/ModuleInfo";
 import type { Status } from "./events/other/Status";
 import type { ExtendedMarket } from "./events/station/Market";
@@ -423,6 +424,26 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
                 }
             }
         }
+    }
+
+    /**
+     * Returns the current fleet carrier materials data read from the FCMaterials.json file.
+     *
+     * @return The current fleet carrier materials data. Null if FCMaterials.json file does not exist or
+     *         is not readable.
+     */
+    public readFCMaterials(): Promise<ExtendedFCMaterials | null> {
+        return this.readFile("FCMaterials.json");
+    }
+
+    /**
+     * Watches the FCMaterials.json file for changes and reports any new data. It always reports the current data as
+     * first change.
+     *
+     * @return Async iterator watching fleet carrier materials data changes.
+     */
+    public watchFCMaterials(): AsyncGenerator<ExtendedFCMaterials> {
+        return this.watchFile("FCMaterials.json");
     }
 
     /**

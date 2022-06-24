@@ -4,6 +4,7 @@ import { tmpdir } from "os";
 import { join } from "path";
 
 import type { AnyJournalEvent } from "../main/AnyJournalEvent";
+import type { ExtendedFCMaterials } from "../main/events/odyssey/FCMaterials";
 import type { ShipLocker } from "../main/events/odyssey/ShipLocker";
 import type { ExtendedModuleInfo } from "../main/events/other/ModuleInfo";
 import { Flag, Flag2, GuiFocus, Status } from "../main/events/other/Status";
@@ -366,9 +367,17 @@ describe("Journal", () => {
     });
 
     const fileTypes = [
-        "Market", "ModulesInfo", "NavRoute", "Outfitting", "ShipLocker", "Shipyard", "Status"
+        "FCMaterials", "Market", "ModulesInfo", "NavRoute", "Outfitting", "ShipLocker", "Shipyard", "Status"
     ] as const;
     const json = {
+        "FCMaterials": {
+            timestamp: "2023-01-01T00:00:01Z",
+            event: "FCMaterials",
+            MarketID: 0,
+            CarrierName: "Asuna",
+            CarrierID: "XZJ-4XZ",
+            Items: []
+        } as ExtendedFCMaterials,
         "Market": {
             timestamp: "2023-01-01T00:00:01Z",
             event: "Market",
@@ -420,6 +429,7 @@ describe("Journal", () => {
         } as Status
     };
     const readMethods: Record<string, () => Promise<JournalEvent | null>> = {
+        "FCMaterials": Journal.prototype.readFCMaterials,
         "Market": Journal.prototype.readMarket,
         "ModulesInfo": Journal.prototype.readModulesInfo,
         "NavRoute": Journal.prototype.readNavRoute,
@@ -429,6 +439,7 @@ describe("Journal", () => {
         "Status": Journal.prototype.readStatus
     };
     const watchMethods: Record<string, () => AsyncGenerator<JournalEvent>> = {
+        "FCMaterials": Journal.prototype.watchFCMaterials,
         "Market": Journal.prototype.watchMarket,
         "ModulesInfo": Journal.prototype.watchModulesInfo,
         "NavRoute": Journal.prototype.watchNavRoute,
