@@ -84,6 +84,8 @@ Separate journal JSON files
 
 The game writes some additional JSON files containing only a single event which is overwritten regularly. The current event from these files can be read with the following methods on the journal instance:
 
+* [readBackpack]
+* [readCargo]
 * [readFCMaterials]
 * [readMarket]
 * [readModulesInfo]
@@ -109,6 +111,8 @@ try {
 
 You can also watch these files for changes which works pretty much the same way as watching the normal journal events by using the following methods on the journal instance:
 
+* [watchBackpack]
+* [watchCargo]
 * [watchFCMaterials]
 * [watchMarket]
 * [watchModulesInfo]
@@ -176,6 +180,10 @@ When the library does not find your journal directory then you can either use th
 [Journal]: https://kayahr.github.io/ed-journal/classes/Journal.html
 [JournalOptions]: https://kayahr.github.io/ed-journal/interfaces/JournalOptions.html
 [JournalPosition]: https://kayahr.github.io/ed-journal/interfaces/JournalPosition.html
+[readBackpack]: https://kayahr.github.io/ed-journal/classes/Journal.html#readBackpack
+[watchBackpack]: https://kayahr.github.io/ed-journal/classes/Journal.html#watchBackpack
+[readCargo]: https://kayahr.github.io/ed-journal/classes/Journal.html#readCargo
+[watchCargo]: https://kayahr.github.io/ed-journal/classes/Journal.html#watchCargo
 [readFCMaterials]: https://kayahr.github.io/ed-journal/classes/Journal.html#readFCMaterials
 [watchFCMaterials]: https://kayahr.github.io/ed-journal/classes/Journal.html#watchFCMaterials
 [readMarket]: https://kayahr.github.io/ed-journal/classes/Journal.html#readMarket

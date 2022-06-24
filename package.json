@@ -33,6 +33,8 @@
         "prepare": "npm run clean && npm run compile && npm run schema",
         "test": "npm run cspell && npm run lint && npm run check",
         "schema:event": "typescript-json-schema tsconfig.json AnyJournalEvent -o lib/journal-event.schema.json --refs --noExtraProps --required",
+        "schema:backpack": "typescript-json-schema tsconfig.json Backpack -o lib/backpack.schema.json --refs --noExtraProps --required",
+        "schema:cargo": "typescript-json-schema tsconfig.json Cargo -o lib/cargo.schema.json --refs --noExtraProps --required",
         "schema:fcmaterials": "typescript-json-schema tsconfig.json ExtendedFCMaterials -o lib/fcmaterials.schema.json --refs --noExtraProps --required",
         "schema:market": "typescript-json-schema tsconfig.json ExtendedMarket -o lib/market.schema.json --refs --noExtraProps --required",
         "schema:modulesinfo": "typescript-json-schema tsconfig.json ExtendedModuleInfo -o lib/modulesinfo.schema.json --refs --noExtraProps --required",
@@ -41,7 +43,7 @@
         "schema:shiplocker": "typescript-json-schema tsconfig.json ShipLocker -o lib/shiplocker.schema.json --refs --noExtraProps --required",
         "schema:shipyard": "typescript-json-schema tsconfig.json ExtendedShipyard -o lib/shipyard.schema.json --refs --noExtraProps --required",
         "schema:status": "typescript-json-schema tsconfig.json Status -o lib/status.schema.json --refs --noExtraProps --required",
-        "schema": "npm run schema:event && npm run schema:fcmaterials && npm run schema:market && npm run schema:modulesinfo npm run schema:navroute && npm run schema:outfitting && npm run schema:shiplocker && npm run schema:shipyard && npm run schema:status"
+        "schema": "npm run schema:event && npm run schema:backpack && npm run schema:cargo && npm run schema:fcmaterials && npm run schema:market && npm run schema:modulesinfo npm run schema:navroute && npm run schema:outfitting && npm run schema:shiplocker && npm run schema:shipyard && npm run schema:status"
     },
     "files": [
         "lib/main/",

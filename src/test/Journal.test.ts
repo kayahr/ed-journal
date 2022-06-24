@@ -4,10 +4,12 @@ import { tmpdir } from "os";
 import { join } from "path";
 
 import type { AnyJournalEvent } from "../main/AnyJournalEvent";
+import type { Backpack } from "../main/events/odyssey/Backpack";
 import type { ExtendedFCMaterials } from "../main/events/odyssey/FCMaterials";
 import type { ShipLocker } from "../main/events/odyssey/ShipLocker";
 import type { ExtendedModuleInfo } from "../main/events/other/ModuleInfo";
 import { Flag, Flag2, GuiFocus, Status } from "../main/events/other/Status";
+import type { Cargo } from "../main/events/startup/Cargo";
 import type { ExtendedMarket } from "../main/events/station/Market";
 import type { ExtendedOutfitting } from "../main/events/station/Outfitting";
 import type { ExtendedShipyard } from "../main/events/station/Shipyard";
@@ -367,9 +369,18 @@ describe("Journal", () => {
     });
 
     const fileTypes = [
-        "FCMaterials", "Market", "ModulesInfo", "NavRoute", "Outfitting", "ShipLocker", "Shipyard", "Status"
+        "Backpack", "Cargo", "FCMaterials", "Market", "ModulesInfo", "NavRoute", "Outfitting", "ShipLocker",
+        "Shipyard", "Status"
     ] as const;
     const json = {
+        "Backpack": {
+            timestamp: "2023-01-01T00:00:01Z",
+            event: "Backpack"
+        } as Backpack,
+        "Cargo": {
+            timestamp: "2023-01-01T00:00:01Z",
+            event: "Cargo"
+        } as Cargo,
         "FCMaterials": {
             timestamp: "2023-01-01T00:00:01Z",
             event: "FCMaterials",
@@ -429,6 +440,8 @@ describe("Journal", () => {
         } as Status
     };
     const readMethods: Record<string, () => Promise<JournalEvent | null>> = {
+        "Backpack": Journal.prototype.readBackpack,
+        "Cargo": Journal.prototype.readCargo,
         "FCMaterials": Journal.prototype.readFCMaterials,
         "Market": Journal.prototype.readMarket,
         "ModulesInfo": Journal.prototype.readModulesInfo,
@@ -439,6 +452,8 @@ describe("Journal", () => {
         "Status": Journal.prototype.readStatus
     };
     const watchMethods: Record<string, () => AsyncGenerator<JournalEvent>> = {
+        "Backpack": Journal.prototype.watchBackpack,
+        "Cargo": Journal.prototype.watchCargo,
         "FCMaterials": Journal.prototype.watchFCMaterials,
         "Market": Journal.prototype.watchMarket,
         "ModulesInfo": Journal.prototype.watchModulesInfo,

@@ -18,6 +18,7 @@ import { homedir } from "os";
 import { join } from "path";
 
 import type { AnyJournalEvent } from "./AnyJournalEvent";
+import type { Backpack } from "./events/odyssey/Backpack";
 import type { ExtendedFCMaterials } from "./events/odyssey/FCMaterials";
 import type { ExtendedModuleInfo } from "./events/other/ModuleInfo";
 import type { Status } from "./events/other/Status";
@@ -424,6 +425,44 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
                 }
             }
         }
+    }
+
+    /**
+     * Returns the current backpack inventory read from the Backpack.json file.
+     *
+     * @return The current backpack inventory. Null if Backpack.json file does not exist or is not readable.
+     */
+    public readBackpack(): Promise<Backpack | null> {
+        return this.readFile("Backpack.json");
+    }
+
+    /**
+     * Watches the Backpack.json file for changes and reports any new data. It always reports the current data as
+     * first change.
+     *
+     * @return Async iterator watching backpack inventory changes.
+     */
+    public watchBackpack(): AsyncGenerator<Backpack> {
+        return this.watchFile("Backpack.json");
+    }
+
+    /**
+     * Returns the current cargo data read from the Cargo.json file.
+     *
+     * @return The current cargo data. Null if Cargo.json file does not exist or is not readable.
+     */
+    public readCargo(): Promise<Backpack | null> {
+        return this.readFile("Cargo.json");
+    }
+
+    /**
+     * Watches the Cargo.json file for changes and reports any new data. It always reports the current data as
+     * first change.
+     *
+     * @return Async iterator watching cargo changes.
+     */
+    public watchCargo(): AsyncGenerator<Backpack> {
+        return this.watchFile("Cargo.json");
     }
 
     /**
