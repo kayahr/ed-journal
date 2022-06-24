@@ -21,6 +21,7 @@ import type { AnyJournalEvent } from "./AnyJournalEvent";
 import type { Status } from "./events/other/Status";
 import type { ExtendedOutfitting } from "./events/station/Outfitting";
 import type { ExtendedShipyard } from "./events/station/Shipyard";
+import type { ExtendedNavRoute } from "./events/travel/NavRoute";
 import { JournalError } from "./JournalError";
 import { JournalEvent, updateJournalEvent } from "./JournalEvent";
 import type { JournalPosition } from "./JournalPosition";
@@ -421,6 +422,24 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
             }
         }
     }
+    /**
+     * Returns the current nav route read from the NavRoute.json file.
+     *
+     * @return The current nav route data. Null if NavRoute.json file does not exist or is not readable.
+     */
+    public readNavRoute(): Promise<ExtendedNavRoute | null> {
+        return this.readFile("NavRoute.json");
+    }
+
+    /**
+     * Watches the NavRoute.json file for changes and reports any new data. It always reports the current data as
+     * first change.
+     *
+     * @return Async iterator watching nav route data changes.
+     */
+    public watchNavRoute(): AsyncGenerator<ExtendedNavRoute> {
+        return this.watchFile("NavRoute.json");
+    }
 
     /**
      * Returns the current outfitting data read from the Outfitting.json file.
@@ -440,6 +459,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
     public watchOutfitting(): AsyncGenerator<ExtendedOutfitting> {
         return this.watchFile("Outfitting.json");
     }
+
     /**
      * Returns the current contents of the ship locker from the ShipLocker.json file.
      *

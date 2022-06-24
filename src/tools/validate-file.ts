@@ -7,7 +7,7 @@
  *
  * Usage: node lib/tools/validate-file TYPE
  *
- * TYPE can be 'outfitting', 'shiplocker', 'shipyard' or 'status'
+ * TYPE can be 'navroute', 'outfitting', 'shiplocker', 'shipyard' or 'status'
  */
 
 import "source-map-support/register";
@@ -22,6 +22,7 @@ import type { JournalEvent } from "../main/JournalEvent";
 const type = (process.argv[2] ?? "status");
 const schemaFile = `${type}.schema.json`;
 const methods: Record<string, () => AsyncGenerator<JournalEvent>> = {
+    "navroute": Journal.prototype.watchNavRoute,
     "outfitting": Journal.prototype.watchOutfitting,
     "shiplocker": Journal.prototype.watchShipLocker,
     "shipyard": Journal.prototype.watchShipyard,

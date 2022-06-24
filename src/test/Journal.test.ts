@@ -3,11 +3,12 @@ import { copy } from "fs-extra";
 import { tmpdir } from "os";
 import { join } from "path";
 
-import type { ExtendedOutfitting } from "../main";
 import type { AnyJournalEvent } from "../main/AnyJournalEvent";
 import type { ShipLocker } from "../main/events/odyssey/ShipLocker";
 import { Flag, Flag2, GuiFocus, Status } from "../main/events/other/Status";
+import type { ExtendedOutfitting } from "../main/events/station/Outfitting";
 import type { ExtendedShipyard } from "../main/events/station/Shipyard";
+import type { ExtendedNavRoute } from "../main/events/travel/NavRoute";
 import { Journal } from "../main/Journal";
 import { JournalError } from "../main/JournalError";
 import type { JournalEvent } from "../main/JournalEvent";
@@ -362,8 +363,13 @@ describe("Journal", () => {
         });
     });
 
-    const fileTypes = [ "Outfitting", "ShipLocker", "Shipyard", "Status" ] as const;
+    const fileTypes = [ "NavRoute", "Outfitting", "ShipLocker", "Shipyard", "Status" ] as const;
     const json = {
+        "NavRoute": {
+            timestamp: "2023-01-01T00:00:01Z",
+            event: "NavRoute",
+            Route: []
+        } as ExtendedNavRoute,
         "Outfitting": {
             timestamp: "2023-01-01T00:00:01Z",
             event: "Outfitting",
@@ -373,7 +379,7 @@ describe("Journal", () => {
             Horizons: true,
             Items: []
         } as ExtendedOutfitting,
-         "ShipLocker": {
+        "ShipLocker": {
             timestamp: "2023-01-01T00:00:01Z",
             event: "ShipLocker"
         } as ShipLocker,
@@ -397,12 +403,14 @@ describe("Journal", () => {
         } as Status
     };
     const readMethods: Record<string, () => Promise<JournalEvent | null>> = {
+        "NavRoute": Journal.prototype.readNavRoute,
         "Outfitting": Journal.prototype.readOutfitting,
         "ShipLocker": Journal.prototype.readShipLocker,
         "Shipyard": Journal.prototype.readShipyard,
         "Status": Journal.prototype.readStatus
     };
     const watchMethods: Record<string, () => AsyncGenerator<JournalEvent>> = {
+        "NavRoute": Journal.prototype.watchNavRoute,
         "Outfitting": Journal.prototype.watchOutfitting,
         "ShipLocker": Journal.prototype.watchShipLocker,
         "Shipyard": Journal.prototype.watchShipyard,

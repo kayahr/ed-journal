@@ -10,3 +10,15 @@ import type { JournalEvent } from "../../JournalEvent";
  * list of stars along that route.
  */
 export interface NavRoute extends JournalEvent<"NavRoute"> {}
+
+/**
+ * Extended nav roue data written to separate 'NavRoute.json' file.
+ */
+export interface ExtendedNavRoute extends NavRoute {
+    Route: Array<{
+        StarSystem: string;
+        SystemAddress: number;
+        StarPos: [ number, number, number ];
+        StarClass: string;
+    }>;
+}
