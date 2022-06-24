@@ -19,6 +19,7 @@ import { join } from "path";
 
 import type { AnyJournalEvent } from "./AnyJournalEvent";
 import type { Status } from "./events/other/Status";
+import type { ExtendedOutfitting } from "./events/station/Outfitting";
 import type { ExtendedShipyard } from "./events/station/Shipyard";
 import { JournalError } from "./JournalError";
 import { JournalEvent, updateJournalEvent } from "./JournalEvent";
@@ -422,22 +423,40 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
     }
 
     /**
-     * Returns the current status read from the Status.json file.
+     * Returns the current outfitting data read from the Outfitting.json file.
      *
-     * @return The current status. Null if Status.json file does not exist or is not readable.
+     * @return The current outfitting data. Null if Outfitting.json file does not exist or is not readable.
      */
-    public readStatus(): Promise<Status | null> {
-        return this.readFile("Status.json");
+    public readOutfitting(): Promise<ExtendedOutfitting | null> {
+        return this.readFile("Outfitting.json");
     }
 
     /**
-     * Watches the Status.json file for changes and reports any new status. It always reports the current status as
+     * Watches the Outfitting.json file for changes and reports any new data. It always reports the current data as
      * first change.
      *
-     * @return Async iterator watching status changes.
+     * @return Async iterator watching outfitting data changes.
      */
-    public watchStatus(): AsyncGenerator<Status> {
-        return this.watchFile("Status.json");
+    public watchOutfitting(): AsyncGenerator<ExtendedOutfitting> {
+        return this.watchFile("Outfitting.json");
+    }
+    /**
+     * Returns the current contents of the ship locker from the ShipLocker.json file.
+     *
+     * @return The current ship locker content. Null if ShipLocker.json file does not exist or is not readable.
+     */
+    public readShipLocker(): Promise<ExtendedShipyard | null> {
+        return this.readFile("ShipLocker.json");
+    }
+
+    /**
+     * Watches the ShipLocker.json file for changes and reports any new data. It always reports the current data as
+     * first change.
+     *
+     * @return Async iterator watching ship locker content changes.
+     */
+    public watchShipLocker(): AsyncGenerator<ExtendedShipyard> {
+        return this.watchFile("ShipLocker.json");
     }
 
     /**
@@ -460,21 +479,21 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
     }
 
     /**
-     * Returns the current contents of the ship locker from the ShipLocker.json file.
+     * Returns the current status read from the Status.json file.
      *
-     * @return The current ship locker content. Null if ShipLocker.json file does not exist or is not readable.
+     * @return The current status. Null if Status.json file does not exist or is not readable.
      */
-    public readShipLocker(): Promise<ExtendedShipyard | null> {
-        return this.readFile("ShipLocker.json");
+    public readStatus(): Promise<Status | null> {
+        return this.readFile("Status.json");
     }
 
     /**
-     * Watches the ShipLocker.json file for changes and reports any new data. It always reports the current data as
+     * Watches the Status.json file for changes and reports any new status. It always reports the current status as
      * first change.
      *
-     * @return Async iterator watching ship locker content changes.
+     * @return Async iterator watching status changes.
      */
-    public watchShipLocker(): AsyncGenerator<ExtendedShipyard> {
-        return this.watchFile("ShipLocker.json");
+    public watchStatus(): AsyncGenerator<Status> {
+        return this.watchFile("Status.json");
     }
 }

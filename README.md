@@ -84,6 +84,7 @@ Separate journal JSON files
 
 The game writes some additional JSON files containing only a single event which is overwritten regularly. The current event from these files can be read with the following methods on the journal instance:
 
+* [readOutfitting]
 * [readShipLocker]
 * [readShipyard]
 * [readStatus]
@@ -104,6 +105,7 @@ try {
 
 You can also watch these files for changes which works pretty much the same way as watching the normal journal events by using the following methods on the journal instance:
 
+* [watchOutfitting]
 * [watchShipLocker]
 * [watchShipyard]
 * [watchStatus]
@@ -166,6 +168,8 @@ When the library does not find your journal directory then you can either use th
 [Journal]: https://kayahr.github.io/ed-journal/classes/Journal.html
 [JournalOptions]: https://kayahr.github.io/ed-journal/interfaces/JournalOptions.html
 [JournalPosition]: https://kayahr.github.io/ed-journal/interfaces/JournalPosition.html
+[readOutfitting]: https://kayahr.github.io/ed-journal/classes/Journal.html#readOutfitting
+[watchOutfitting]: https://kayahr.github.io/ed-journal/classes/Journal.html#watchOutfitting
 [readShipLocker]: https://kayahr.github.io/ed-journal/classes/Journal.html#readShipLocker
 [watchShipLocker]: https://kayahr.github.io/ed-journal/classes/Journal.html#watchShipLocker
 [readShipyard]: https://kayahr.github.io/ed-journal/classes/Journal.html#readShipyard

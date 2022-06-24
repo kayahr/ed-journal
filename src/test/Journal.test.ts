@@ -3,14 +3,15 @@ import { copy } from "fs-extra";
 import { tmpdir } from "os";
 import { join } from "path";
 
+import type { ExtendedOutfitting } from "../main";
+import type { AnyJournalEvent } from "../main/AnyJournalEvent";
+import type { ShipLocker } from "../main/events/odyssey/ShipLocker";
 import { Flag, Flag2, GuiFocus, Status } from "../main/events/other/Status";
+import type { ExtendedShipyard } from "../main/events/station/Shipyard";
 import { Journal } from "../main/Journal";
 import { JournalError } from "../main/JournalError";
-import { sleep } from "../main/util/async";
-import type { AnyJournalEvent } from "../main/AnyJournalEvent";
-import type { ExtendedShipyard } from "../main/events/station/Shipyard";
-import type { ShipLocker } from "../main/events/odyssey/ShipLocker";
 import type { JournalEvent } from "../main/JournalEvent";
+import { sleep } from "../main/util/async";
 
 const journalDir = join(__dirname, "../../src/test/data/journal");
 
@@ -361,16 +362,21 @@ describe("Journal", () => {
         });
     });
 
-    const fileTypes = [ "ShipLocker", "Shipyard", "Status" ] as const;
+    const fileTypes = [ "Outfitting", "ShipLocker", "Shipyard", "Status" ] as const;
     const json = {
-        "Status": {
+        "Outfitting": {
             timestamp: "2023-01-01T00:00:01Z",
-            event: "Status",
-            Flags: Flag.ANALYSIS_MODE | Flag.DOCKED,
-            Flags2: Flag2.COLD | Flag2.IN_TAXI,
-            GuiFocus: GuiFocus.FSS_MODE,
-            LegalState: "IllegalCargo"
-        } as Status,
+            event: "Outfitting",
+            MarketID: 128858698,
+            StationName: "Kay Manor",
+            StarSystem: "Paradise",
+            Horizons: true,
+            Items: []
+        } as ExtendedOutfitting,
+         "ShipLocker": {
+            timestamp: "2023-01-01T00:00:01Z",
+            event: "ShipLocker"
+        } as ShipLocker,
         "Shipyard": {
             timestamp: "2023-01-01T00:00:01Z",
             event: "Shipyard",
@@ -381,17 +387,23 @@ describe("Journal", () => {
             AllowCobraMkIV: true,
             PriceList: []
         } as ExtendedShipyard,
-        "ShipLocker": {
+       "Status": {
             timestamp: "2023-01-01T00:00:01Z",
-            event: "ShipLocker"
-        } as ShipLocker
+            event: "Status",
+            Flags: Flag.ANALYSIS_MODE | Flag.DOCKED,
+            Flags2: Flag2.COLD | Flag2.IN_TAXI,
+            GuiFocus: GuiFocus.FSS_MODE,
+            LegalState: "IllegalCargo"
+        } as Status
     };
     const readMethods: Record<string, () => Promise<JournalEvent | null>> = {
+        "Outfitting": Journal.prototype.readOutfitting,
         "ShipLocker": Journal.prototype.readShipLocker,
         "Shipyard": Journal.prototype.readShipyard,
         "Status": Journal.prototype.readStatus
     };
     const watchMethods: Record<string, () => AsyncGenerator<JournalEvent>> = {
+        "Outfitting": Journal.prototype.watchOutfitting,
         "ShipLocker": Journal.prototype.watchShipLocker,
         "Shipyard": Journal.prototype.watchShipyard,
         "Status": Journal.prototype.watchStatus
