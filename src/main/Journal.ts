@@ -20,6 +20,7 @@ import { join } from "path";
 import type { AnyJournalEvent } from "./AnyJournalEvent";
 import type { ExtendedModuleInfo } from "./events/other/ModuleInfo";
 import type { Status } from "./events/other/Status";
+import type { ExtendedMarket } from "./events/station/Market";
 import type { ExtendedOutfitting } from "./events/station/Outfitting";
 import type { ExtendedShipyard } from "./events/station/Shipyard";
 import type { ExtendedNavRoute } from "./events/travel/NavRoute";
@@ -422,6 +423,25 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
                 }
             }
         }
+    }
+
+    /**
+     * Returns the current market data read from the Market.json file.
+     *
+     * @return The current market data. Null if Market.json file does not exist or is not readable.
+     */
+    public readMarket(): Promise<ExtendedMarket | null> {
+        return this.readFile("Market.json");
+    }
+
+    /**
+     * Watches the Market.json file for changes and reports any new data. It always reports the current data as
+     * first change.
+     *
+     * @return Async iterator watching market data changes.
+     */
+    public watchMarket(): AsyncGenerator<ExtendedMarket> {
+        return this.watchFile("Market.json");
     }
 
     /**

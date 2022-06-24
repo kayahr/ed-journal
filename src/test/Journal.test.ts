@@ -7,6 +7,7 @@ import type { AnyJournalEvent } from "../main/AnyJournalEvent";
 import type { ShipLocker } from "../main/events/odyssey/ShipLocker";
 import type { ExtendedModuleInfo } from "../main/events/other/ModuleInfo";
 import { Flag, Flag2, GuiFocus, Status } from "../main/events/other/Status";
+import type { ExtendedMarket } from "../main/events/station/Market";
 import type { ExtendedOutfitting } from "../main/events/station/Outfitting";
 import type { ExtendedShipyard } from "../main/events/station/Shipyard";
 import type { ExtendedNavRoute } from "../main/events/travel/NavRoute";
@@ -364,8 +365,18 @@ describe("Journal", () => {
         });
     });
 
-    const fileTypes = [ "ModulesInfo", "NavRoute", "Outfitting", "ShipLocker", "Shipyard", "Status" ] as const;
+    const fileTypes = [
+        "Market", "ModulesInfo", "NavRoute", "Outfitting", "ShipLocker", "Shipyard", "Status"
+    ] as const;
     const json = {
+        "Market": {
+            timestamp: "2023-01-01T00:00:01Z",
+            event: "Market",
+            MarketID: 0,
+            StarSystem: "Star",
+            StationName: "Station",
+            Items: []
+        } as ExtendedMarket,
         "ModulesInfo": {
             timestamp: "2023-01-01T00:00:01Z",
             event: "ModuleInfo",
@@ -409,6 +420,7 @@ describe("Journal", () => {
         } as Status
     };
     const readMethods: Record<string, () => Promise<JournalEvent | null>> = {
+        "Market": Journal.prototype.readMarket,
         "ModulesInfo": Journal.prototype.readModulesInfo,
         "NavRoute": Journal.prototype.readNavRoute,
         "Outfitting": Journal.prototype.readOutfitting,
@@ -417,6 +429,7 @@ describe("Journal", () => {
         "Status": Journal.prototype.readStatus
     };
     const watchMethods: Record<string, () => AsyncGenerator<JournalEvent>> = {
+        "Market": Journal.prototype.watchMarket,
         "ModulesInfo": Journal.prototype.watchModulesInfo,
         "NavRoute": Journal.prototype.watchNavRoute,
         "Outfitting": Journal.prototype.watchOutfitting,
