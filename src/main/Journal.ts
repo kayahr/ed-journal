@@ -19,6 +19,7 @@ import { join } from "path";
 
 import type { AnyJournalEvent } from "./AnyJournalEvent";
 import type { Status } from "./events/other/Status";
+import type { ExtendedShipyard } from "./events/station/Shipyard";
 import { JournalError } from "./JournalError";
 import { JournalEvent, updateJournalEvent } from "./JournalEvent";
 import type { JournalPosition } from "./JournalPosition";
@@ -437,5 +438,24 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      */
     public watchStatus(): AsyncGenerator<Status> {
         return this.watchFile("Status.json");
+    }
+
+    /**
+     * Returns the current shipyard data read from the Shipyard.json file.
+     *
+     * @return The current shipyard data. Null if Shipyard.json file does not exist or is not readable.
+     */
+    public readShipyard(): Promise<ExtendedShipyard | null> {
+        return this.readFile("Shipyard.json");
+    }
+
+    /**
+     * Watches the Shipyard.json file for changes and reports any new data. It always reports the current data as
+     * first change.
+     *
+     * @return Async iterator watching shipyard data changes.
+     */
+    public watchShipyard(): AsyncGenerator<ExtendedShipyard> {
+        return this.watchFile("Shipyard.json");
     }
 }

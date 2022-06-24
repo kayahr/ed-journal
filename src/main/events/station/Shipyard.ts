@@ -13,3 +13,17 @@ export interface Shipyard extends JournalEvent<"Shipyard"> {
     StarSystem: string;
     StationName: string;
 }
+
+/**
+ * Extended shipyard info written to separate 'Shipyard.json' file.
+ */
+export interface ExtendedShipyard extends Shipyard {
+    Horizons: boolean;
+    AllowCobraMkIV: boolean;
+    PriceList: Array<{
+        id: number;
+        ShipType: string;
+        ShipType_Localised?: string;
+        ShipPrice: number;
+    }>;
+}

@@ -34,7 +34,8 @@
         "test": "npm run cspell && npm run lint && npm run check",
         "schema:event": "typescript-json-schema tsconfig.json AnyJournalEvent -o lib/journal-event.schema.json --refs --noExtraProps --required",
         "schema:status": "typescript-json-schema tsconfig.json Status -o lib/status.schema.json --refs --noExtraProps --required",
-        "schema": "npm run schema:event && npm run schema:status"
+        "schema:shipyard": "typescript-json-schema tsconfig.json ExtendedShipyard -o lib/shipyard.schema.json --refs --noExtraProps --required",
+        "schema": "npm run schema:event && npm run schema:status && npm run schema:shipyard"
     },
     "files": [
         "lib/main/",
