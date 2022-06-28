@@ -1,17 +1,25 @@
-import { chmod, mkdir, mkdtemp, open, rm } from "fs/promises";
+import { chmod, mkdir, mkdtemp, open, rm, writeFile } from "fs/promises";
 import { copy } from "fs-extra";
 import { tmpdir } from "os";
 import { join } from "path";
 
-import type { AnyJournalEvent } from "../main";
+import type { AnyJournalEvent } from "../main/AnyJournalEvent";
+import type { Backpack } from "../main/events/odyssey/Backpack";
+import type { ExtendedFCMaterials } from "../main/events/odyssey/FCMaterials";
+import type { ShipLocker } from "../main/events/odyssey/ShipLocker";
+import type { ExtendedModuleInfo } from "../main/events/other/ModuleInfo";
+import { Flag, Flag2, GuiFocus, Status } from "../main/events/other/Status";
+import type { Cargo } from "../main/events/startup/Cargo";
+import type { ExtendedMarket } from "../main/events/station/Market";
+import type { ExtendedOutfitting } from "../main/events/station/Outfitting";
+import type { ExtendedShipyard } from "../main/events/station/Shipyard";
+import type { ExtendedNavRoute } from "../main/events/travel/NavRoute";
 import { Journal } from "../main/Journal";
 import { JournalError } from "../main/JournalError";
+import type { JournalEvent } from "../main/JournalEvent";
+import { sleep } from "../main/util/async";
 
 const journalDir = join(__dirname, "../../src/test/data/journal");
-
-async function sleep(ms: number): Promise<void> {
-    return new Promise<void>(resolve => setTimeout(resolve, ms));
-}
 
 async function withTmpHome(action: (home: string) => Promise<void>): Promise<void> {
     const origHome = process.env["HOME"];
@@ -37,13 +45,17 @@ class JournalWriter {
         return new JournalWriter(directory);
     }
 
-    public async write(filename: string, line: string): Promise<void> {
+    public async append(filename: string, line: string): Promise<void> {
         const file = await open(join(this.directory, filename), "as");
         try {
-            await file.write(line + "\n");
+            await file.write(line + "\r\n");
         } finally {
             await file.close();
         }
+    }
+
+    public async write(filename: string, line: string): Promise<void> {
+        await writeFile(join(this.directory, filename), line + "\r\n");
     }
 
     public async done(): Promise<void> {
@@ -110,11 +122,11 @@ describe("Journal", () => {
             })();
 
             // Write line into existing file
-            await writer.write("Journal.2023-01-01T000000.01.log",
+            await writer.append("Journal.2023-01-01T000000.01.log",
                 `{ "timestamp":"2023-01-01T00:00:02Z", "event":"Continued", "Part": 2 }`);
 
             // Write line into new file
-            await writer.write("Journal.2023-01-01T000000.02.log",
+            await writer.append("Journal.2023-01-01T000000.02.log",
                 `{ "timestamp":"2023-01-01T00:00:03Z", "event":"Died" }`);
 
             await promise;
@@ -147,11 +159,11 @@ describe("Journal", () => {
             })();
 
             // Write line into existing file
-            await writer.write("Journal.2023-01-01T000000.01.log",
+            await writer.append("Journal.2023-01-01T000000.01.log",
                 `{ "timestamp":"2023-01-01T00:00:02Z", "event":"Continued", "Part": 2 }`);
 
             // Write line into new file
-            await writer.write("Journal.2023-01-01T000000.02.log",
+            await writer.append("Journal.2023-01-01T000000.02.log",
                 `{ "timestamp":"2023-01-01T00:00:03Z", "event":"Died" }`);
 
             await promise;
@@ -186,13 +198,13 @@ describe("Journal", () => {
             await sleep(100);
 
             // Write line into existing file
-            await writer.write("Journal.2023-01-01T000000.01.log",
+            await writer.append("Journal.2023-01-01T000000.01.log",
                 `{ "timestamp":"2023-01-01T00:00:02Z", "event":"Continued", "Part": 2 }`);
 
             await sleep(100);
 
             // Write line into new file
-            await writer.write("Journal.2023-01-01T000000.02.log",
+            await writer.append("Journal.2023-01-01T000000.02.log",
                 `{ "timestamp":"2023-01-01T00:00:03Z", "event":"Died" }`);
 
             await promise;
@@ -344,7 +356,7 @@ describe("Journal", () => {
                     expect(await journal.next()).toEqual({ "timestamp": "2023-01-01T00:00:01Z", "event": "Shutdown" });
                     const promise = journal.next();
                     await sleep(50);
-                    await writer.write("Journal.2023-01-01T000000.02.log",
+                    await writer.append("Journal.2023-01-01T000000.02.log",
                         `{ "timestamp":"2023-01-01T00:00:03Z", "event":"Died" }`);
                     expect(await promise).toEqual({ "timestamp": "2023-01-01T00:00:03Z", "event": "Died" });
                 } finally {
@@ -355,4 +367,198 @@ describe("Journal", () => {
             }
         });
     });
+
+    const fileTypes = [
+        "Backpack", "Cargo", "FCMaterials", "Market", "ModulesInfo", "NavRoute", "Outfitting", "ShipLocker",
+        "Shipyard", "Status"
+    ] as const;
+    const json = {
+        "Backpack": {
+            timestamp: "2023-01-01T00:00:01Z",
+            event: "Backpack"
+        } as Backpack,
+        "Cargo": {
+            timestamp: "2023-01-01T00:00:01Z",
+            event: "Cargo"
+        } as Cargo,
+        "FCMaterials": {
+            timestamp: "2023-01-01T00:00:01Z",
+            event: "FCMaterials",
+            MarketID: 0,
+            CarrierName: "Asuna",
+            CarrierID: "XZJ-4XZ",
+            Items: []
+        } as ExtendedFCMaterials,
+        "Market": {
+            timestamp: "2023-01-01T00:00:01Z",
+            event: "Market",
+            MarketID: 0,
+            StarSystem: "Star",
+            StationName: "Station",
+            Items: []
+        } as ExtendedMarket,
+        "ModulesInfo": {
+            timestamp: "2023-01-01T00:00:01Z",
+            event: "ModuleInfo",
+            Modules: []
+        } as ExtendedModuleInfo,
+        "NavRoute": {
+            timestamp: "2023-01-01T00:00:01Z",
+            event: "NavRoute",
+            Route: []
+        } as ExtendedNavRoute,
+        "Outfitting": {
+            timestamp: "2023-01-01T00:00:01Z",
+            event: "Outfitting",
+            MarketID: 128858698,
+            StationName: "Kay Manor",
+            StarSystem: "Paradise",
+            Horizons: true,
+            Items: []
+        } as ExtendedOutfitting,
+        "ShipLocker": {
+            timestamp: "2023-01-01T00:00:01Z",
+            event: "ShipLocker"
+        } as ShipLocker,
+        "Shipyard": {
+            timestamp: "2023-01-01T00:00:01Z",
+            event: "Shipyard",
+            MarketID: 128858698,
+            StationName: "Kay Manor",
+            StarSystem: "Paradise",
+            Horizons: true,
+            AllowCobraMkIV: true,
+            PriceList: []
+        } as ExtendedShipyard,
+       "Status": {
+            timestamp: "2023-01-01T00:00:01Z",
+            event: "Status",
+            Flags: Flag.ANALYSIS_MODE | Flag.DOCKED,
+            Flags2: Flag2.COLD | Flag2.IN_TAXI,
+            GuiFocus: GuiFocus.FSS_MODE,
+            LegalState: "IllegalCargo"
+        } as Status
+    };
+    const readMethods: Record<string, () => Promise<JournalEvent | null>> = {
+        "Backpack": Journal.prototype.readBackpack,
+        "Cargo": Journal.prototype.readCargo,
+        "FCMaterials": Journal.prototype.readFCMaterials,
+        "Market": Journal.prototype.readMarket,
+        "ModulesInfo": Journal.prototype.readModulesInfo,
+        "NavRoute": Journal.prototype.readNavRoute,
+        "Outfitting": Journal.prototype.readOutfitting,
+        "ShipLocker": Journal.prototype.readShipLocker,
+        "Shipyard": Journal.prototype.readShipyard,
+        "Status": Journal.prototype.readStatus
+    };
+    const watchMethods: Record<string, () => AsyncGenerator<JournalEvent>> = {
+        "Backpack": Journal.prototype.watchBackpack,
+        "Cargo": Journal.prototype.watchCargo,
+        "FCMaterials": Journal.prototype.watchFCMaterials,
+        "Market": Journal.prototype.watchMarket,
+        "ModulesInfo": Journal.prototype.watchModulesInfo,
+        "NavRoute": Journal.prototype.watchNavRoute,
+        "Outfitting": Journal.prototype.watchOutfitting,
+        "ShipLocker": Journal.prototype.watchShipLocker,
+        "Shipyard": Journal.prototype.watchShipyard,
+        "Status": Journal.prototype.watchStatus
+    };
+
+    for (const fileType of fileTypes) {
+        describe(`read${fileType}`, () => {
+            it("returns null when file does not exist", async () => {
+                const writer = await JournalWriter.create(journalDir);
+                try {
+                    const journal = await Journal.open({ directory: writer.directory });
+                    try {
+                        expect(await readMethods[fileType].call(journal)).toBeNull();
+                    } finally {
+                        await journal.close();
+                    }
+                } finally {
+                    await writer.done();
+                }
+            });
+            it("returns the current data", async () => {
+                const writer = await JournalWriter.create(journalDir);
+                try {
+                    const data = json[fileType];
+                    await writer.write(`${fileType}.json`, JSON.stringify(data));
+                    const journal = await Journal.open({ directory: writer.directory });
+                    try {
+                        expect(await readMethods[fileType].call(journal)).toEqual(data);
+                    } finally {
+                        await journal.close();
+                    }
+                } finally {
+                    await writer.done();
+                }
+            });
+            it("waits for a complete JSON", async () => {
+                const writer = await JournalWriter.create(journalDir);
+                try {
+                    const data = json[fileType];
+                    await writer.write(`${fileType}.json`, JSON.stringify(data).substring(0, 15));
+                    const journal = await Journal.open({ directory: writer.directory });
+                    try {
+                        const promise = readMethods[fileType].call(journal);
+                        await sleep(50);
+                        await writer.write(`${fileType}.json`, JSON.stringify(data));
+                        expect(await promise).toEqual(data);
+                    } finally {
+                        await journal.close();
+                    }
+                } finally {
+                    await writer.done();
+                }
+            });
+        });
+
+        describe(`watch${fileType}`, () => {
+            it("watches the file", async () => {
+                const writer = await JournalWriter.create(journalDir);
+                try {
+                    const updateData = async (index: number): Promise<void> => {
+                        const data = { ...json[fileType], timestamp: "" + index };
+                        await writer.write(`${fileType}.json`, JSON.stringify(data));
+                    };
+                    const journal = await Journal.open({ directory: writer.directory });
+                    let index = 0;
+                    setTimeout(() => updateData(++index), 25);
+                    try {
+                        for await (const status of watchMethods[fileType].call(journal)) {
+                            expect(+status.timestamp).toBe(index);
+                            if (index < 3) {
+                                setTimeout(() => updateData(++index), 100);
+                            } else {
+                                break;
+                            }
+                        }
+                    } finally {
+                        await journal.close();
+                    }
+                } finally {
+                    await writer.done();
+                }
+            });
+            it("reports the initial data", async () => {
+                const writer = await JournalWriter.create(journalDir);
+                try {
+                    const initial = json[fileType];
+                    await writer.write(`${fileType}.json`, JSON.stringify(initial));
+                    const journal = await Journal.open({ directory: writer.directory });
+                    try {
+                        for await (const status of watchMethods[fileType].call(journal)) {
+                            expect(status).toEqual(initial);
+                            break;
+                        }
+                    } finally {
+                        await journal.close();
+                    }
+                } finally {
+                    await writer.done();
+                }
+            });
+        });
+    }
 });

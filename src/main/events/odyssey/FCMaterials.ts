@@ -14,3 +14,17 @@ export interface FCMaterials extends JournalEvent<"FCMaterials"> {
     CarrierName: string;
     CarrierID: string;
 }
+
+/**
+ * Extended Fleet Carrier materials list written to separate 'FCMaterials.json' file.
+ */
+export interface ExtendedFCMaterials extends FCMaterials {
+    Items: Array<{
+        id: number;
+        Name: string;
+        Name_Localised?: string;
+        Price: number;
+        Stock: number;
+        Demand: number;
+    }>;
+}

@@ -12,3 +12,26 @@ export interface Market extends JournalEvent<"Market"> {
     StationType?: string;
     CarrierDockingAccess?: string;
 }
+
+/**
+ * Extended market data written to separate 'Market.json' file.
+ */
+export interface ExtendedMarket extends Market {
+    Items: Array<{
+        id: number;
+        Name: string;
+        Name_Localised: string
+        Category: string;
+        Category_Localised: string;
+        BuyPrice: number;
+        SellPrice: number;
+        MeanPrice: number;
+        StockBracket: number;
+        DemandBracket: number;
+        Stock: number;
+        Demand: number;
+        Consumer: boolean;
+        Producer: boolean;
+        Rare: boolean;
+    }>;
+}
