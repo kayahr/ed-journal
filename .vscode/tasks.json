@@ -15,7 +15,8 @@
             "group": {
                 "kind": "build",
                 "isDefault": true
-            }
+            },
+            "runOptions": { "runOn": "folderOpen" }
         },
         {
             "label": "Run unit tests",
