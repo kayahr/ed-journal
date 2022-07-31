@@ -36,7 +36,7 @@ export interface LoadGame extends JournalEvent<"LoadGame"> {
     /** True if landed. */
     StartLanded?: boolean;
 
-    /** True if starting dead. See [[Resurrect]]. */
+    /** True if starting dead. See {@link Resurrect}. */
     StartDead?: boolean;
 
     /** The game mode. */

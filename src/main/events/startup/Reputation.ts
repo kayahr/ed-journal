@@ -6,8 +6,8 @@
 import type { JournalEvent } from "../../JournalEvent";
 
 /**
- * Player's reputation on a scale of -100 to +100 with the superpowers. Written at startup after [[Rank]] and
- * [[Progress].
+ * Player's reputation on a scale of -100 to +100 with the superpowers. Written at startup after {@link Rank} and
+ * {@link Progress}.
  *
  * Thresholds:
  *

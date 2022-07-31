@@ -91,11 +91,11 @@ export interface JournalOptions {
  *
  * Reads or watches a journal directory. It implements the AsyncIterable interface so for reading/watching the
  * journal you simply iterate of the instance of this class with a for..of loop for example. If you prefer you can
- * also use the [[next]] method to read the next event from the journal until this method returns null to indicate
+ * also use the {@link next} method to read the next event from the journal until this method returns null to indicate
  * the end of the journal.
  *
  * In watch mode the iteration does not end and is continued every time a new event is appended to the journal by the
- * game. Watch mode can be stopped by calling the [[close]] method. Iteration loops will end when journal is closed.
+ * game. Watch mode can be stopped by calling the {@link close} method. Iteration loops will end when journal is closed.
  */
 export class Journal implements AsyncIterable<AnyJournalEvent> {
     /** The journal directory. */
