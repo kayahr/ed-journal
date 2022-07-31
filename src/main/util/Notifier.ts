@@ -13,7 +13,7 @@ export class Notifier {
     private reject: ((e: Error) => void) | null = null;
 
     /**
-     * Notifies waiting processes. This resolves the promise returned by [[wait]] method.
+     * Notifies waiting processes. This resolves the promise returned by {@link wait} method.
      */
     public notify(): void {
         if (this.resolve != null) {
@@ -23,7 +23,7 @@ export class Notifier {
     }
 
     /**
-     * Aborts the notifier. This rejects the promise returned by the [[wait]] method.
+     * Aborts the notifier. This rejects the promise returned by the {@link wait} method.
      *
      * @param error - The error with which to abort the notifier.
      */
@@ -42,9 +42,9 @@ export class Notifier {
     }
 
     /**
-     * Waits until some other process calls the [[notify]] or [[abort]] method.
+     * Waits until some other process calls the {@link notify} or {@link abort} method.
      *
-     * @return Promise resolved with [[notify]] was called or rejected when [[abort]] has been called.
+     * @return Promise resolved with {@link notify} was called or rejected when {@link abort} has been called.
      */
     public async wait(): Promise<void> {
         if (this.error != null) {
