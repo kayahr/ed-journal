@@ -66,30 +66,31 @@ export enum Flag {
 
 /** Valid "Flags2" bits. */
 export enum Flag2 {
-    ON_FOOT                = 1 << 0,
+    ON_FOOT                 = 1 << 0,
 
     /** Or dropship/shuttle. */
-    IN_TAXI                = 1 << 1,
+    IN_TAXI                 = 1 << 1,
 
     /** In someone else's ship. */
-    IN_MULTICREW           = 1 << 2,
+    IN_MULTICREW            = 1 << 2,
 
-    ON_FOOT_IN_STATION     = 1 << 3,
-    ON_FOOT_ON_PLANET      = 1 << 4,
-    AIM_DOWN_SIGHT         = 1 << 5,
-    LOW_OXYGEN             = 1 << 6,
-    LOW_HEALTH             = 1 << 7,
-    COLD                   = 1 << 8,
-    HOT                    = 1 << 9,
-    VERY_COLD              = 1 << 10,
-    VERY_HOT               = 1 << 11,
-    GLIDE_MODE             = 1 << 12,
-    ON_FOOT_IN_HANGAR      = 1 << 13,
-    ON_FOOT_SOCIAL_SPACE   = 1 << 14,
-    ON_FOOT_EXTERIOR       = 1 << 15,
-    BREATHABLE_ATMOSPHERE  = 1 << 16,
-    TELEPRESENCE_MULTICREW = 1 << 17,
-    PHYSICAL_MULTICREW     = 1 << 18,
+    ON_FOOT_IN_STATION      = 1 << 3,
+    ON_FOOT_ON_PLANET       = 1 << 4,
+    AIM_DOWN_SIGHT          = 1 << 5,
+    LOW_OXYGEN              = 1 << 6,
+    LOW_HEALTH              = 1 << 7,
+    COLD                    = 1 << 8,
+    HOT                     = 1 << 9,
+    VERY_COLD               = 1 << 10,
+    VERY_HOT                = 1 << 11,
+    GLIDE_MODE              = 1 << 12,
+    ON_FOOT_IN_HANGAR       = 1 << 13,
+    ON_FOOT_SOCIAL_SPACE    = 1 << 14,
+    ON_FOOT_EXTERIOR        = 1 << 15,
+    BREATHABLE_ATMOSPHERE   = 1 << 16,
+    TELEPRESENCE_MULTICREW  = 1 << 17,
+    PHYSICAL_MULTICREW      = 1 << 18,
+    FSD_HYPERDRIVE_CHARGING = 1 << 19
 }
 
 /** Valid GUI focus values. */
