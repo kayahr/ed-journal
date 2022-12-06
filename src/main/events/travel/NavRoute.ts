@@ -12,7 +12,7 @@ import type { JournalEvent } from "../../JournalEvent";
 export interface NavRoute extends JournalEvent<"NavRoute"> {}
 
 /**
- * Extended nav roue data written to separate 'NavRoute.json' file.
+ * Extended nav route data written to separate 'NavRoute.json' file.
  */
 export interface ExtendedNavRoute extends NavRoute {
     Route: Array<{

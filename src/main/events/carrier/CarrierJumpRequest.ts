@@ -11,4 +11,5 @@ export interface CarrierJumpRequest extends JournalEvent<"CarrierJumpRequest"> {
     Body?: string;
     SystemAddress: number;
     BodyID: number;
+    DepartureTime?: string;
 }

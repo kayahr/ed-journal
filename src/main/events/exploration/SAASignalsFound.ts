@@ -16,5 +16,9 @@ export interface SAASignalsFound extends JournalEvent<"SAASignalsFound"> {
         Type: string;
         Type_Localised?: string;
         Count: number;
+    }>,
+    Genuses?: Array<{
+        Genus: string;
+        Genus_Localised: string;
     }>
 }

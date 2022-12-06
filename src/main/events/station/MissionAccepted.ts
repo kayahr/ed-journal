@@ -12,6 +12,7 @@ export interface MissionAccepted extends JournalEvent<"MissionAccepted"> {
     Count?: number;
     DestinationStation?: string;
     DestinationSystem?: string;
+    DestinationSettlement?: string;
     Expiry?: string;
     Faction: string;
     Influence?: string;

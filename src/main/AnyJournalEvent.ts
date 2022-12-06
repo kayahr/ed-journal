@@ -145,6 +145,7 @@ import type { PowerplayVoucher } from "./events/powerplay/PowerplayVoucher";
 import type { AppliedToSquadron } from "./events/squadrons/AppliedToSquadron";
 import type { InvitedToSquadron } from "./events/squadrons/InvitedToSquadron";
 import type { JoinedSquadron } from "./events/squadrons/JoinedSquadron";
+import type { LeftSquadron } from "./events/squadrons/LeftSquadron";
 import type { SquadronStartup } from "./events/squadrons/SquadronStartup";
 import type { Cargo } from "./events/startup/Cargo";
 import type { ClearSavedGame } from "./events/startup/ClearSavedGame";
@@ -236,6 +237,7 @@ import type { LeaveBody } from "./events/travel/LeaveBody";
 import type { Liftoff } from "./events/travel/Liftoff";
 import type { Location } from "./events/travel/Location";
 import type { NavRoute } from "./events/travel/NavRoute";
+import type { NavRouteClear } from "./events/travel/NavRouteClear";
 import type { StartJump } from "./events/travel/StartJump";
 import type { SupercruiseEntry } from "./events/travel/SupercruiseEntry";
 import type { SupercruiseExit } from "./events/travel/SupercruiseExit";
@@ -353,6 +355,7 @@ export type AnyJournalEvent =
     | JetConeDamage
     | JoinACrew
     | JoinedSquadron
+    | LeftSquadron
     | KickCrewMember
     | LaunchDrone
     | LaunchFighter
@@ -391,6 +394,7 @@ export type AnyJournalEvent =
     | Music
     | NavBeaconScan
     | NavRoute
+    | NavRouteClear
     | NewCommander
     | NpcCrewPaidWage
     | NpcCrewRank
