@@ -14,7 +14,7 @@
 <li><a href="CarrierFinance.html">CarrierFinance</a></li></ul>
 <h1>Interface CarrierFinance</h1></div>
 <section class="tsd-panel tsd-comment">
-<div class="tsd-comment tsd-typography"><p>Base interface shared by all journal event types.</p>
+<div class="tsd-comment tsd-typography"><p>Change to tax rate or reserve</p>
 </div></section>
 <section class="tsd-panel tsd-hierarchy">
 <h4>Hierarchy</h4>
@@ -23,7 +23,7 @@
 <ul class="tsd-hierarchy">
 <li><span class="target">CarrierFinance</span></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/kayahr/ed-journal/blob/main/src/main/events/carrier/CarrierFinance.ts#L8">src/main/events/carrier/CarrierFinance.ts:8</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/kayahr/ed-journal/blob/main/src/main/events/carrier/CarrierFinance.ts#L11">src/main/events/carrier/CarrierFinance.ts:11</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -36,7 +36,10 @@
 <a href="CarrierFinance.html#CarrierID" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>CarrierID</span></a>
 <a href="CarrierFinance.html#ReserveBalance" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>Reserve<wbr/>Balance</span></a>
 <a href="CarrierFinance.html#ReservePercent" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>Reserve<wbr/>Percent</span></a>
-<a href="CarrierFinance.html#TaxRate" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>Tax<wbr/>Rate</span></a>
+<a href="CarrierFinance.html#TaxRate" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>Tax<wbr/>Rate?</span></a>
+<a href="CarrierFinance.html#TaxRate_rearm" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>Tax<wbr/>Rate_<wbr/>rearm?</span></a>
+<a href="CarrierFinance.html#TaxRate_refuel" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>Tax<wbr/>Rate_<wbr/>refuel?</span></a>
+<a href="CarrierFinance.html#TaxRate_repair" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>Tax<wbr/>Rate_<wbr/>repair?</span></a>
 <a href="CarrierFinance.html#event" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>event</span></a>
 <a href="CarrierFinance.html#timestamp" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>timestamp</span></a>
 </div></section></div></details></section></section>
@@ -46,32 +49,47 @@
 <h3 class="tsd-anchor-link"><span>Available<wbr/>Balance</span><a href="#AvailableBalance" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" id="icon-anchor-a"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" id="icon-anchor-b"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" id="icon-anchor-c"></path></svg></a></h3>
 <div class="tsd-signature">Available<wbr/>Balance<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/kayahr/ed-journal/blob/main/src/main/events/carrier/CarrierFinance.ts#L13">src/main/events/carrier/CarrierFinance.ts:13</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/kayahr/ed-journal/blob/main/src/main/events/carrier/CarrierFinance.ts#L16">src/main/events/carrier/CarrierFinance.ts:16</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="CarrierBalance" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>Carrier<wbr/>Balance</span><a href="#CarrierBalance" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">Carrier<wbr/>Balance<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/kayahr/ed-journal/blob/main/src/main/events/carrier/CarrierFinance.ts#L11">src/main/events/carrier/CarrierFinance.ts:11</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/kayahr/ed-journal/blob/main/src/main/events/carrier/CarrierFinance.ts#L14">src/main/events/carrier/CarrierFinance.ts:14</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="CarrierID" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>CarrierID</span><a href="#CarrierID" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">CarrierID<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/kayahr/ed-journal/blob/main/src/main/events/carrier/CarrierFinance.ts#L9">src/main/events/carrier/CarrierFinance.ts:9</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/kayahr/ed-journal/blob/main/src/main/events/carrier/CarrierFinance.ts#L12">src/main/events/carrier/CarrierFinance.ts:12</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="ReserveBalance" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>Reserve<wbr/>Balance</span><a href="#ReserveBalance" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">Reserve<wbr/>Balance<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/kayahr/ed-journal/blob/main/src/main/events/carrier/CarrierFinance.ts#L12">src/main/events/carrier/CarrierFinance.ts:12</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/kayahr/ed-journal/blob/main/src/main/events/carrier/CarrierFinance.ts#L15">src/main/events/carrier/CarrierFinance.ts:15</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="ReservePercent" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>Reserve<wbr/>Percent</span><a href="#ReservePercent" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">Reserve<wbr/>Percent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/kayahr/ed-journal/blob/main/src/main/events/carrier/CarrierFinance.ts#L14">src/main/events/carrier/CarrierFinance.ts:14</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/kayahr/ed-journal/blob/main/src/main/events/carrier/CarrierFinance.ts#L17">src/main/events/carrier/CarrierFinance.ts:17</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="TaxRate" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>Tax<wbr/>Rate</span><a href="#TaxRate" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">Tax<wbr/>Rate<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>Tax<wbr/>Rate</span><a href="#TaxRate" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<div class="tsd-signature">Tax<wbr/>Rate<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/kayahr/ed-journal/blob/main/src/main/events/carrier/CarrierFinance.ts#L10">src/main/events/carrier/CarrierFinance.ts:10</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/kayahr/ed-journal/blob/main/src/main/events/carrier/CarrierFinance.ts#L13">src/main/events/carrier/CarrierFinance.ts:13</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="TaxRate_rearm" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>Tax<wbr/>Rate_<wbr/>rearm</span><a href="#TaxRate_rearm" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<div class="tsd-signature">Tax<wbr/>Rate_<wbr/>rearm<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/kayahr/ed-journal/blob/main/src/main/events/carrier/CarrierFinance.ts#L18">src/main/events/carrier/CarrierFinance.ts:18</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="TaxRate_refuel" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>Tax<wbr/>Rate_<wbr/>refuel</span><a href="#TaxRate_refuel" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<div class="tsd-signature">Tax<wbr/>Rate_<wbr/>refuel<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/kayahr/ed-journal/blob/main/src/main/events/carrier/CarrierFinance.ts#L19">src/main/events/carrier/CarrierFinance.ts:19</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="TaxRate_repair" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>Tax<wbr/>Rate_<wbr/>repair</span><a href="#TaxRate_repair" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<div class="tsd-signature">Tax<wbr/>Rate_<wbr/>repair<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/kayahr/ed-journal/blob/main/src/main/events/carrier/CarrierFinance.ts#L20">src/main/events/carrier/CarrierFinance.ts:20</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a id="event" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>event</span><a href="#event" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">event<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;CarrierFinance&quot;</span></div>
@@ -117,7 +135,10 @@
 <li class="tsd-kind-property tsd-parent-kind-interface"><a href="CarrierFinance.html#CarrierID" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>CarrierID</a></li>
 <li class="tsd-kind-property tsd-parent-kind-interface"><a href="CarrierFinance.html#ReserveBalance" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>Reserve<wbr/>Balance</a></li>
 <li class="tsd-kind-property tsd-parent-kind-interface"><a href="CarrierFinance.html#ReservePercent" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>Reserve<wbr/>Percent</a></li>
-<li class="tsd-kind-property tsd-parent-kind-interface"><a href="CarrierFinance.html#TaxRate" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>Tax<wbr/>Rate</a></li>
+<li class="tsd-kind-property tsd-parent-kind-interface"><a href="CarrierFinance.html#TaxRate" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>Tax<wbr/>Rate?</a></li>
+<li class="tsd-kind-property tsd-parent-kind-interface"><a href="CarrierFinance.html#TaxRate_rearm" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>Tax<wbr/>Rate_<wbr/>rearm?</a></li>
+<li class="tsd-kind-property tsd-parent-kind-interface"><a href="CarrierFinance.html#TaxRate_refuel" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>Tax<wbr/>Rate_<wbr/>refuel?</a></li>
+<li class="tsd-kind-property tsd-parent-kind-interface"><a href="CarrierFinance.html#TaxRate_repair" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>Tax<wbr/>Rate_<wbr/>repair?</a></li>
 <li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="CarrierFinance.html#event" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>event</a></li>
 <li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="CarrierFinance.html#timestamp" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>timestamp</a></li></ul></li></ul></nav></div></div>
 <div class="container tsd-generator">
