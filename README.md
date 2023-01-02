@@ -172,6 +172,20 @@ The location of the journal directory is automatically determined by looking at 
 
 When the library does not find your journal directory then you can either use the `directory` option to specify it manually or define the `$ED_JOURNAL_DIR` environment variable.
 
+JSON Schemas
+------------
+
+* [journal-event.schema.json](https://kayahr.github.io/ed-journal/schemas/journal-event.schema.json)
+* [backpack.schema.json](https://kayahr.github.io/ed-journal/schemas/backpack.schema.json)
+* [cargo.schema.json](https://kayahr.github.io/ed-journal/schemas/cargo.schema.json)
+* [fcmaterials.schema.json](https://kayahr.github.io/ed-journal/schemas/fcmaterials.schema.json)
+* [market.schema.json](https://kayahr.github.io/ed-journal/schemas/market.schema.json)
+* [modulesinfo.schema.json](https://kayahr.github.io/ed-journal/schemas/modulesinfo.schema.json)
+* [outfitting.schema.json](https://kayahr.github.io/ed-journal/schemas/outfitting.schema.json)
+* [shiplocker.schema.json](https://kayahr.github.io/ed-journal/schemas/shiplocker.schema.json)
+* [shipyard.schema.json](https://kayahr.github.io/ed-journal/schemas/shipyard.schema.json)
+* [status.schema.json](https://kayahr.github.io/ed-journal/schemas/status.schema.json)
+
 [Frontier]: https://www.frontier.co.uk/
 [Elite: Dangerous]: https://www.elitedangerous.com/
 [API Doc]: https://kayahr.github.io/ed-journal/
