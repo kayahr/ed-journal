@@ -1,0 +1,177 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "description": "Some information about the current state of the game written every few seconds to the file 'Status.json' in the\njournal directory.\n\nThe latitude or longitude need to change by 0.02 degrees to trigger an update when flying, or by 0.0005 degrees\nwhen in the SRV.",
+    "properties": {
+        "Altitude": {
+            "description": "The altitude. Set when on or near a planet.",
+            "type": "number"
+        },
+        "Balance": {
+            "description": "The current credit balance.",
+            "type": "number"
+        },
+        "BodyName": {
+            "type": "string"
+        },
+        "Cargo": {
+            "description": "Cargo mass in tons.",
+            "type": "number"
+        },
+        "Destination": {
+            "additionalProperties": false,
+            "description": "The selected destination if any.",
+            "properties": {
+                "Body": {
+                    "type": "number"
+                },
+                "Name": {
+                    "type": "string"
+                },
+                "System": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "Body",
+                "Name",
+                "System"
+            ],
+            "type": "object"
+        },
+        "FireGroup": {
+            "description": "The currently selected firegroup number.",
+            "type": "number"
+        },
+        "Flags": {
+            "description": "Multiple flags encoded as bits in an integer.",
+            "type": "number"
+        },
+        "Flags2": {
+            "description": "More flags, mainly for when on foot.",
+            "type": "number"
+        },
+        "Fuel": {
+            "additionalProperties": false,
+            "description": "Fuel mass in tons.",
+            "properties": {
+                "FuelMain": {
+                    "type": "number"
+                },
+                "FuelReservoir": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "FuelMain",
+                "FuelReservoir"
+            ],
+            "type": "object"
+        },
+        "Gravity": {
+            "description": "The gravity relative to 1G. Only set when on foot.",
+            "type": "number"
+        },
+        "GuiFocus": {
+            "description": "The selected GUI screen.",
+            "enum": [
+                0,
+                1,
+                10,
+                11,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9
+            ],
+            "type": "number"
+        },
+        "Heading": {
+            "description": "The current heading. Set when on or near a planet.",
+            "type": "number"
+        },
+        "Health": {
+            "description": "The health level (0.0 .. 1.0). Only set when on foot.",
+            "type": "number"
+        },
+        "Latitude": {
+            "description": "The latitude. Set when on or near a planet.",
+            "type": "number"
+        },
+        "LegalState": {
+            "description": "The current legal state.",
+            "enum": [
+                "Clean",
+                "Hostile",
+                "IllegalCargo",
+                "PassengerWanted",
+                "Speeding",
+                "Wanted",
+                "Warrant"
+            ],
+            "type": "string"
+        },
+        "Longitude": {
+            "description": "The longitude. Set when on or near a planet.",
+            "type": "number"
+        },
+        "Oxygen": {
+            "description": "The oxygen level (0.0 .. 1.0). Only set when on foot.",
+            "type": "number"
+        },
+        "Pips": {
+            "description": "An array of 3 integers (0-8) representing energy distribution (in half-pips)",
+            "items": [
+                {
+                    "type": "number"
+                },
+                {
+                    "type": "number"
+                },
+                {
+                    "type": "number"
+                }
+            ],
+            "maxItems": 3,
+            "minItems": 3,
+            "type": "array"
+        },
+        "PlanetRadius": {
+            "description": "The planet radius. Set when on or near a planet.",
+            "type": "number"
+        },
+        "SelectedWeapon": {
+            "description": "The name of the selected weapon. Only set when on foot.",
+            "type": "string"
+        },
+        "SelectedWeapon_Localised": {
+            "type": "string"
+        },
+        "Temperature": {
+            "description": "Temperature in Kelvin. Only set when on foot.",
+            "type": "number"
+        },
+        "event": {
+            "description": "The type of event.",
+            "enum": [
+                "Status"
+            ],
+            "type": "string"
+        },
+        "timestamp": {
+            "description": "The time in GMT, ISO 8601.",
+            "type": "string"
+        }
+    },
+    "required": [
+        "Flags",
+        "event",
+        "timestamp"
+    ],
+    "type": "object"
+}
+

@@ -1,0 +1,114 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "description": "Extended market data written to separate 'Market.json' file.",
+    "properties": {
+        "CarrierDockingAccess": {
+            "type": "string"
+        },
+        "Items": {
+            "items": {
+                "additionalProperties": false,
+                "properties": {
+                    "BuyPrice": {
+                        "type": "number"
+                    },
+                    "Category": {
+                        "type": "string"
+                    },
+                    "Category_Localised": {
+                        "type": "string"
+                    },
+                    "Consumer": {
+                        "type": "boolean"
+                    },
+                    "Demand": {
+                        "type": "number"
+                    },
+                    "DemandBracket": {
+                        "type": "number"
+                    },
+                    "MeanPrice": {
+                        "type": "number"
+                    },
+                    "Name": {
+                        "type": "string"
+                    },
+                    "Name_Localised": {
+                        "type": "string"
+                    },
+                    "Producer": {
+                        "type": "boolean"
+                    },
+                    "Rare": {
+                        "type": "boolean"
+                    },
+                    "SellPrice": {
+                        "type": "number"
+                    },
+                    "Stock": {
+                        "type": "number"
+                    },
+                    "StockBracket": {
+                        "type": "number"
+                    },
+                    "id": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "BuyPrice",
+                    "Category",
+                    "Category_Localised",
+                    "Consumer",
+                    "Demand",
+                    "DemandBracket",
+                    "MeanPrice",
+                    "Name",
+                    "Name_Localised",
+                    "Producer",
+                    "Rare",
+                    "SellPrice",
+                    "Stock",
+                    "StockBracket",
+                    "id"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "MarketID": {
+            "type": "number"
+        },
+        "StarSystem": {
+            "type": "string"
+        },
+        "StationName": {
+            "type": "string"
+        },
+        "StationType": {
+            "type": "string"
+        },
+        "event": {
+            "description": "The type of event.",
+            "enum": [
+                "Market"
+            ],
+            "type": "string"
+        },
+        "timestamp": {
+            "description": "The time in GMT, ISO 8601.",
+            "type": "string"
+        }
+    },
+    "required": [
+        "Items",
+        "MarketID",
+        "StarSystem",
+        "StationName",
+        "event",
+        "timestamp"
+    ],
+    "type": "object"
+}
+

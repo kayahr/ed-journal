@@ -1,0 +1,64 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "description": "Extended outfitting info written to separate 'Outfitting.json' file.",
+    "properties": {
+        "Horizons": {
+            "type": "boolean"
+        },
+        "Items": {
+            "items": {
+                "additionalProperties": false,
+                "properties": {
+                    "BuyPrice": {
+                        "type": "number"
+                    },
+                    "Name": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "BuyPrice",
+                    "Name",
+                    "id"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "MarketID": {
+            "type": "number"
+        },
+        "StarSystem": {
+            "type": "string"
+        },
+        "StationName": {
+            "type": "string"
+        },
+        "event": {
+            "description": "The type of event.",
+            "enum": [
+                "Outfitting"
+            ],
+            "type": "string"
+        },
+        "timestamp": {
+            "description": "The time in GMT, ISO 8601.",
+            "type": "string"
+        }
+    },
+    "required": [
+        "Horizons",
+        "Items",
+        "MarketID",
+        "StarSystem",
+        "StationName",
+        "event",
+        "timestamp"
+    ],
+    "type": "object"
+}
+

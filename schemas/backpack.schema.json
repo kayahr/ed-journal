@@ -1,0 +1,75 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "definitions": {
+        "BackpackItem": {
+            "additionalProperties": false,
+            "properties": {
+                "Count": {
+                    "type": "number"
+                },
+                "MissionID": {
+                    "type": "number"
+                },
+                "Name": {
+                    "type": "string"
+                },
+                "Name_Localised": {
+                    "type": "string"
+                },
+                "OwnerID": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "Count",
+                "Name",
+                "OwnerID"
+            ],
+            "type": "object"
+        }
+    },
+    "properties": {
+        "Components": {
+            "items": {
+                "$ref": "#/definitions/BackpackItem"
+            },
+            "type": "array"
+        },
+        "Consumables": {
+            "items": {
+                "$ref": "#/definitions/BackpackItem"
+            },
+            "type": "array"
+        },
+        "Data": {
+            "items": {
+                "$ref": "#/definitions/BackpackItem"
+            },
+            "type": "array"
+        },
+        "Items": {
+            "items": {
+                "$ref": "#/definitions/BackpackItem"
+            },
+            "type": "array"
+        },
+        "event": {
+            "description": "The type of event.",
+            "enum": [
+                "Backpack"
+            ],
+            "type": "string"
+        },
+        "timestamp": {
+            "description": "The time in GMT, ISO 8601.",
+            "type": "string"
+        }
+    },
+    "required": [
+        "event",
+        "timestamp"
+    ],
+    "type": "object"
+}
+

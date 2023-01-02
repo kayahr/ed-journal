@@ -1,0 +1,71 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "description": "Extended Fleet Carrier materials list written to separate 'FCMaterials.json' file.",
+    "properties": {
+        "CarrierID": {
+            "type": "string"
+        },
+        "CarrierName": {
+            "type": "string"
+        },
+        "Items": {
+            "items": {
+                "additionalProperties": false,
+                "properties": {
+                    "Demand": {
+                        "type": "number"
+                    },
+                    "Name": {
+                        "type": "string"
+                    },
+                    "Name_Localised": {
+                        "type": "string"
+                    },
+                    "Price": {
+                        "type": "number"
+                    },
+                    "Stock": {
+                        "type": "number"
+                    },
+                    "id": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "Demand",
+                    "Name",
+                    "Price",
+                    "Stock",
+                    "id"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "MarketID": {
+            "type": "number"
+        },
+        "event": {
+            "description": "The type of event.",
+            "enum": [
+                "FCMaterials"
+            ],
+            "type": "string"
+        },
+        "timestamp": {
+            "description": "The time in GMT, ISO 8601.",
+            "type": "string"
+        }
+    },
+    "required": [
+        "CarrierID",
+        "CarrierName",
+        "Items",
+        "MarketID",
+        "event",
+        "timestamp"
+    ],
+    "type": "object"
+}
+

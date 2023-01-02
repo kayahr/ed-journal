@@ -1,0 +1,51 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "description": "Extended modules info written to separate 'ModulesInfo.json' file.",
+    "properties": {
+        "Modules": {
+            "items": {
+                "additionalProperties": false,
+                "properties": {
+                    "Item": {
+                        "type": "string"
+                    },
+                    "Power": {
+                        "type": "number"
+                    },
+                    "Priority": {
+                        "type": "number"
+                    },
+                    "Slot": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "Item",
+                    "Power",
+                    "Slot"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "event": {
+            "description": "The type of event.",
+            "enum": [
+                "ModuleInfo"
+            ],
+            "type": "string"
+        },
+        "timestamp": {
+            "description": "The time in GMT, ISO 8601.",
+            "type": "string"
+        }
+    },
+    "required": [
+        "Modules",
+        "event",
+        "timestamp"
+    ],
+    "type": "object"
+}
+

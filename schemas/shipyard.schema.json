@@ -1,0 +1,71 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "description": "Extended shipyard info written to separate 'Shipyard.json' file.",
+    "properties": {
+        "AllowCobraMkIV": {
+            "type": "boolean"
+        },
+        "Horizons": {
+            "type": "boolean"
+        },
+        "MarketID": {
+            "type": "number"
+        },
+        "PriceList": {
+            "items": {
+                "additionalProperties": false,
+                "properties": {
+                    "ShipPrice": {
+                        "type": "number"
+                    },
+                    "ShipType": {
+                        "type": "string"
+                    },
+                    "ShipType_Localised": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "ShipPrice",
+                    "ShipType",
+                    "id"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "StarSystem": {
+            "type": "string"
+        },
+        "StationName": {
+            "type": "string"
+        },
+        "event": {
+            "description": "The type of event.",
+            "enum": [
+                "Shipyard"
+            ],
+            "type": "string"
+        },
+        "timestamp": {
+            "description": "The time in GMT, ISO 8601.",
+            "type": "string"
+        }
+    },
+    "required": [
+        "AllowCobraMkIV",
+        "Horizons",
+        "MarketID",
+        "PriceList",
+        "StarSystem",
+        "StationName",
+        "event",
+        "timestamp"
+    ],
+    "type": "object"
+}
+

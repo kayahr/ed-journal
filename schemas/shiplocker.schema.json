@@ -1,0 +1,76 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "definitions": {
+        "ShipLockerItem": {
+            "additionalProperties": false,
+            "properties": {
+                "Count": {
+                    "type": "number"
+                },
+                "MissionID": {
+                    "type": "number"
+                },
+                "Name": {
+                    "type": "string"
+                },
+                "Name_Localised": {
+                    "type": "string"
+                },
+                "OwnerID": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "Count",
+                "Name",
+                "OwnerID"
+            ],
+            "type": "object"
+        }
+    },
+    "description": "Lists the contents of the ship locker, eg at startup. The full list is written into the journal at startup\n(if in a ship) and when boarding a ship. For other updates the ship locker has to be watched separately.",
+    "properties": {
+        "Components": {
+            "items": {
+                "$ref": "#/definitions/ShipLockerItem"
+            },
+            "type": "array"
+        },
+        "Consumables": {
+            "items": {
+                "$ref": "#/definitions/ShipLockerItem"
+            },
+            "type": "array"
+        },
+        "Data": {
+            "items": {
+                "$ref": "#/definitions/ShipLockerItem"
+            },
+            "type": "array"
+        },
+        "Items": {
+            "items": {
+                "$ref": "#/definitions/ShipLockerItem"
+            },
+            "type": "array"
+        },
+        "event": {
+            "description": "The type of event.",
+            "enum": [
+                "ShipLocker"
+            ],
+            "type": "string"
+        },
+        "timestamp": {
+            "description": "The time in GMT, ISO 8601.",
+            "type": "string"
+        }
+    },
+    "required": [
+        "event",
+        "timestamp"
+    ],
+    "type": "object"
+}
+
