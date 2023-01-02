@@ -1,6 +1,7 @@
 coverage/
 doc/api/
 lib/
+site/
 node_modules/
 sandbox/
 *.tgz

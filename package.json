@@ -43,7 +43,8 @@
         "schema:shiplocker": "typescript-json-schema tsconfig.json ShipLocker -o lib/shiplocker.schema.json --refs --noExtraProps --required",
         "schema:shipyard": "typescript-json-schema tsconfig.json ExtendedShipyard -o lib/shipyard.schema.json --refs --noExtraProps --required",
         "schema:status": "typescript-json-schema tsconfig.json Status -o lib/status.schema.json --refs --noExtraProps --required",
-        "schema": "npm run schema:event && npm run schema:backpack && npm run schema:cargo && npm run schema:fcmaterials && npm run schema:market && npm run schema:modulesinfo npm run schema:navroute && npm run schema:outfitting && npm run schema:shiplocker && npm run schema:shipyard && npm run schema:status"
+        "schema": "npm run schema:event && npm run schema:backpack && npm run schema:cargo && npm run schema:fcmaterials && npm run schema:market && npm run schema:modulesinfo npm run schema:navroute && npm run schema:outfitting && npm run schema:shiplocker && npm run schema:shipyard && npm run schema:status",
+        "site": "npm run doc && rimraf site && copyfiles -V -u 2 'doc/api/**/*' site && copyfiles -V -u 1 'lib/*.schema.json' site/schemas"
     },
     "files": [
         "lib/main/",
@@ -80,6 +81,7 @@
         "@types/rimraf": "3.0.2",
         "@typescript-eslint/eslint-plugin": "5.48.0",
         "@typescript-eslint/parser": "5.48.0",
+        "copyfiles": "2.4.1",
         "cspell": "6.18.1",
         "eslint": "8.31.0",
         "eslint-plugin-deprecation": "1.3.3",

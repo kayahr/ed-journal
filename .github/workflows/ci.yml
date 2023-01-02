@@ -16,11 +16,11 @@ jobs:
         run: npm ci
       - name: Test
         run: npm test
-      - name: Build API Doc
-        run: npm run doc
-      - name: Deploy API Doc
+      - name: Build Site
+        run: npm run site
+      - name: Deploy Site
         if: ${{ github.ref == 'refs/heads/main' && matrix.node-version == '18.x' }}
-        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: doc/api
+          folder: site
