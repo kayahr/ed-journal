@@ -98,6 +98,6 @@
     },
     "dependencies": {
         "chokidar": "^3.5.3",
-        "tslib": "^2.4.1"
+        "tslib": "^2.5.3"
     }
 }
