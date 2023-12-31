@@ -251,7 +251,6 @@ export type AnyJournalEvent =
     | ApproachBody
     | AfmuRepairs
     | AppliedToSquadron
-    | ApproachBody
     | ApproachSettlement
     | AsteroidCracked
     | Backpack

@@ -251,7 +251,7 @@ describe("Journal", () => {
                 }
             })();
             await expect(promise).rejects.toThrow("Parse error in Journal.2023-01-01T000000.01.log:2: "
-                + "Unexpected token ] in JSON at position 38: { \"timestamp\":\"2023-01-01T00:00:01Z\", ]");
+                + "Expected double-quoted property name in JSON at position 38: { \"timestamp\":\"2023-01-01T00:00:01Z\", ]");
         } finally {
             await journal.close();
         }

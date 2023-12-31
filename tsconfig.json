@@ -13,7 +13,6 @@
         "noImplicitThis": true,
         "sourceMap": true,
         "declaration": true,
-        "importsNotUsedAsValues": "error",
         "useDefineForClassFields": true,
         "strict": true,
         "strictPropertyInitialization": true,
