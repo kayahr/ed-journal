@@ -3,7 +3,7 @@ import { join } from "path";
 
 import { LineReader } from "../../main/util/LineReader";
 
-const textsDir = join(__dirname, "../../../src/test/data/texts");
+const textsDir = "src/test/data/texts";
 const testTxt = join(textsDir, "test.txt");
 const smallTxt = join(textsDir, "small.txt");
 

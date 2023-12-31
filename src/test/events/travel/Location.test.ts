@@ -1,8 +1,6 @@
-import { join } from "path";
-
 import { Journal } from "../../../main/Journal";
 
-const directory = join(__dirname, "../../../../src/test/data/events/Location");
+const directory = "src/test/data/events/Location";
 
 describe("Location", () => {
     it("updates old properties to new properties", async () => {

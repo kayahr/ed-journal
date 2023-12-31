@@ -19,7 +19,7 @@ import { JournalError } from "../main/JournalError";
 import type { JournalEvent } from "../main/JournalEvent";
 import { sleep } from "../main/util/async";
 
-const journalDir = join(__dirname, "../../src/test/data/journal");
+const journalDir = "src/test/data/journal";
 
 async function withTmpHome(action: (home: string) => Promise<void>): Promise<void> {
     const origHome = process.env["HOME"];
@@ -243,7 +243,7 @@ describe("Journal", () => {
     });
 
     it("throws error when reading broken journal", async () => {
-        const journal = await Journal.open({ directory: join(__dirname, "../../src/test/data/broken") });
+        const journal = await Journal.open({ directory: "src/test/data/broken" });
         try {
             const promise = (async () => {
                 for await (const event of journal) {
@@ -307,9 +307,9 @@ describe("Journal", () => {
             }
         });
         it("opens journal in given directory", async () => {
-            const journal = await Journal.open({ directory: __dirname });
+            const journal = await Journal.open({ directory: "src/test" });
             try {
-                expect(journal.getDirectory()).toBe(__dirname);
+                expect(journal.getDirectory()).toBe("src/test");
             } finally {
                 await journal.close();
             }
@@ -322,7 +322,7 @@ describe("Journal", () => {
                 { file: "Journal.2023-01-01T000000.01.log", offset: 222, line: 3 });
         });
         it("returns start position when no journal find found", async () => {
-            expect(await Journal.findEnd(__dirname)).toEqual({ file: "", offset: 0, line: 1 });
+            expect(await Journal.findEnd("src/test")).toEqual({ file: "", offset: 0, line: 1 });
         });
     });
 

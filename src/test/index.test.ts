@@ -1,8 +1,6 @@
-import { join } from "path";
-
 import * as edj from "../main/index";
 
-const journalDir = join(__dirname, "../../src/test/data/journal");
+const journalDir = "src/test/data/journal";
 
 describe("ed-journal", () => {
     it("exports the Journal class", async () => {

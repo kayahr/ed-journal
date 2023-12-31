@@ -32,8 +32,7 @@ class ValidationError extends Error {
 
 (async () => {
     const validator = new Validator();
-    const schema = JSON.parse((await readFile(join(__dirname, "..",
-        "journal-event.schema.json"))).toString()) as Schema;
+    const schema = JSON.parse((await readFile(join("src", "journal-event.schema.json"))).toString()) as Schema;
     const narrowedSchemas = new Map<string, Schema>();
 
     const journal = await Journal.open({ position, watch: true });

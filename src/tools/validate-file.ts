@@ -43,7 +43,7 @@ class ValidationError extends Error {
 
 (async () => {
     const validator = new Validator();
-    const schema = JSON.parse((await readFile(join(__dirname, "..", schemaFile))).toString()) as Schema;
+    const schema = JSON.parse((await readFile(join("src", schemaFile))).toString()) as Schema;
 
     const journal = await Journal.open();
     process.on("SIGINT", () => {

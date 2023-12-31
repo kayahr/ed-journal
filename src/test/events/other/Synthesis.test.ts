@@ -1,8 +1,6 @@
-import { join } from "path";
-
 import { Journal } from "../../../main/Journal";
 
-const directory = join(__dirname, "../../../../src/test/data/events/Synthesis");
+const directory = "src/test/data/events/Synthesis";
 
 describe("Synthesis", () => {
     it("updates Materials object to array", async () => {

@@ -1,8 +1,6 @@
-import { join } from "path";
-
 import { Journal } from "../../../main/Journal";
 
-const directory = join(__dirname, "../../../../src/test/data/events/CarrierStats");
+const directory = "src/test/data/events/CarrierStats";
 
 describe("CarrierStats", () => {
     it("updates old TaxRate to new TaxRate_rearm, TaxRate_refuel and TaxRate_repair", async () => {
