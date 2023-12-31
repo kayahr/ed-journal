@@ -90,10 +90,8 @@
             "type": "string"
         },
         "event": {
+            "const": "Market",
             "description": "The type of event.",
-            "enum": [
-                "Market"
-            ],
             "type": "string"
         },
         "timestamp": {

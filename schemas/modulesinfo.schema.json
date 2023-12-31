@@ -30,10 +30,8 @@
             "type": "array"
         },
         "event": {
+            "const": "ModuleInfo",
             "description": "The type of event.",
-            "enum": [
-                "ModuleInfo"
-            ],
             "type": "string"
         },
         "timestamp": {

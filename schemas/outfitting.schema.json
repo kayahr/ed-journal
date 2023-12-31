@@ -39,10 +39,8 @@
             "type": "string"
         },
         "event": {
+            "const": "Outfitting",
             "description": "The type of event.",
-            "enum": [
-                "Outfitting"
-            ],
             "type": "string"
         },
         "timestamp": {

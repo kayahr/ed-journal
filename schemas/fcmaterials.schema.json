@@ -47,10 +47,8 @@
             "type": "number"
         },
         "event": {
+            "const": "FCMaterials",
             "description": "The type of event.",
-            "enum": [
-                "FCMaterials"
-            ],
             "type": "string"
         },
         "timestamp": {

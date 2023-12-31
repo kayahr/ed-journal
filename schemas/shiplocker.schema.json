@@ -56,10 +56,8 @@
             "type": "array"
         },
         "event": {
+            "const": "ShipLocker",
             "description": "The type of event.",
-            "enum": [
-                "ShipLocker"
-            ],
             "type": "string"
         },
         "timestamp": {

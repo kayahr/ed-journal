@@ -742,10 +742,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "AfmuRepairs",
                     "description": "The type of event.",
-                    "enum": [
-                        "AfmuRepairs"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -769,10 +767,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "AppliedToSquadron",
                     "description": "The type of event.",
-                    "enum": [
-                        "AppliedToSquadron"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -804,10 +800,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "ApproachBody",
                     "description": "The type of event.",
-                    "enum": [
-                        "ApproachBody"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -853,10 +847,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "ApproachSettlement",
                     "description": "The type of event.",
-                    "enum": [
-                        "ApproachSettlement"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -880,10 +872,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "AsteroidCracked",
                     "description": "The type of event.",
-                    "enum": [
-                        "AsteroidCracked"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -926,10 +916,8 @@
                     "type": "array"
                 },
                 "event": {
+                    "const": "Backpack",
                     "description": "The type of event.",
-                    "enum": [
-                        "Backpack"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -959,10 +947,8 @@
                     "type": "array"
                 },
                 "event": {
+                    "const": "BackpackChange",
                     "description": "The type of event.",
-                    "enum": [
-                        "BackpackChange"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -1015,10 +1001,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "BookDropship",
                     "description": "The type of event.",
-                    "enum": [
-                        "BookDropship"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -1052,10 +1036,8 @@
                     "type": "boolean"
                 },
                 "event": {
+                    "const": "BookTaxi",
                     "description": "The type of event.",
-                    "enum": [
-                        "BookTaxi"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -1129,10 +1111,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "Bounty",
                     "description": "The type of event.",
-                    "enum": [
-                        "Bounty"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -1154,10 +1134,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "BuyAmmo",
                     "description": "The type of event.",
-                    "enum": [
-                        "BuyAmmo"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -1188,10 +1166,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "BuyDrones",
                     "description": "The type of event.",
-                    "enum": [
-                        "BuyDrones"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -1220,10 +1196,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "BuyExplorationData",
                     "description": "The type of event.",
-                    "enum": [
-                        "BuyExplorationData"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -1261,10 +1235,8 @@
                     "type": "array"
                 },
                 "event": {
+                    "const": "BuySuit",
                     "description": "The type of event.",
-                    "enum": [
-                        "BuySuit"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -1292,10 +1264,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "BuyTradeData",
                     "description": "The type of event.",
-                    "enum": [
-                        "BuyTradeData"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -1336,10 +1306,8 @@
                     "type": "array"
                 },
                 "event": {
+                    "const": "BuyWeapon",
                     "description": "The type of event.",
-                    "enum": [
-                        "BuyWeapon"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -1364,10 +1332,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "CancelDropship",
                     "description": "The type of event.",
-                    "enum": [
-                        "CancelDropship"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -1403,10 +1369,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "CapShipBond",
                     "description": "The type of event.",
-                    "enum": [
-                        "CapShipBond"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -1474,10 +1438,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "Cargo",
                     "description": "The type of event.",
-                    "enum": [
-                        "Cargo"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -1528,10 +1490,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "CargoDepot",
                     "description": "The type of event.",
-                    "enum": [
-                        "CargoDepot"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -1583,10 +1543,8 @@
                     "type": "array"
                 },
                 "event": {
+                    "const": "CargoTransfer",
                     "description": "The type of event.",
-                    "enum": [
-                        "CargoTransfer"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -1620,10 +1578,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "CarrierBankTransfer",
                     "description": "The type of event.",
-                    "enum": [
-                        "CarrierBankTransfer"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -1665,10 +1621,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "CarrierBuy",
                     "description": "The type of event.",
-                    "enum": [
-                        "CarrierBuy"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -1705,10 +1659,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "CarrierCrewServices",
                     "description": "The type of event.",
-                    "enum": [
-                        "CarrierCrewServices"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -1739,10 +1691,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "CarrierDepositFuel",
                     "description": "The type of event.",
-                    "enum": [
-                        "CarrierDepositFuel"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -1772,10 +1722,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "CarrierDockingPermission",
                     "description": "The type of event.",
-                    "enum": [
-                        "CarrierDockingPermission"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -1824,10 +1772,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "CarrierFinance",
                     "description": "The type of event.",
-                    "enum": [
-                        "CarrierFinance"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -2138,10 +2084,8 @@
                     "type": "boolean"
                 },
                 "event": {
+                    "const": "CarrierJump",
                     "description": "The type of event.",
-                    "enum": [
-                        "CarrierJump"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -2188,10 +2132,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "CarrierJumpCancelled",
                     "description": "The type of event.",
-                    "enum": [
-                        "CarrierJumpCancelled"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -2228,10 +2170,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "CarrierJumpRequest",
                     "description": "The type of event.",
-                    "enum": [
-                        "CarrierJumpRequest"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -2262,10 +2202,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "CarrierNameChange",
                     "description": "The type of event.",
-                    "enum": [
-                        "CarrierNameChange"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -2418,10 +2356,8 @@
                     "type": "object"
                 },
                 "event": {
+                    "const": "CarrierStats",
                     "description": "The type of event.",
-                    "enum": [
-                        "CarrierStats"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -2477,10 +2413,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "CarrierTradeOrder",
                     "description": "The type of event.",
-                    "enum": [
-                        "CarrierTradeOrder"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -2504,10 +2438,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "ChangeCrewRole",
                     "description": "The type of event.",
-                    "enum": [
-                        "ChangeCrewRole"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -2565,10 +2497,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "ClearSavedGame",
                     "description": "The type of event.",
-                    "enum": [
-                        "ClearSavedGame"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -2587,10 +2517,8 @@
             "additionalProperties": false,
             "properties": {
                 "event": {
+                    "const": "CockpitBreached",
                     "description": "The type of event.",
-                    "enum": [
-                        "CockpitBreached"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -2673,10 +2601,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "CodexEntry",
                     "description": "The type of event.",
-                    "enum": [
-                        "CodexEntry"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -2717,10 +2643,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "CollectCargo",
                     "description": "The type of event.",
-                    "enum": [
-                        "CollectCargo"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -2758,10 +2682,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "CollectItems",
                     "description": "The type of event.",
-                    "enum": [
-                        "CollectItems"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -2793,10 +2715,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "Commander",
                     "description": "The type of event.",
-                    "enum": [
-                        "Commander"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -2833,10 +2753,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "CommitCrime",
                     "description": "The type of event.",
-                    "enum": [
-                        "CommitCrime"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -2937,10 +2855,8 @@
                     "type": "array"
                 },
                 "event": {
+                    "const": "CommunityGoal",
                     "description": "The type of event.",
-                    "enum": [
-                        "CommunityGoal"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -2968,10 +2884,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "CommunityGoalDiscard",
                     "description": "The type of event.",
-                    "enum": [
-                        "CommunityGoalDiscard"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -3000,10 +2914,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "CommunityGoalJoin",
                     "description": "The type of event.",
-                    "enum": [
-                        "CommunityGoalJoin"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -3035,10 +2947,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "CommunityGoalReward",
                     "description": "The type of event.",
-                    "enum": [
-                        "CommunityGoalReward"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -3083,10 +2993,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "Continued",
                     "description": "The type of event.",
-                    "enum": [
-                        "Continued"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -3162,10 +3070,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "CreateSuitLoadout",
                     "description": "The type of event.",
-                    "enum": [
-                        "CreateSuitLoadout"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -3198,10 +3104,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "CrewAssign",
                     "description": "The type of event.",
-                    "enum": [
-                        "CrewAssign"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -3227,10 +3131,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "CrewFire",
                     "description": "The type of event.",
-                    "enum": [
-                        "CrewFire"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -3264,10 +3166,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "CrewHire",
                     "description": "The type of event.",
-                    "enum": [
-                        "CrewHire"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -3292,10 +3192,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "CrewLaunchFighter",
                     "description": "The type of event.",
-                    "enum": [
-                        "CrewLaunchFighter"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -3317,10 +3215,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "CrewMemberJoins",
                     "description": "The type of event.",
-                    "enum": [
-                        "CrewMemberJoins"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -3342,10 +3238,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "CrewMemberQuits",
                     "description": "The type of event.",
-                    "enum": [
-                        "CrewMemberQuits"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -3370,10 +3264,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "CrewMemberRoleChange",
                     "description": "The type of event.",
-                    "enum": [
-                        "CrewMemberRoleChange"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -3405,10 +3297,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "CrimeVictim",
                     "description": "The type of event.",
-                    "enum": [
-                        "CrimeVictim"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -3434,10 +3324,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "DataScanned",
                     "description": "The type of event.",
-                    "enum": [
-                        "DataScanned"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -3462,10 +3350,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "DatalinkScan",
                     "description": "The type of event.",
-                    "enum": [
-                        "DatalinkScan"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -3493,10 +3379,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "DatalinkVoucher",
                     "description": "The type of event.",
-                    "enum": [
-                        "DatalinkVoucher"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -3532,10 +3416,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "DeleteSuitLoadout",
                     "description": "The type of event.",
-                    "enum": [
-                        "DeleteSuitLoadout"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -3571,10 +3453,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "Died",
                     "description": "The type of event.",
-                    "enum": [
-                        "Died"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -3600,10 +3480,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "DiscoveryScan",
                     "description": "The type of event.",
-                    "enum": [
-                        "DiscoveryScan"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -3662,10 +3540,8 @@
                     "type": "boolean"
                 },
                 "event": {
+                    "const": "Disembark",
                     "description": "The type of event.",
-                    "enum": [
-                        "Disembark"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -3695,10 +3571,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "DockFighter",
                     "description": "The type of event.",
-                    "enum": [
-                        "DockFighter"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -3725,10 +3599,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "DockSRV",
                     "description": "The type of event.",
-                    "enum": [
-                        "DockSRV"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -3876,10 +3748,8 @@
                     "type": "boolean"
                 },
                 "event": {
+                    "const": "Docked",
                     "description": "The type of event.",
-                    "enum": [
-                        "Docked"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -3908,10 +3778,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "DockingCancelled",
                     "description": "The type of event.",
-                    "enum": [
-                        "DockingCancelled"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -3942,10 +3810,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "DockingDenied",
                     "description": "The type of event.",
-                    "enum": [
-                        "DockingDenied"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -3978,10 +3844,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "DockingGranted",
                     "description": "The type of event.",
-                    "enum": [
-                        "DockingGranted"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -4031,10 +3895,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "DockingRequested",
                     "description": "The type of event.",
-                    "enum": [
-                        "DockingRequested"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -4063,10 +3925,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "DockingTimeout",
                     "description": "The type of event.",
-                    "enum": [
-                        "DockingTimeout"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -4097,10 +3957,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "DropItems",
                     "description": "The type of event.",
-                    "enum": [
-                        "DropItems"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -4140,10 +3998,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "DropshipDeploy",
                     "description": "The type of event.",
-                    "enum": [
-                        "DropshipDeploy"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -4179,10 +4035,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "EjectCargo",
                     "description": "The type of event.",
-                    "enum": [
-                        "EjectCargo"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -4261,10 +4115,8 @@
                     "type": "boolean"
                 },
                 "event": {
+                    "const": "Embark",
                     "description": "The type of event.",
-                    "enum": [
-                        "Embark"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -4294,10 +4146,8 @@
                     "type": "boolean"
                 },
                 "event": {
+                    "const": "EndCrewSession",
                     "description": "The type of event.",
-                    "enum": [
-                        "EndCrewSession"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -4329,10 +4179,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "EngineerApply",
                     "description": "The type of event.",
-                    "enum": [
-                        "EngineerApply"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -4383,10 +4231,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "EngineerContribution",
                     "description": "The type of event.",
-                    "enum": [
-                        "EngineerContribution"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -4496,10 +4342,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "EngineerCraft",
                     "description": "The type of event.",
-                    "enum": [
-                        "EngineerCraft"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -4589,10 +4433,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "EngineerLegacyConvert",
                     "description": "The type of event.",
-                    "enum": [
-                        "EngineerLegacyConvert"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -4654,10 +4496,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "EngineerProgress",
                     "description": "The type of event.",
-                    "enum": [
-                        "EngineerProgress"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -4687,10 +4527,8 @@
                     "type": "boolean"
                 },
                 "event": {
+                    "const": "EscapeInterdiction",
                     "description": "The type of event.",
-                    "enum": [
-                        "EscapeInterdiction"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -4720,10 +4558,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "FCMaterials",
                     "description": "The type of event.",
-                    "enum": [
-                        "FCMaterials"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -4992,10 +4828,8 @@
                     "type": "boolean"
                 },
                 "event": {
+                    "const": "FSDJump",
                     "description": "The type of event.",
-                    "enum": [
-                        "FSDJump"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5035,10 +4869,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "FSDTarget",
                     "description": "The type of event.",
-                    "enum": [
-                        "FSDTarget"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5068,10 +4900,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "FSSAllBodiesFound",
                     "description": "The type of event.",
-                    "enum": [
-                        "FSSAllBodiesFound"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5124,10 +4954,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "FSSBodySignals",
                     "description": "The type of event.",
-                    "enum": [
-                        "FSSBodySignals"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5168,10 +4996,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "FSSDiscoveryScan",
                     "description": "The type of event.",
-                    "enum": [
-                        "FSSDiscoveryScan"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5234,10 +5060,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "FSSSignalDiscovered",
                     "description": "The type of event.",
-                    "enum": [
-                        "FSSSignalDiscovered"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5273,10 +5097,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "FactionKillBond",
                     "description": "The type of event.",
-                    "enum": [
-                        "FactionKillBond"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5321,10 +5143,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "FetchRemoteModule",
                     "description": "The type of event.",
-                    "enum": [
-                        "FetchRemoteModule"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5352,10 +5172,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "FighterDestroyed",
                     "description": "The type of event.",
-                    "enum": [
-                        "FighterDestroyed"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5379,10 +5197,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "FighterRebuilt",
                     "description": "The type of event.",
-                    "enum": [
-                        "FighterRebuilt"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5410,10 +5226,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "Fileheader",
                     "description": "The type of event.",
-                    "enum": [
-                        "Fileheader"
-                    ],
                     "type": "string"
                 },
                 "gameversion": {
@@ -5453,10 +5267,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "Friends",
                     "description": "The type of event.",
-                    "enum": [
-                        "Friends"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5482,10 +5294,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "FuelScoop",
                     "description": "The type of event.",
-                    "enum": [
-                        "FuelScoop"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5506,10 +5316,8 @@
             "description": "When taking damage due to overheating.",
             "properties": {
                 "event": {
+                    "const": "HeatDamage",
                     "description": "The type of event.",
-                    "enum": [
-                        "HeatDamage"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5528,10 +5336,8 @@
             "description": "Written when heat exceeds 100%.",
             "properties": {
                 "event": {
+                    "const": "HeatWarning",
                     "description": "The type of event.",
-                    "enum": [
-                        "HeatWarning"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5561,10 +5367,8 @@
                     "type": "boolean"
                 },
                 "event": {
+                    "const": "HullDamage",
                     "description": "The type of event.",
-                    "enum": [
-                        "HullDamage"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5611,10 +5415,8 @@
                     "type": "boolean"
                 },
                 "event": {
+                    "const": "Interdicted",
                     "description": "The type of event.",
-                    "enum": [
-                        "Interdicted"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5660,10 +5462,8 @@
                     "type": "boolean"
                 },
                 "event": {
+                    "const": "Interdiction",
                     "description": "The type of event.",
-                    "enum": [
-                        "Interdiction"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5686,10 +5486,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "InvitedToSquadron",
                     "description": "The type of event.",
-                    "enum": [
-                        "InvitedToSquadron"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5711,10 +5509,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "JetConeBoost",
                     "description": "The type of event.",
-                    "enum": [
-                        "JetConeBoost"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5739,10 +5535,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "JetConeDamage",
                     "description": "The type of event.",
-                    "enum": [
-                        "JetConeDamage"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5764,10 +5558,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "JoinACrew",
                     "description": "The type of event.",
-                    "enum": [
-                        "JoinACrew"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5789,10 +5581,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "JoinedSquadron",
                     "description": "The type of event.",
-                    "enum": [
-                        "JoinedSquadron"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5825,10 +5615,8 @@
                     "type": "boolean"
                 },
                 "event": {
+                    "const": "KickCrewMember",
                     "description": "The type of event.",
-                    "enum": [
-                        "KickCrewMember"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5851,10 +5639,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "LaunchDrone",
                     "description": "The type of event.",
-                    "enum": [
-                        "LaunchDrone"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5882,10 +5668,8 @@
                     "type": "boolean"
                 },
                 "event": {
+                    "const": "LaunchFighter",
                     "description": "The type of event.",
-                    "enum": [
-                        "LaunchFighter"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5920,10 +5704,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "LaunchSRV",
                     "description": "The type of event.",
-                    "enum": [
-                        "LaunchSRV"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5956,10 +5738,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "LeaveBody",
                     "description": "The type of event.",
-                    "enum": [
-                        "LeaveBody"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -5984,10 +5764,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "LeftSquadron",
                     "description": "The type of event.",
-                    "enum": [
-                        "LeftSquadron"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -6047,10 +5825,8 @@
                     "type": "boolean"
                 },
                 "event": {
+                    "const": "Liftoff",
                     "description": "The type of event.",
-                    "enum": [
-                        "Liftoff"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -6145,10 +5921,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "LoadGame",
                     "description": "The type of event.",
-                    "enum": [
-                        "LoadGame"
-                    ],
                     "type": "string"
                 },
                 "gameversion": {
@@ -6371,10 +6145,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "Loadout",
                     "description": "The type of event.",
-                    "enum": [
-                        "Loadout"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -6433,10 +6205,8 @@
                     "type": "array"
                 },
                 "event": {
+                    "const": "LoadoutEquipModule",
                     "description": "The type of event.",
-                    "enum": [
-                        "LoadoutEquipModule"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -6785,10 +6555,8 @@
                     "type": "boolean"
                 },
                 "event": {
+                    "const": "Location",
                     "description": "The type of event.",
-                    "enum": [
-                        "Location"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -6830,10 +6598,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "Market",
                     "description": "The type of event.",
-                    "enum": [
-                        "Market"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -6872,10 +6638,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "MarketBuy",
                     "description": "The type of event.",
-                    "enum": [
-                        "MarketBuy"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -6927,10 +6691,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "MarketSell",
                     "description": "The type of event.",
-                    "enum": [
-                        "MarketSell"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -6996,10 +6758,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "MassModuleStore",
                     "description": "The type of event.",
-                    "enum": [
-                        "MassModuleStore"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -7059,10 +6819,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "MaterialCollected",
                     "description": "The type of event.",
-                    "enum": [
-                        "MaterialCollected"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -7093,10 +6851,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "MaterialDiscarded",
                     "description": "The type of event.",
-                    "enum": [
-                        "MaterialDiscarded"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -7130,10 +6886,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "MaterialDiscovered",
                     "description": "The type of event.",
-                    "enum": [
-                        "MaterialDiscovered"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -7212,10 +6966,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "MaterialTrade",
                     "description": "The type of event.",
-                    "enum": [
-                        "MaterialTrade"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -7259,10 +7011,8 @@
                     "type": "array"
                 },
                 "event": {
+                    "const": "Materials",
                     "description": "The type of event.",
-                    "enum": [
-                        "Materials"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -7289,10 +7039,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "MiningRefined",
                     "description": "The type of event.",
-                    "enum": [
-                        "MiningRefined"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -7346,10 +7094,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "MissionAbandoned",
                     "description": "The type of event.",
-                    "enum": [
-                        "MissionAbandoned"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -7448,10 +7194,8 @@
                     "type": "boolean"
                 },
                 "event": {
+                    "const": "MissionAccepted",
                     "description": "The type of event.",
-                    "enum": [
-                        "MissionAccepted"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -7661,10 +7405,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "MissionCompleted",
                     "description": "The type of event.",
-                    "enum": [
-                        "MissionCompleted"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -7694,10 +7436,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "MissionFailed",
                     "description": "The type of event.",
-                    "enum": [
-                        "MissionFailed"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -7735,10 +7475,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "MissionRedirected",
                     "description": "The type of event.",
-                    "enum": [
-                        "MissionRedirected"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -7784,10 +7522,8 @@
                     "type": "array"
                 },
                 "event": {
+                    "const": "Missions",
                     "description": "The type of event.",
-                    "enum": [
-                        "Missions"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -7844,10 +7580,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "ModuleBuy",
                     "description": "The type of event.",
-                    "enum": [
-                        "ModuleBuy"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -7888,10 +7622,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "ModuleBuyAndStore",
                     "description": "The type of event.",
-                    "enum": [
-                        "ModuleBuyAndStore"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -7913,10 +7645,8 @@
             "additionalProperties": false,
             "properties": {
                 "event": {
+                    "const": "ModuleInfo",
                     "description": "The type of event.",
-                    "enum": [
-                        "ModuleInfo"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -7973,10 +7703,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "ModuleRetrieve",
                     "description": "The type of event.",
-                    "enum": [
-                        "ModuleRetrieve"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8019,10 +7747,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "ModuleSell",
                     "description": "The type of event.",
-                    "enum": [
-                        "ModuleSell"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8066,10 +7792,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "ModuleSellRemote",
                     "description": "The type of event.",
-                    "enum": [
-                        "ModuleSellRemote"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8127,10 +7851,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "ModuleStore",
                     "description": "The type of event.",
-                    "enum": [
-                        "ModuleStore"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8179,10 +7901,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "ModuleSwap",
                     "description": "The type of event.",
-                    "enum": [
-                        "ModuleSwap"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8238,10 +7958,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "MultiSellExplorationData",
                     "description": "The type of event.",
-                    "enum": [
-                        "MultiSellExplorationData"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8265,10 +7983,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "Music",
                     "description": "The type of event.",
-                    "enum": [
-                        "Music"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8294,10 +8010,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "NavBeaconScan",
                     "description": "The type of event.",
-                    "enum": [
-                        "NavBeaconScan"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8317,10 +8031,8 @@
             "description": "When plotting a multi-star route, the file “NavRoute.json” is written in the same directory as the journal, with a\nlist of stars along that route.",
             "properties": {
                 "event": {
+                    "const": "NavRoute",
                     "description": "The type of event.",
-                    "enum": [
-                        "NavRoute"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8339,10 +8051,8 @@
             "description": "When the current plotted nav route is cleared.",
             "properties": {
                 "event": {
+                    "const": "NavRouteClear",
                     "description": "The type of event.",
-                    "enum": [
-                        "NavRouteClear"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8396,10 +8106,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "BuyMicroResources",
                     "description": "The type of event.",
-                    "enum": [
-                        "BuyMicroResources"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8434,10 +8142,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "NewCommander",
                     "description": "The type of event.",
-                    "enum": [
-                        "NewCommander"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8466,10 +8172,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "NpcCrewPaidWage",
                     "description": "The type of event.",
-                    "enum": [
-                        "NpcCrewPaidWage"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8497,10 +8201,8 @@
                 },
                 "RankCombat": {},
                 "event": {
+                    "const": "NpcCrewRank",
                     "description": "The type of event.",
-                    "enum": [
-                        "NpcCrewRank"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8539,10 +8241,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "BuyMicroResources",
                     "description": "The type of event.",
-                    "enum": [
-                        "BuyMicroResources"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8576,10 +8276,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "Outfitting",
                     "description": "The type of event.",
-                    "enum": [
-                        "Outfitting"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8609,10 +8307,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "PVPKill",
                     "description": "The type of event.",
-                    "enum": [
-                        "PVPKill"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8664,10 +8360,8 @@
                     "type": "array"
                 },
                 "event": {
+                    "const": "Passengers",
                     "description": "The type of event.",
-                    "enum": [
-                        "Passengers"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8704,10 +8398,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "PayBounties",
                     "description": "The type of event.",
-                    "enum": [
-                        "PayBounties"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8746,10 +8438,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "PayFines",
                     "description": "The type of event.",
-                    "enum": [
-                        "PayFines"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8774,10 +8464,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "PayLegacyFines",
                     "description": "The type of event.",
-                    "enum": [
-                        "PayLegacyFines"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8814,10 +8502,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "Powerplay",
                     "description": "The type of event.",
-                    "enum": [
-                        "Powerplay"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8852,10 +8538,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "PowerplayCollect",
                     "description": "The type of event.",
-                    "enum": [
-                        "PowerplayCollect"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8882,10 +8566,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "PowerplayDefect",
                     "description": "The type of event.",
-                    "enum": [
-                        "PowerplayDefect"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8917,10 +8599,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "PowerplayDeliver",
                     "description": "The type of event.",
-                    "enum": [
-                        "PowerplayDeliver"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8947,10 +8627,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "PowerplayFastTrack",
                     "description": "The type of event.",
-                    "enum": [
-                        "PowerplayFastTrack"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8973,10 +8651,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "PowerplayJoin",
                     "description": "The type of event.",
-                    "enum": [
-                        "PowerplayJoin"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -8998,10 +8674,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "PowerplayLeave",
                     "description": "The type of event.",
-                    "enum": [
-                        "PowerplayLeave"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -9026,10 +8700,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "PowerplaySalary",
                     "description": "The type of event.",
-                    "enum": [
-                        "PowerplaySalary"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -9058,10 +8730,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "PowerplayVote",
                     "description": "The type of event.",
-                    "enum": [
-                        "PowerplayVote"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -9091,10 +8761,8 @@
                     "type": "array"
                 },
                 "event": {
+                    "const": "PowerplayVoucher",
                     "description": "The type of event.",
-                    "enum": [
-                        "PowerplayVoucher"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -9147,10 +8815,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "Progress",
                     "description": "The type of event.",
-                    "enum": [
-                        "Progress"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -9198,10 +8864,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "Promotion",
                     "description": "The type of event.",
-                    "enum": [
-                        "Promotion"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -9256,10 +8920,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "ProspectedAsteroid",
                     "description": "The type of event.",
-                    "enum": [
-                        "ProspectedAsteroid"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -9284,10 +8946,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "QuitACrew",
                     "description": "The type of event.",
-                    "enum": [
-                        "QuitACrew"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -9331,10 +8991,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "Rank",
                     "description": "The type of event.",
-                    "enum": [
-                        "Rank"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -9364,10 +9022,8 @@
                     "type": "array"
                 },
                 "event": {
+                    "const": "RebootRepair",
                     "description": "The type of event.",
-                    "enum": [
-                        "RebootRepair"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -9401,10 +9057,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "ReceiveText",
                     "description": "The type of event.",
-                    "enum": [
-                        "ReceiveText"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -9456,10 +9110,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "RedeemVoucher",
                     "description": "The type of event.",
-                    "enum": [
-                        "RedeemVoucher"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -9485,10 +9137,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "RefuelAll",
                     "description": "The type of event.",
-                    "enum": [
-                        "RefuelAll"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -9514,10 +9164,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "RefuelPartial",
                     "description": "The type of event.",
-                    "enum": [
-                        "RefuelPartial"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -9552,10 +9200,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "RenameSuitLoadout",
                     "description": "The type of event.",
-                    "enum": [
-                        "RenameSuitLoadout"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -9593,10 +9239,8 @@
                     "type": "array"
                 },
                 "event": {
+                    "const": "Repair",
                     "description": "The type of event.",
-                    "enum": [
-                        "Repair"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -9618,10 +9262,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "RepairAll",
                     "description": "The type of event.",
-                    "enum": [
-                        "RepairAll"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -9649,10 +9291,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "RepairDrone",
                     "description": "The type of event.",
-                    "enum": [
-                        "RepairDrone"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -9684,10 +9324,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "Reputation",
                     "description": "The type of event.",
-                    "enum": [
-                        "Reputation"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -9711,10 +9349,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "ReservoirReplenished",
                     "description": "The type of event.",
-                    "enum": [
-                        "ReservoirReplenished"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -9752,10 +9388,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "RestockVehicle",
                     "description": "The type of event.",
-                    "enum": [
-                        "RestockVehicle"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -9777,10 +9411,8 @@
             "additionalProperties": false,
             "properties": {
                 "event": {
+                    "const": "Resupply",
                     "description": "The type of event.",
-                    "enum": [
-                        "Resupply"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -9807,10 +9439,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "Resurrect",
                     "description": "The type of event.",
-                    "enum": [
-                        "Resurrect"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -9847,10 +9477,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "SAAScanComplete",
                     "description": "The type of event.",
-                    "enum": [
-                        "SAAScanComplete"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -9923,10 +9551,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "SAASignalsFound",
                     "description": "The type of event.",
-                    "enum": [
-                        "SAASignalsFound"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -9958,10 +9584,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "SRVDestroyed",
                     "description": "The type of event.",
-                    "enum": [
-                        "SRVDestroyed"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -10212,10 +9836,8 @@
                     "type": "boolean"
                 },
                 "event": {
+                    "const": "Scan",
                     "description": "The type of event.",
-                    "enum": [
-                        "Scan"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -10266,10 +9888,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "ScanBaryCentre",
                     "description": "The type of event.",
-                    "enum": [
-                        "ScanBaryCentre"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -10318,10 +9938,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "ScanOrganic",
                     "description": "The type of event.",
-                    "enum": [
-                        "ScanOrganic"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -10349,10 +9967,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "Scanned",
                     "description": "The type of event.",
-                    "enum": [
-                        "Scanned"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -10386,10 +10002,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "ScientificResearch",
                     "description": "The type of event.",
-                    "enum": [
-                        "ScientificResearch"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -10443,10 +10057,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "Screenshot",
                     "description": "The type of event.",
-                    "enum": [
-                        "Screenshot"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -10482,10 +10094,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "SearchAndRescue",
                     "description": "The type of event.",
-                    "enum": [
-                        "SearchAndRescue"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -10506,10 +10116,8 @@
             "additionalProperties": false,
             "properties": {
                 "event": {
+                    "const": "SelfDestruct",
                     "description": "The type of event.",
-                    "enum": [
-                        "SelfDestruct"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -10539,10 +10147,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "SellDrones",
                     "description": "The type of event.",
-                    "enum": [
-                        "SellDrones"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -10591,10 +10197,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "SellExplorationData",
                     "description": "The type of event.",
-                    "enum": [
-                        "SellExplorationData"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -10651,10 +10255,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "SellMicroResources",
                     "description": "The type of event.",
-                    "enum": [
-                        "SellMicroResources"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -10714,10 +10316,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "SellOrganicData",
                     "description": "The type of event.",
-                    "enum": [
-                        "SellOrganicData"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -10750,10 +10350,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "SellShipOnRebuy",
                     "description": "The type of event.",
-                    "enum": [
-                        "SellShipOnRebuy"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -10793,10 +10391,8 @@
                     "type": "array"
                 },
                 "event": {
+                    "const": "SellSuit",
                     "description": "The type of event.",
-                    "enum": [
-                        "SellSuit"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -10839,10 +10435,8 @@
                     "type": "array"
                 },
                 "event": {
+                    "const": "SellWeapon",
                     "description": "The type of event.",
-                    "enum": [
-                        "SellWeapon"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -10876,10 +10470,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "SendText",
                     "description": "The type of event.",
-                    "enum": [
-                        "SendText"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -10911,10 +10503,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "SetUserShipName",
                     "description": "The type of event.",
-                    "enum": [
-                        "SetUserShipName"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -10941,10 +10531,8 @@
                     "type": "boolean"
                 },
                 "event": {
+                    "const": "ShieldState",
                     "description": "The type of event.",
-                    "enum": [
-                        "ShieldState"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -10988,10 +10576,8 @@
                     "type": "array"
                 },
                 "event": {
+                    "const": "ShipLocker",
                     "description": "The type of event.",
-                    "enum": [
-                        "ShipLocker"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -11089,10 +10675,8 @@
                     "type": "boolean"
                 },
                 "event": {
+                    "const": "ShipTargeted",
                     "description": "The type of event.",
-                    "enum": [
-                        "ShipTargeted"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -11121,10 +10705,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "Shipyard",
                     "description": "The type of event.",
-                    "enum": [
-                        "Shipyard"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -11173,10 +10755,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "ShipyardBuy",
                     "description": "The type of event.",
-                    "enum": [
-                        "ShipyardBuy"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -11205,10 +10785,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "ShipyardNew",
                     "description": "The type of event.",
-                    "enum": [
-                        "ShipyardNew"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -11249,10 +10827,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "ShipyardSell",
                     "description": "The type of event.",
-                    "enum": [
-                        "ShipyardSell"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -11298,10 +10874,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "ShipyardSwap",
                     "description": "The type of event.",
-                    "enum": [
-                        "ShipyardSwap"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -11348,10 +10922,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "ShipyardTransfer",
                     "description": "The type of event.",
-                    "enum": [
-                        "ShipyardTransfer"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -11374,10 +10946,8 @@
             "additionalProperties": false,
             "properties": {
                 "event": {
+                    "const": "Shutdown",
                     "description": "The type of event.",
-                    "enum": [
-                        "Shutdown"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -11401,10 +10971,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "SquadronStartup",
                     "description": "The type of event.",
-                    "enum": [
-                        "SquadronStartup"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -11440,10 +11008,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "StartJump",
                     "description": "The type of event.",
-                    "enum": [
-                        "StartJump"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -12215,10 +11781,8 @@
                     "type": "object"
                 },
                 "event": {
+                    "const": "Statistics",
                     "description": "The type of event.",
-                    "enum": [
-                        "Statistics"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -12309,10 +11873,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "StoredModules",
                     "description": "The type of event.",
-                    "enum": [
-                        "StoredModules"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -12424,10 +11986,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "StoredShips",
                     "description": "The type of event.",
-                    "enum": [
-                        "StoredShips"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -12507,10 +12067,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "SuitLoadout",
                     "description": "The type of event.",
-                    "enum": [
-                        "SuitLoadout"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -12547,10 +12105,8 @@
                     "type": "boolean"
                 },
                 "event": {
+                    "const": "SupercruiseEntry",
                     "description": "The type of event.",
-                    "enum": [
-                        "SupercruiseEntry"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -12591,10 +12147,8 @@
                     "type": "boolean"
                 },
                 "event": {
+                    "const": "SupercruiseExit",
                     "description": "The type of event.",
-                    "enum": [
-                        "SupercruiseExit"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -12672,10 +12226,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "SwitchSuitLoadout",
                     "description": "The type of event.",
-                    "enum": [
-                        "SwitchSuitLoadout"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -12726,10 +12278,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "Synthesis",
                     "description": "The type of event.",
-                    "enum": [
-                        "Synthesis"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -12749,10 +12299,8 @@
             "additionalProperties": false,
             "properties": {
                 "event": {
+                    "const": "SystemsShutdown",
                     "description": "The type of event.",
-                    "enum": [
-                        "SystemsShutdown"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -12842,10 +12390,8 @@
                     "type": "array"
                 },
                 "event": {
+                    "const": "TechnologyBroker",
                     "description": "The type of event.",
-                    "enum": [
-                        "TechnologyBroker"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -12910,10 +12456,8 @@
                     "type": "boolean"
                 },
                 "event": {
+                    "const": "Touchdown",
                     "description": "The type of event.",
-                    "enum": [
-                        "Touchdown"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -12975,10 +12519,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "TradeMicroResources",
                     "description": "The type of event.",
-                    "enum": [
-                        "TradeMicroResources"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -13040,10 +12582,8 @@
                     "type": "array"
                 },
                 "event": {
+                    "const": "TransferMicroResources",
                     "description": "The type of event.",
-                    "enum": [
-                        "TransferMicroResources"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -13071,10 +12611,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "USSDrop",
                     "description": "The type of event.",
-                    "enum": [
-                        "USSDrop"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -13103,10 +12641,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "UnderAttack",
                     "description": "The type of event.",
-                    "enum": [
-                        "UnderAttack"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -13140,10 +12676,8 @@
                     "type": "boolean"
                 },
                 "event": {
+                    "const": "Undocked",
                     "description": "The type of event.",
-                    "enum": [
-                        "Undocked"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -13177,10 +12711,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "UpgradeSuit",
                     "description": "The type of event.",
-                    "enum": [
-                        "UpgradeSuit"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -13218,10 +12750,8 @@
                     "type": "number"
                 },
                 "event": {
+                    "const": "UpgradeWeapon",
                     "description": "The type of event.",
-                    "enum": [
-                        "UpgradeWeapon"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -13253,10 +12783,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "UseConsumable",
                     "description": "The type of event.",
-                    "enum": [
-                        "UseConsumable"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -13280,10 +12808,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "VehicleSwitch",
                     "description": "The type of event.",
-                    "enum": [
-                        "VehicleSwitch"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -13304,10 +12830,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "WingAdd",
                     "description": "The type of event.",
-                    "enum": [
-                        "WingAdd"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -13329,10 +12853,8 @@
                     "type": "string"
                 },
                 "event": {
+                    "const": "WingInvite",
                     "description": "The type of event.",
-                    "enum": [
-                        "WingInvite"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -13357,10 +12879,8 @@
                     "type": "array"
                 },
                 "event": {
+                    "const": "WingJoin",
                     "description": "The type of event.",
-                    "enum": [
-                        "WingJoin"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {
@@ -13379,10 +12899,8 @@
             "additionalProperties": false,
             "properties": {
                 "event": {
+                    "const": "WingLeave",
                     "description": "The type of event.",
-                    "enum": [
-                        "WingLeave"
-                    ],
                     "type": "string"
                 },
                 "timestamp": {

@@ -50,10 +50,8 @@
             "type": "string"
         },
         "event": {
+            "const": "Cargo",
             "description": "The type of event.",
-            "enum": [
-                "Cargo"
-            ],
             "type": "string"
         },
         "timestamp": {

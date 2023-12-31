@@ -156,10 +156,8 @@
             "type": "number"
         },
         "event": {
+            "const": "Status",
             "description": "The type of event.",
-            "enum": [
-                "Status"
-            ],
             "type": "string"
         },
         "timestamp": {

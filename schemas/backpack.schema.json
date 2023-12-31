@@ -55,10 +55,8 @@
             "type": "array"
         },
         "event": {
+            "const": "Backpack",
             "description": "The type of event.",
-            "enum": [
-                "Backpack"
-            ],
             "type": "string"
         },
         "timestamp": {
