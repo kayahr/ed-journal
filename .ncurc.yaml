@@ -1,0 +1,2 @@
+reject:
+  - eslint # Plugins are not compatible with v9. Example: https://github.com/typescript-eslint/typescript-eslint/issues/8211
