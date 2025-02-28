@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import { FileHandle, open } from "fs/promises";
+import { FileHandle, open } from "node:fs/promises";
 
 /**
  * Concatenates given byte arrays and returns new byte array.
