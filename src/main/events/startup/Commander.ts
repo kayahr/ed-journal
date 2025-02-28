@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent";
+import type { JournalEvent } from "../../JournalEvent.js";
 
 /**
  * Written at start of the game loading process.

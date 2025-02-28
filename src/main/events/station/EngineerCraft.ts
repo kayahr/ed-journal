@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import { JournalEvent, registerJournalEventUpdate } from "../../JournalEvent";
+import { JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
 
 export interface EngineerCraft extends JournalEvent<"EngineerCraft"> {
     timestamp: string;

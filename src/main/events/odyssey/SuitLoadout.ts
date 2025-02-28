@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent";
+import type { JournalEvent } from "../../JournalEvent.js";
 
 export interface SuitLoadout extends JournalEvent<"SuitLoadout"> {
     SuitID: number;
@@ -19,5 +19,5 @@ export interface SuitLoadout extends JournalEvent<"SuitLoadout"> {
         ModuleName_Localised: string;
         Class?: number;
         WeaponMods?: string[];
-    }>
+    }>;
 }

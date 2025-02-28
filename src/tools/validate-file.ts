@@ -11,28 +11,28 @@
  * 'shipyard' or 'status'
  */
 
-import "source-map-support/register";
+import "source-map-support/register.js";
 
 import { readFile } from "fs/promises";
 import { Schema, Validator } from "jsonschema";
 import { join } from "path";
 
-import { Journal } from "../main/Journal";
-import type { JournalEvent } from "../main/JournalEvent";
+import { Journal } from "../main/Journal.js";
+import type { JournalEvent } from "../main/JournalEvent.js";
 
 const type = (process.argv[2] ?? "status");
 const schemaFile = `${type}.schema.json`;
 const methods: Record<string, () => AsyncGenerator<JournalEvent>> = {
-    "backpack": Journal.prototype.watchBackpack,
-    "cargo": Journal.prototype.watchCargo,
-    "fcmaterials": Journal.prototype.watchFCMaterials,
-    "market": Journal.prototype.watchMarket,
-    "modulesinfo": Journal.prototype.watchModulesInfo,
-    "navroute": Journal.prototype.watchNavRoute,
-    "outfitting": Journal.prototype.watchOutfitting,
-    "shiplocker": Journal.prototype.watchShipLocker,
-    "shipyard": Journal.prototype.watchShipyard,
-    "status": Journal.prototype.watchStatus
+    backpack: Journal.prototype.watchBackpack,
+    cargo: Journal.prototype.watchCargo,
+    fcmaterials: Journal.prototype.watchFCMaterials,
+    market: Journal.prototype.watchMarket,
+    modulesinfo: Journal.prototype.watchModulesInfo,
+    navroute: Journal.prototype.watchNavRoute,
+    outfitting: Journal.prototype.watchOutfitting,
+    shiplocker: Journal.prototype.watchShipLocker,
+    shipyard: Journal.prototype.watchShipyard,
+    status: Journal.prototype.watchStatus
 };
 
 class ValidationError extends Error {

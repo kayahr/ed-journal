@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent";
+import type { JournalEvent } from "../../JournalEvent.js";
 
 export interface BuyDrones extends JournalEvent<"BuyDrones"> {
     BuyPrice: number;

@@ -1,26 +1,27 @@
 name: ci
 on: [push]
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 jobs:
-  build:
+  ci:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [ 18.x, 20.x ]
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: Build
+          node-version: 22.x
+      - name: Build project
         run: npm ci
-      - name: Test
+      - name: Run tests
         run: npm test
-      - name: Build Site
+      - name: Create Site
         run: npm run site
       - name: Deploy Site
-        if: ${{ github.ref == 'refs/heads/main' && matrix.node-version == '20.x' }}
-        uses: JamesIves/github-pages-deploy-action@v4
+        if: github.ref == 'refs/heads/main'
+        uses: kayahr/deploy-github-pages-action@d17ae8bb6c807ba4612792ceefa558be2e061e4c
         with:
-          branch: gh-pages
-          folder: site
+          path: lib/site

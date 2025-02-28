@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent";
+import type { JournalEvent } from "../../JournalEvent.js";
 
 /**
  * Written when liftoff from a landing pad in a station, outpost or settlement.

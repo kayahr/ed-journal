@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent";
+import type { JournalEvent } from "../../JournalEvent.js";
 
 /**
  * Written at startup when loading from main menu, when switching ships, after changing the ship in outfitting or
@@ -32,7 +32,7 @@ export interface Loadout extends JournalEvent<"Loadout"> {
     FuelCapacity?: {
         Main: number;
         Reserve: number;
-    },
+    };
     CargoCapacity?: number;
 
     /** Maximum jump range based on zero cargo, and just enough fuel for 1 jump. */

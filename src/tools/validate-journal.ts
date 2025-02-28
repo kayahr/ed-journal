@@ -9,15 +9,15 @@
  * `position` can be "start", "end" or the name of a specific Journal file to start at.
  */
 
-import "source-map-support/register";
+import "source-map-support/register.js";
 
 import { readFile } from "fs/promises";
 import { Schema, Validator } from "jsonschema";
 import { join } from "path";
 
-import type { AnyJournalEvent } from "../main/AnyJournalEvent";
-import { Journal } from "../main/Journal";
-import type { JournalPosition } from "../main/JournalPosition";
+import type { AnyJournalEvent } from "../main/AnyJournalEvent.js";
+import { Journal } from "../main/Journal.js";
+import type { JournalPosition } from "../main/JournalPosition.js";
 
 let position: JournalPosition | string = process.argv[2] ?? "start";
 if (position !== "start" && position !== "end") {
@@ -40,7 +40,7 @@ class ValidationError extends Error {
         void journal.close();
     });
     let currentFile = "";
-    for await(const event of journal) {
+    for await (const event of journal) {
         const file = journal.getPosition().file;
         if (file !== currentFile) {
             console.log("Validating file:", file);

@@ -3,10 +3,11 @@
  * See LICENSE.md for licensing information.
  */
 
-import { watch as chokidarWatch, WatchOptions } from "chokidar";
-import type { Stats } from "fs";
+import type { Stats } from "node:fs";
 
-import { Notifier } from "./Notifier";
+import { watch as chokidarWatch, WatchOptions } from "chokidar";
+
+import { Notifier } from "./Notifier.js";
 
 /** Path-based watch event type. */
 export interface WatchPathEvent {

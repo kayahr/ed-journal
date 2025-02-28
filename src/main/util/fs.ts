@@ -3,8 +3,8 @@
  * See LICENSE.md for licensing information.
  */
 
-import { constants } from "fs";
-import { access, lstat } from "fs/promises";
+import { constants } from "node:fs";
+import { access, lstat } from "node:fs/promises";
 
 /**
  * Checks if given path is readable.
@@ -16,7 +16,7 @@ export async function isPathReadable(path: string): Promise<boolean> {
     try {
         await access(path, constants.R_OK);
         return true;
-    } catch (e) {
+    } catch {
         return false;
     }
 }

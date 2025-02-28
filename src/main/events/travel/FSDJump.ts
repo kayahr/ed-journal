@@ -3,9 +3,9 @@
  * See LICENSE.md for licensing information.
  */
 
-import { JournalEvent, registerJournalEventUpdate } from "../../JournalEvent";
-import type { ConflictFaction } from "../types/ConflictFaction";
-import type { PowerState } from "../types/PowerState";
+import { JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
+import type { ConflictFaction } from "../types/ConflictFaction.js";
+import type { PowerState } from "../types/PowerState.js";
 
 /**
  * Written when jumping from one star to another.
@@ -36,7 +36,7 @@ export interface FSDJump extends JournalEvent<"FSDJump"> {
     SystemFaction?: {
         Name: string;
         FactionState?: string;
-    }
+    };
 
     SystemAllegiance: string;
     SystemEconomy: string;
@@ -82,7 +82,7 @@ export interface FSDJump extends JournalEvent<"FSDJump"> {
         Status: string;
         Faction1: ConflictFaction;
         Faction2: ConflictFaction;
-    }>
+    }>;
 
     /** Names of any powers contesting the system, or the name of the controlling power. */
     Powers?: string[];

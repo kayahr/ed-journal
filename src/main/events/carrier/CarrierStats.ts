@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import { JournalEvent, registerJournalEventUpdate } from "../../JournalEvent";
+import { JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
 
 export interface CarrierStats extends JournalEvent<"CarrierStats"> {
     CarrierID: number;
@@ -23,7 +23,7 @@ export interface CarrierStats extends JournalEvent<"CarrierStats"> {
         ShipPacks: number;
         ModulePacks: number;
         FreeSpace: number;
-    },
+    };
     Finance: {
         CarrierBalance: number;
         ReserveBalance: number;
@@ -32,13 +32,13 @@ export interface CarrierStats extends JournalEvent<"CarrierStats"> {
         TaxRate_rearm?: number;
         TaxRate_refuel?: number;
         TaxRate_repair?: number;
-    },
+    };
     Crew: Array<{
         CrewRole: string;
         Activated: boolean;
         Enabled?: boolean;
         CrewName?: string;
-    }>,
+    }>;
     ShipPacks: string[];
     ModulePacks: string[];
 }
@@ -47,7 +47,7 @@ interface DeprecatedCarrierStats extends JournalEvent<"CarrierStats"> {
     Finance: {
         /** Splitted into TaxRate_rearm, TaxRate_refuel and TaxRate_repair. */
         TaxRate?: number;
-    }
+    };
 }
 
 registerJournalEventUpdate<DeprecatedCarrierStats, CarrierStats>("CarrierStats", (from, to) => {

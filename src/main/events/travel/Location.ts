@@ -3,10 +3,10 @@
  * See LICENSE.md for licensing information.
  */
 
-import { JournalEvent, registerJournalEventUpdate } from "../../JournalEvent";
-import type { ConflictFaction } from "../types/ConflictFaction";
-import type { PowerState } from "../types/PowerState";
-import { correctStationService, StationService } from "../types/StationService";
+import { JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
+import type { ConflictFaction } from "../types/ConflictFaction.js";
+import type { PowerState } from "../types/PowerState.js";
+import { correctStationService, StationService } from "../types/StationService.js";
 
 /**
  * Written at startup or when being resurrected at a station.
@@ -34,7 +34,7 @@ export interface Location extends JournalEvent<"Location"> {
     SystemFaction?: {
         Name: string;
         FactionState?: string;
-    },
+    };
 
     SystemAllegiance: string;
     SystemEconomy: string;
@@ -78,7 +78,7 @@ export interface Location extends JournalEvent<"Location"> {
         Status: string;
         Faction1: ConflictFaction;
         Faction2: ConflictFaction;
-    }>
+    }>;
 
     /** Names of any powers contesting the system, or the name of the controlling power. */
     Powers?: string[];
@@ -89,7 +89,7 @@ export interface Location extends JournalEvent<"Location"> {
     StationFaction?: {
         Name: string;
         FactionState?: string;
-    },
+    };
     StationGovernment?: string;
     StationGovernment_Localised?: string;
     StationAllegiance?: string;

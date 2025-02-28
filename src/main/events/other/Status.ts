@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent";
+import type { JournalEvent } from "../../JournalEvent.js";
 
 /** Valid legal states. */
 export type LegalState =
@@ -61,7 +61,7 @@ export enum Flag {
     ALTITUDE_FROM_AVERAGE_RADIUS = 1 << 29,
 
     FSD_JUMP                     = 1 << 30,
-    SRV_HIGH_BEAM                = 1 << 31,
+    SRV_HIGH_BEAM                = 1 << 31
 }
 
 /** Valid "Flags2" bits. */

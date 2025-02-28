@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent";
+import type { JournalEvent } from "../../JournalEvent.js";
 
 /** Accept some kill missions to verify */
 export interface MissionAccepted extends JournalEvent<"MissionAccepted"> {

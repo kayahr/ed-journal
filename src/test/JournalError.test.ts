@@ -1,4 +1,6 @@
-import { JournalError } from "../main/JournalError";
+import { describe, expect, it } from "vitest";
+
+import { JournalError } from "../main/JournalError.js";
 
 describe("JournalError", () => {
     it("has correct name", () => {

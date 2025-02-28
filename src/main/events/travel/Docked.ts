@@ -3,8 +3,8 @@
  * See LICENSE.md for licensing information.
  */
 
-import { JournalEvent, registerJournalEventUpdate } from "../../JournalEvent";
-import { correctStationService, StationService } from "../types/StationService";
+import { JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
+import { correctStationService, StationService } from "../types/StationService.js";
 
 /**
  * Written when landing at landing pad in a space station, output, or surface settlement.
@@ -61,8 +61,8 @@ export interface Docked extends JournalEvent<"Docked"> {
     LandingPads?: {
         Small: number;
         Medium: number;
-        Large: number
-    }
+        Large: number;
+    };
 
     Taxi?: boolean;
     Multicrew?: boolean;

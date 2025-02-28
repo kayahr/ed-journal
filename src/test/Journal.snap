@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Journal can watch new journal events only 1`] = `
+exports[`Journal > can watch new journal events only 1`] = `
 [
   {
     "Part": 2,
@@ -14,7 +14,7 @@ exports[`Journal can watch new journal events only 1`] = `
 ]
 `;
 
-exports[`Journal reads a journal in chronological order 1`] = `
+exports[`Journal > reads a journal in chronological order 1`] = `
 [
   {
     "Odyssey": true,
@@ -71,7 +71,7 @@ exports[`Journal reads a journal in chronological order 1`] = `
 ]
 `;
 
-exports[`Journal reads a journal starting at given position 1`] = `
+exports[`Journal > reads a journal starting at given position 1`] = `
 [
   {
     "event": "Shutdown",
@@ -106,7 +106,7 @@ exports[`Journal reads a journal starting at given position 1`] = `
 ]
 `;
 
-exports[`Journal watches a journal in chronological order 1`] = `
+exports[`Journal > watches a journal in chronological order 1`] = `
 [
   {
     "Odyssey": true,
@@ -172,7 +172,7 @@ exports[`Journal watches a journal in chronological order 1`] = `
 ]
 `;
 
-exports[`Journal watches a journal starting at given position 1`] = `
+exports[`Journal > watches a journal starting at given position 1`] = `
 [
   {
     "event": "Shutdown",

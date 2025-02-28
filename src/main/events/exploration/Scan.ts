@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import { JournalEvent, registerJournalEventUpdate } from "../../JournalEvent";
+import { JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
 
 /**
  * Written on basic or detailed discovery scan of a star, planet or moon.

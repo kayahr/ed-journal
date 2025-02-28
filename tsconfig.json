@@ -1,31 +1,29 @@
 {
     "$schema": "http://json.schemastore.org/tsconfig",
+    "compileOnSave": true,
     "compilerOptions": {
-        "target": "ES2021",
-        "lib": [ "ES2021", "DOM" ],
-        "module": "CommonJS",
-        "moduleResolution": "Node",
-        "rootDir": "src",
-        "outDir": "lib",
+        "declaration": true,
+        "forceConsistentCasingInFileNames": true,
+        "lib": [
+            "ES2022",
+            "DOM"
+        ],
+        "module": "NodeNext",
+        "newLine": "lf",
+        "noEmitOnError": false,
+        "noFallthroughCasesInSwitch": true,
         "noImplicitAny": true,
         "noImplicitOverride": true,
         "noImplicitReturns": true,
         "noImplicitThis": true,
-        "sourceMap": true,
-        "declaration": true,
-        "useDefineForClassFields": true,
-        "strict": true,
-        "strictPropertyInitialization": true,
         "noUnusedLocals": true,
         "noUnusedParameters": false,
+        "outDir": "lib",
+        "preserveSymlinks": true,
+        "rootDir": "src",
         "skipLibCheck": true,
-        "importHelpers": true,
-        "preserveSymlinks": true
-    },
-    "exclude": [
-        "lib",
-        "node_modules",
-        "doc",
-        "coverage"
-    ]
+        "sourceMap": true,
+        "strict": true,
+        "target": "ES2022"
+    }
 }

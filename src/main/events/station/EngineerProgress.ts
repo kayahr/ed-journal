@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent";
+import type { JournalEvent } from "../../JournalEvent.js";
 
 export interface EngineerProgress extends JournalEvent<"EngineerProgress"> {
     Engineers?: Array<{
@@ -12,7 +12,7 @@ export interface EngineerProgress extends JournalEvent<"EngineerProgress"> {
         Progress: string;
         RankProgress?: number;
         Rank?: number;
-    }>,
+    }>;
     Engineer?: string;
     EngineerID?: number;
     Progress?: string;

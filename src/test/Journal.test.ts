@@ -2,22 +2,23 @@ import { chmod, mkdir, mkdtemp, open, rm, writeFile } from "fs/promises";
 import { copy } from "fs-extra";
 import { tmpdir } from "os";
 import { join } from "path";
+import { describe, expect, it } from "vitest";
 
-import type { AnyJournalEvent } from "../main/AnyJournalEvent";
-import type { Backpack } from "../main/events/odyssey/Backpack";
-import type { ExtendedFCMaterials } from "../main/events/odyssey/FCMaterials";
-import type { ShipLocker } from "../main/events/odyssey/ShipLocker";
-import type { ExtendedModuleInfo } from "../main/events/other/ModuleInfo";
-import { Flag, Flag2, GuiFocus, Status } from "../main/events/other/Status";
-import type { Cargo } from "../main/events/startup/Cargo";
-import type { ExtendedMarket } from "../main/events/station/Market";
-import type { ExtendedOutfitting } from "../main/events/station/Outfitting";
-import type { ExtendedShipyard } from "../main/events/station/Shipyard";
-import type { ExtendedNavRoute } from "../main/events/travel/NavRoute";
-import { Journal } from "../main/Journal";
-import { JournalError } from "../main/JournalError";
-import type { JournalEvent } from "../main/JournalEvent";
-import { sleep } from "../main/util/async";
+import type { AnyJournalEvent } from "../main/AnyJournalEvent.js";
+import type { Backpack } from "../main/events/odyssey/Backpack.js";
+import type { ExtendedFCMaterials } from "../main/events/odyssey/FCMaterials.js";
+import type { ShipLocker } from "../main/events/odyssey/ShipLocker.js";
+import type { ExtendedModuleInfo } from "../main/events/other/ModuleInfo.js";
+import { Flag, Flag2, GuiFocus, Status } from "../main/events/other/Status.js";
+import type { Cargo } from "../main/events/startup/Cargo.js";
+import type { ExtendedMarket } from "../main/events/station/Market.js";
+import type { ExtendedOutfitting } from "../main/events/station/Outfitting.js";
+import type { ExtendedShipyard } from "../main/events/station/Shipyard.js";
+import type { ExtendedNavRoute } from "../main/events/travel/NavRoute.js";
+import { Journal } from "../main/Journal.js";
+import { JournalError } from "../main/JournalError.js";
+import type { JournalEvent } from "../main/JournalEvent.js";
+import { sleep } from "../main/util/async.js";
 
 const journalDir = "src/test/data/journal";
 
@@ -251,7 +252,7 @@ describe("Journal", () => {
                 }
             })();
             await expect(promise).rejects.toThrow(
-                /Parse error in Journal\.2023-01-01T000000\.01\.log:2: .* at position 38: \{ "timestamp":"2023-01-01T00:00:01Z", ]/);
+                /Parse error in Journal\.2023-01-01T000000\.01\.log:2: Expected double-quoted property name in JSON at position 38 \(line 1 column 39\): \{ "timestamp":"2023-01-01T00:00:01Z", \]/);
         } finally {
             await journal.close();
         }
@@ -333,11 +334,17 @@ describe("Journal", () => {
                 position: { file: "Journal.2022-01-01T000000.01.log", offset: 163, line: 2 }
             });
             try {
-                expect(await journal.next()).toEqual({ "timestamp": "2022-01-01T00:00:01Z", "event": "Shutdown" });
-                expect(await journal.next()).toEqual({ "timestamp": "2023-01-01T00:00:00Z", "event": "Fileheader",
-                    "part": 1, "language": "English\\UK", "Odyssey": true, "gameversion": "4.0.0.600",
-                    "build": "r271793/r0 " });
-                expect(await journal.next()).toEqual({ "timestamp": "2023-01-01T00:00:01Z", "event": "Shutdown" });
+                expect(await journal.next()).toEqual({ timestamp: "2022-01-01T00:00:01Z", event: "Shutdown" });
+                expect(await journal.next()).toEqual({
+                    timestamp: "2023-01-01T00:00:00Z",
+                    event: "Fileheader",
+                    part: 1,
+                    language: "English\\UK",
+                    Odyssey: true,
+                    gameversion: "4.0.0.600",
+                    build: "r271793/r0 "
+                });
+                expect(await journal.next()).toEqual({ timestamp: "2023-01-01T00:00:01Z", event: "Shutdown" });
                 expect(await journal.next()).toBeNull();
                 expect(await journal.next()).toBeNull();
             } finally {
@@ -353,12 +360,12 @@ describe("Journal", () => {
                     position: { file: "Journal.2023-01-01T000000.01.log", offset: 163, line: 2 }
                 });
                 try {
-                    expect(await journal.next()).toEqual({ "timestamp": "2023-01-01T00:00:01Z", "event": "Shutdown" });
+                    expect(await journal.next()).toEqual({ timestamp: "2023-01-01T00:00:01Z", event: "Shutdown" });
                     const promise = journal.next();
                     await sleep(50);
                     await writer.append("Journal.2023-01-01T000000.02.log",
                         `{ "timestamp":"2023-01-01T00:00:03Z", "event":"Died" }`);
-                    expect(await promise).toEqual({ "timestamp": "2023-01-01T00:00:03Z", "event": "Died" });
+                    expect(await promise).toEqual({ timestamp: "2023-01-01T00:00:03Z", event: "Died" });
                 } finally {
                     await journal.close();
                 }
@@ -373,15 +380,15 @@ describe("Journal", () => {
         "Shipyard", "Status"
     ] as const;
     const json = {
-        "Backpack": {
+        Backpack: {
             timestamp: "2023-01-01T00:00:01Z",
             event: "Backpack"
         } as Backpack,
-        "Cargo": {
+        Cargo: {
             timestamp: "2023-01-01T00:00:01Z",
             event: "Cargo"
         } as Cargo,
-        "FCMaterials": {
+        FCMaterials: {
             timestamp: "2023-01-01T00:00:01Z",
             event: "FCMaterials",
             MarketID: 0,
@@ -389,7 +396,7 @@ describe("Journal", () => {
             CarrierID: "XZJ-4XZ",
             Items: []
         } as ExtendedFCMaterials,
-        "Market": {
+        Market: {
             timestamp: "2023-01-01T00:00:01Z",
             event: "Market",
             MarketID: 0,
@@ -397,17 +404,17 @@ describe("Journal", () => {
             StationName: "Station",
             Items: []
         } as ExtendedMarket,
-        "ModulesInfo": {
+        ModulesInfo: {
             timestamp: "2023-01-01T00:00:01Z",
             event: "ModuleInfo",
             Modules: []
         } as ExtendedModuleInfo,
-        "NavRoute": {
+        NavRoute: {
             timestamp: "2023-01-01T00:00:01Z",
             event: "NavRoute",
             Route: []
         } as ExtendedNavRoute,
-        "Outfitting": {
+        Outfitting: {
             timestamp: "2023-01-01T00:00:01Z",
             event: "Outfitting",
             MarketID: 128858698,
@@ -416,11 +423,11 @@ describe("Journal", () => {
             Horizons: true,
             Items: []
         } as ExtendedOutfitting,
-        "ShipLocker": {
+        ShipLocker: {
             timestamp: "2023-01-01T00:00:01Z",
             event: "ShipLocker"
         } as ShipLocker,
-        "Shipyard": {
+        Shipyard: {
             timestamp: "2023-01-01T00:00:01Z",
             event: "Shipyard",
             MarketID: 128858698,
@@ -430,7 +437,7 @@ describe("Journal", () => {
             AllowCobraMkIV: true,
             PriceList: []
         } as ExtendedShipyard,
-       "Status": {
+       Status: {
             timestamp: "2023-01-01T00:00:01Z",
             event: "Status",
             Flags: Flag.ANALYSIS_MODE | Flag.DOCKED,
@@ -440,28 +447,28 @@ describe("Journal", () => {
         } as Status
     };
     const readMethods: Record<string, () => Promise<JournalEvent | null>> = {
-        "Backpack": Journal.prototype.readBackpack,
-        "Cargo": Journal.prototype.readCargo,
-        "FCMaterials": Journal.prototype.readFCMaterials,
-        "Market": Journal.prototype.readMarket,
-        "ModulesInfo": Journal.prototype.readModulesInfo,
-        "NavRoute": Journal.prototype.readNavRoute,
-        "Outfitting": Journal.prototype.readOutfitting,
-        "ShipLocker": Journal.prototype.readShipLocker,
-        "Shipyard": Journal.prototype.readShipyard,
-        "Status": Journal.prototype.readStatus
+        Backpack: Journal.prototype.readBackpack,
+        Cargo: Journal.prototype.readCargo,
+        FCMaterials: Journal.prototype.readFCMaterials,
+        Market: Journal.prototype.readMarket,
+        ModulesInfo: Journal.prototype.readModulesInfo,
+        NavRoute: Journal.prototype.readNavRoute,
+        Outfitting: Journal.prototype.readOutfitting,
+        ShipLocker: Journal.prototype.readShipLocker,
+        Shipyard: Journal.prototype.readShipyard,
+        Status: Journal.prototype.readStatus
     };
     const watchMethods: Record<string, () => AsyncGenerator<JournalEvent>> = {
-        "Backpack": Journal.prototype.watchBackpack,
-        "Cargo": Journal.prototype.watchCargo,
-        "FCMaterials": Journal.prototype.watchFCMaterials,
-        "Market": Journal.prototype.watchMarket,
-        "ModulesInfo": Journal.prototype.watchModulesInfo,
-        "NavRoute": Journal.prototype.watchNavRoute,
-        "Outfitting": Journal.prototype.watchOutfitting,
-        "ShipLocker": Journal.prototype.watchShipLocker,
-        "Shipyard": Journal.prototype.watchShipyard,
-        "Status": Journal.prototype.watchStatus
+        Backpack: Journal.prototype.watchBackpack,
+        Cargo: Journal.prototype.watchCargo,
+        FCMaterials: Journal.prototype.watchFCMaterials,
+        Market: Journal.prototype.watchMarket,
+        ModulesInfo: Journal.prototype.watchModulesInfo,
+        NavRoute: Journal.prototype.watchNavRoute,
+        Outfitting: Journal.prototype.watchOutfitting,
+        ShipLocker: Journal.prototype.watchShipLocker,
+        Shipyard: Journal.prototype.watchShipyard,
+        Status: Journal.prototype.watchStatus
     };
 
     for (const fileType of fileTypes) {

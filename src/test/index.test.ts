@@ -1,4 +1,6 @@
-import * as edj from "../main/index";
+import { describe, expect, it } from "vitest";
+
+import * as edj from "../main/index.js";
 
 const journalDir = "src/test/data/journal";
 
@@ -17,8 +19,8 @@ describe("ed-journal", () => {
     });
     it("exports the AnyJournalEvent type", () => {
         const events: edj.AnyJournalEvent[] = [
-            { "event": "Died", "timestamp": "2009-06-28T12:00:00Z", "KillerName": "Kayahr" },
-            { "event": "Continued", "timestamp": "2009-06-28T12:00:00Z", "Part": 2 }
+            { event: "Died", timestamp: "2009-06-28T12:00:00Z", KillerName: "Kayahr" },
+            { event: "Continued", timestamp: "2009-06-28T12:00:00Z", Part: 2 }
         ];
         if (events[0].event === "Died") {
             expect(events[0].KillerName).toBe("Kayahr");
@@ -28,14 +30,14 @@ describe("ed-journal", () => {
         }
     });
     it("exports the journal event types", () => {
-        const event: edj.Died = { "event": "Died", timestamp: "2009-06-28T12:00:00Z", KillerName: "Kayahr" };
+        const event: edj.Died = { event: "Died", timestamp: "2009-06-28T12:00:00Z", KillerName: "Kayahr" };
         expect(event.KillerName).toBe("Kayahr");
     });
     it("exports the JournalError class", () => {
         expect(() => { throw new edj.JournalError("WTF"); }).toThrow();
     });
     it("exports the JournalEvent interface", () => {
-        const event: edj.JournalEvent = { "event": "Custom", timestamp: "2009-06-28T12:00:00Z" };
+        const event: edj.JournalEvent = { event: "Custom", timestamp: "2009-06-28T12:00:00Z" };
         expect(event.event).toBe("Custom");
     });
     it("exports the JournalPosition interface", () => {

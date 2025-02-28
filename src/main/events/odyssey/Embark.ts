@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent";
+import type { JournalEvent } from "../../JournalEvent.js";
 
 export interface Embark extends JournalEvent<"Embark"> {
     SRV: boolean;
@@ -13,7 +13,7 @@ export interface Embark extends JournalEvent<"Embark"> {
     Crew?: Array<{
         Name: string;
         Role: string;
-    }>,
+    }>;
     StarSystem: string;
     SystemAddress: number;
     Body: string;

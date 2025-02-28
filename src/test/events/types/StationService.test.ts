@@ -1,4 +1,6 @@
-import { correctStationService } from "../../../main/events/types/StationService";
+import { describe, expect, it } from "vitest";
+
+import { correctStationService } from "../../../main/events/types/StationService.js";
 
 describe("StationService", () => {
     describe("correctStationService", () => {

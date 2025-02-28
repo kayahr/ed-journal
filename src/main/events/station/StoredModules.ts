@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent";
+import type { JournalEvent } from "../../JournalEvent.js";
 
 /** TODO Revalidate? Some mismatches between Log and API doc */
 export interface StoredModules extends JournalEvent<"StoredModules"> {

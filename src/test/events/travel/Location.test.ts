@@ -1,4 +1,6 @@
-import { Journal } from "../../../main/Journal";
+import { describe, expect, it } from "vitest";
+
+import { Journal } from "../../../main/Journal.js";
 
 const directory = "src/test/data/events/Location";
 

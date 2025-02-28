@@ -1,4 +1,6 @@
-import { Notifier } from "../../main/util/Notifier";
+import { describe, expect, it } from "vitest";
+
+import { Notifier } from "../../main/util/Notifier.js";
 
 describe("Notifier", () => {
     describe("notify", () => {

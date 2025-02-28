@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent";
+import type { JournalEvent } from "../../JournalEvent.js";
 
 export interface CommunityGoal extends JournalEvent<"CommunityGoal"> {
     CurrentGoals: Array<{
@@ -24,6 +24,6 @@ export interface CommunityGoal extends JournalEvent<"CommunityGoal"> {
         TopTier?: {
             Name: string;
             Bonus: string;
-        }
+        };
     }>;
 }

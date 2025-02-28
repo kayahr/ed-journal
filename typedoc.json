@@ -1,8 +1,17 @@
 {
     "$schema": "https://typedoc.org/schema.json",
-    "entryPoints": [ "src/main/index.ts" ],
-    "out": "doc/api",
+    "entryPoints": [
+        "src/main/index.ts"
+    ],
+    "basePath": "src/main",
+    "entryPointStrategy": "resolve",
+    "out": "lib/apidoc",
     "excludePrivate": true,
+    "excludeExternals": true,
+    "excludeInternal": true,
     "treatWarningsAsErrors": true,
+    "plugin": [
+        "typedoc-github-theme"
+    ],
     "gitRevision": "main"
 }

@@ -22,9 +22,9 @@ export function registerJournalEventUpdate<From extends JournalEvent, To extends
 
 /** Map from deprecated event names to new ones. */
 const eventNameUpdates: Record<string, string> = {
-    "ShipLockerMaterials": "ShipLocker",
-    "BackPack": "Backpack",
-    "BackPackMaterials": "Backpack"
+    ShipLockerMaterials: "ShipLocker",
+    BackPack: "Backpack",
+    BackPackMaterials: "Backpack"
 };
 
 /**

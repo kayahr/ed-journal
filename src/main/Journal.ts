@@ -4,36 +4,36 @@
  */
 
 // Import events which registers event updates
-import "./events/carrier/CarrierStats";
-import "./events/travel/Docked";
-import "./events/station/EngineerCraft";
-import "./events/travel/FSDJump";
-import "./events/travel/Location";
-import "./events/exploration/Scan";
-import "./events/startup/Statistics";
-import "./events/other/Synthesis";
+import "./events/carrier/CarrierStats.js";
+import "./events/travel/Docked.js";
+import "./events/station/EngineerCraft.js";
+import "./events/travel/FSDJump.js";
+import "./events/travel/Location.js";
+import "./events/exploration/Scan.js";
+import "./events/startup/Statistics.js";
+import "./events/other/Synthesis.js";
 
 import { open, readdir, readFile } from "fs/promises";
 import { homedir } from "os";
 import { join } from "path";
 
-import type { AnyJournalEvent } from "./AnyJournalEvent";
-import type { Backpack } from "./events/odyssey/Backpack";
-import type { ExtendedFCMaterials } from "./events/odyssey/FCMaterials";
-import type { ExtendedModuleInfo } from "./events/other/ModuleInfo";
-import type { Status } from "./events/other/Status";
-import type { ExtendedMarket } from "./events/station/Market";
-import type { ExtendedOutfitting } from "./events/station/Outfitting";
-import type { ExtendedShipyard } from "./events/station/Shipyard";
-import type { ExtendedNavRoute } from "./events/travel/NavRoute";
-import { JournalError } from "./JournalError";
-import { JournalEvent, updateJournalEvent } from "./JournalEvent";
-import type { JournalPosition } from "./JournalPosition";
-import { sleep } from "./util/async";
-import { getErrorMessage } from "./util/error";
-import { isDirectory, isPathReadable } from "./util/fs";
-import { LineReader } from "./util/LineReader";
-import { watch } from "./util/watch";
+import type { AnyJournalEvent } from "./AnyJournalEvent.js";
+import type { Backpack } from "./events/odyssey/Backpack.js";
+import type { ExtendedFCMaterials } from "./events/odyssey/FCMaterials.js";
+import type { ExtendedModuleInfo } from "./events/other/ModuleInfo.js";
+import type { Status } from "./events/other/Status.js";
+import type { ExtendedMarket } from "./events/station/Market.js";
+import type { ExtendedOutfitting } from "./events/station/Outfitting.js";
+import type { ExtendedShipyard } from "./events/station/Shipyard.js";
+import type { ExtendedNavRoute } from "./events/travel/NavRoute.js";
+import { JournalError } from "./JournalError.js";
+import { JournalEvent, updateJournalEvent } from "./JournalEvent.js";
+import type { JournalPosition } from "./JournalPosition.js";
+import { sleep } from "./util/async.js";
+import { getErrorMessage } from "./util/error.js";
+import { isDirectory, isPathReadable } from "./util/fs.js";
+import { LineReader } from "./util/LineReader.js";
+import { watch } from "./util/watch.js";
 
 /**
  * Compare function to sort journal file names by time. Empty string is always earlier than any journal file.
@@ -53,7 +53,7 @@ function journalTimeCompare(a: string, b: string): number {
 }
 
 /** Regular expression to match the name of a journal file. */
-const journalFileRegExp = /^Journal\.([0-9]{12}|[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{6})\.[0-9]{2}\.log$/;
+const journalFileRegExp = /^Journal\.\d{12}|\d{4}-\d{2}-\d{2}T\d{6}\.\d{2}\.log$/;
 
 /**
  * Checks if given filename is a journal file.

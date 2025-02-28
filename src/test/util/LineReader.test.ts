@@ -1,7 +1,8 @@
 import { readFile } from "fs/promises";
 import { join } from "path";
+import { describe, expect, it } from "vitest";
 
-import { LineReader } from "../../main/util/LineReader";
+import { LineReader } from "../../main/util/LineReader.js";
 
 const textsDir = "src/test/data/texts";
 const testTxt = join(textsDir, "test.txt");

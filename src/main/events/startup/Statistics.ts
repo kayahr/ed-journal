@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import { JournalEvent, registerJournalEventUpdate } from "../../JournalEvent";
+import { JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
 
 /**
  * The information displayed in the statistics panel on the right side of the cockpit. Written at startup.
@@ -222,7 +222,7 @@ export interface Statistics extends JournalEvent<"Statistics"> {
         FLEETCARRIER_REPAIRS_TOTAL: number;
         FLEETCARRIER_VOUCHERS_REDEEMED: number;
         FLEETCARRIER_VOUCHERS_PROFIT: number;
-    }
+    };
     Exobiology?: {
         Organic_Genus_Encountered: number;
         Organic_Species_Encountered: number;
@@ -235,14 +235,14 @@ export interface Statistics extends JournalEvent<"Statistics"> {
         Organic_Planets: number;
         Organic_Genus: number;
         Organic_Species: number;
-    }
+    };
 }
 
 interface DeprecatedStatistics extends JournalEvent<"Statistics"> {
     FLEETCARRIER?: {
         /** Was changed from string format to number format in newer version. */
         FLEETCARRIER_DISTANCE_TRAVELLED: string;
-    }
+    };
 }
 
 registerJournalEventUpdate<DeprecatedStatistics, Statistics>("Statistics", (from, to) => {

@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent";
+import type { JournalEvent } from "../../JournalEvent.js";
 
 export interface LoadoutEquipModule extends JournalEvent<"LoadoutEquipModule"> {
     LoadoutName: string;

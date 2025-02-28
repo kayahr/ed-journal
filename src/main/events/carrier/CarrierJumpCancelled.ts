@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent";
+import type { JournalEvent } from "../../JournalEvent.js";
 
 export interface CarrierJumpCancelled extends JournalEvent<"CarrierJumpCancelled"> {
     CarrierID: number;

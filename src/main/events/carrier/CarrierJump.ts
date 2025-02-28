@@ -3,10 +3,10 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent";
-import type { ConflictFaction } from "../types/ConflictFaction";
-import type { PowerState } from "../types/PowerState";
-import type { StationService } from "../types/StationService";
+import type { JournalEvent } from "../../JournalEvent.js";
+import type { ConflictFaction } from "../types/ConflictFaction.js";
+import type { PowerState } from "../types/PowerState.js";
+import type { StationService } from "../types/StationService.js";
 
 export interface CarrierJump extends JournalEvent<"CarrierJump"> {
     Docked: boolean;
@@ -31,7 +31,7 @@ export interface CarrierJump extends JournalEvent<"CarrierJump"> {
         Status: string;
         Faction1: ConflictFaction;
         Faction2: ConflictFaction;
-    }>
+    }>;
     Powers?: string[];
     PowerplayState?: PowerState;
     Taxi?: boolean;

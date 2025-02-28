@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent";
+import type { JournalEvent } from "../../JournalEvent.js";
 
 /** TODO Verify by swapping ship and selling the old one at the same time. */
 export interface ShipyardSwap extends JournalEvent<"ShipyardSwap"> {

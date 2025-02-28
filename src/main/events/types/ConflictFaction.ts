@@ -5,7 +5,7 @@
 
 /** A faction in a conflict. */
 export interface ConflictFaction {
-    Name: string,
-    Stake: string,
-    WonDays: number
+    Name: string;
+    Stake: string;
+    WonDays: number;
 }

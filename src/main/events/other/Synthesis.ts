@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import { JournalEvent, registerJournalEventUpdate } from "../../JournalEvent";
+import { JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
 
 export interface Synthesis extends JournalEvent<"Synthesis"> {
     Materials: Array<{

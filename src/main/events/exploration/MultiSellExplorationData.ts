@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent";
+import type { JournalEvent } from "../../JournalEvent.js";
 
 /**
  * Written when selling exploration data in Cartographics, a page at a time.
@@ -13,7 +13,7 @@ export interface MultiSellExplorationData extends JournalEvent<"MultiSellExplora
         SystemName: string;
         SystemName_Localised?: string;
         NumBodies: number;
-    }>
+    }>;
     BaseValue: number;
     Bonus: number;
     TotalEarnings?: number;

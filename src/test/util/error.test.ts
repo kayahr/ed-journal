@@ -1,4 +1,6 @@
-import { getErrorMessage } from "../../main/util/error";
+import { describe, expect, it } from "vitest";
+
+import { getErrorMessage } from "../../main/util/error.js";
 
 describe("error", () => {
     describe("getErrorMessage", () => {

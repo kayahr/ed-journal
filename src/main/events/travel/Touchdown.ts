@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent";
+import type { JournalEvent } from "../../JournalEvent.js";
 
 /**
  * Written when landing on a planet surface.
@@ -14,7 +14,7 @@ export interface Touchdown extends JournalEvent<"Touchdown"> {
     StarSystem?: string;
     SystemAddress?: number;
     Body?: string;
-    BodyID?: number
+    BodyID?: number;
     OnStation?: boolean;
     OnPlanet?: boolean;
 

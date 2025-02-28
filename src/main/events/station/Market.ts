@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent";
+import type { JournalEvent } from "../../JournalEvent.js";
 
 export interface Market extends JournalEvent<"Market"> {
     MarketID: number;
@@ -20,7 +20,7 @@ export interface ExtendedMarket extends Market {
     Items: Array<{
         id: number;
         Name: string;
-        Name_Localised: string
+        Name_Localised: string;
         Category: string;
         Category_Localised: string;
         BuyPrice: number;
