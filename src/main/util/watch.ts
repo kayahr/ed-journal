@@ -5,7 +5,7 @@
 
 import type { Stats } from "node:fs";
 
-import { ChokidarOptions, watch as chokidarWatch } from "chokidar";
+import { type ChokidarOptions, watch as chokidarWatch } from "chokidar";
 
 import { toError } from "./error.js";
 import { Notifier } from "./Notifier.js";

@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import { JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
+import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
 
 /**
  * The information displayed in the statistics panel on the right side of the cockpit. Written at startup.

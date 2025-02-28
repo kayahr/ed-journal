@@ -12,7 +12,7 @@
 import "source-map-support/register.js";
 
 import { readFile } from "fs/promises";
-import { Schema, Validator } from "jsonschema";
+import { type Schema, Validator } from "jsonschema";
 import { join } from "path";
 
 import type { AnyJournalEvent } from "../main/AnyJournalEvent.js";

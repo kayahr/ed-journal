@@ -3,10 +3,10 @@
  * See LICENSE.md for licensing information.
  */
 
-import { JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
+import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
 import type { ConflictFaction } from "../types/ConflictFaction.js";
 import type { PowerState } from "../types/PowerState.js";
-import { correctStationService, StationService } from "../types/StationService.js";
+import { correctStationService, type StationService } from "../types/StationService.js";
 
 /**
  * Written at startup or when being resurrected at a station.

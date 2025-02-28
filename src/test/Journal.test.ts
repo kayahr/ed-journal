@@ -1,7 +1,8 @@
-import { chmod, mkdir, mkdtemp, open, rm, writeFile } from "fs/promises";
+import { chmod, mkdir, mkdtemp, open, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+
 import { copy } from "fs-extra";
-import { tmpdir } from "os";
-import { join } from "path";
 import { describe, expect, it } from "vitest";
 
 import type { AnyJournalEvent } from "../main/AnyJournalEvent.js";
@@ -9,7 +10,7 @@ import type { Backpack } from "../main/events/odyssey/Backpack.js";
 import type { ExtendedFCMaterials } from "../main/events/odyssey/FCMaterials.js";
 import type { ShipLocker } from "../main/events/odyssey/ShipLocker.js";
 import type { ExtendedModuleInfo } from "../main/events/other/ModuleInfo.js";
-import { Flag, Flag2, GuiFocus, Status } from "../main/events/other/Status.js";
+import { Flag, Flag2, GuiFocus, type Status } from "../main/events/other/Status.js";
 import type { Cargo } from "../main/events/startup/Cargo.js";
 import type { ExtendedMarket } from "../main/events/station/Market.js";
 import type { ExtendedOutfitting } from "../main/events/station/Outfitting.js";
@@ -38,7 +39,11 @@ async function withTmpHome(action: (home: string) => Promise<void>): Promise<voi
 }
 
 class JournalWriter {
-    private constructor(public readonly directory: string) {}
+    public readonly directory: string;
+
+    private constructor(directory: string) {
+        this.directory = directory;
+    }
 
     public static async create(source: string): Promise<JournalWriter> {
         const directory = await mkdtemp(join(tmpdir(), "ed-journal-test-"));

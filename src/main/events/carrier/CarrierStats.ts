@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import { JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
+import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
 
 export interface CarrierStats extends JournalEvent<"CarrierStats"> {
     CarrierID: number;

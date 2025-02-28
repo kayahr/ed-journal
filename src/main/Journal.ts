@@ -27,7 +27,7 @@ import type { ExtendedOutfitting } from "./events/station/Outfitting.js";
 import type { ExtendedShipyard } from "./events/station/Shipyard.js";
 import type { ExtendedNavRoute } from "./events/travel/NavRoute.js";
 import { JournalError } from "./JournalError.js";
-import { JournalEvent, updateJournalEvent } from "./JournalEvent.js";
+import { type JournalEvent, updateJournalEvent } from "./JournalEvent.js";
 import type { JournalPosition } from "./JournalPosition.js";
 import { sleep } from "./util/async.js";
 import { getErrorMessage } from "./util/error.js";
