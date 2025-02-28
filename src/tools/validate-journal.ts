@@ -30,36 +30,34 @@ class ValidationError extends Error {
     }
 }
 
-(async () => {
-    const validator = new Validator();
-    const schema = JSON.parse((await readFile(join("src", "journal-event.schema.json"))).toString()) as Schema;
-    const narrowedSchemas = new Map<string, Schema>();
+const validator = new Validator();
+const schema = JSON.parse((await readFile(join("lib", "journal-event.schema.json"))).toString()) as Schema;
+const narrowedSchemas = new Map<string, Schema>();
 
-    const journal = await Journal.open({ position, watch: true });
-    process.on("SIGINT", () => {
-        void journal.close();
-    });
-    let currentFile = "";
-    for await (const event of journal) {
-        const file = journal.getPosition().file;
-        if (file !== currentFile) {
-            console.log("Validating file:", file);
-            currentFile = file;
-        }
-        let narrowedSchema = narrowedSchemas.get(event.event);
-        if (narrowedSchema == null) {
-            const definition = schema.definitions?.[event.event];
-            if (definition != null) {
-                narrowedSchema = { ...schema, ...definition };
-                delete narrowedSchema.anyOf;
-            } else {
-                narrowedSchema = schema;
-            }
-            narrowedSchemas.set(event.event, narrowedSchema);
-        }
-        const result = validator.validate(event, narrowedSchema);
-        if (result.errors.length > 0) {
-            throw new ValidationError(result.errors[0].toString(), event);
-        }
+const journal = await Journal.open({ position, watch: true });
+process.on("SIGINT", () => {
+    void journal.close();
+});
+let currentFile = "";
+for await (const event of journal) {
+    const file = journal.getPosition().file;
+    if (file !== currentFile) {
+        console.log("Validating file:", file);
+        currentFile = file;
     }
-})().catch(console.error);
+    let narrowedSchema = narrowedSchemas.get(event.event);
+    if (narrowedSchema == null) {
+        const definition = schema.definitions?.[event.event];
+        if (definition != null) {
+            narrowedSchema = { ...schema, ...definition };
+            delete narrowedSchema.anyOf;
+        } else {
+            narrowedSchema = schema;
+        }
+        narrowedSchemas.set(event.event, narrowedSchema);
+    }
+    const result = validator.validate(event, narrowedSchema);
+    if (result.errors.length > 0) {
+        throw new ValidationError(result.errors[0].toString(), event);
+    }
+}

@@ -41,19 +41,17 @@ class ValidationError extends Error {
     }
 }
 
-(async () => {
-    const validator = new Validator();
-    const schema = JSON.parse((await readFile(join("src", schemaFile))).toString()) as Schema;
+const validator = new Validator();
+const schema = JSON.parse((await readFile(join("src", schemaFile))).toString()) as Schema;
 
-    const journal = await Journal.open();
-    process.on("SIGINT", () => {
-        void journal.close();
-    });
-    for await (const status of methods[type].call(journal)) {
-        const result = validator.validate(status, schema);
-        if (result.errors.length > 0) {
-            throw new ValidationError(result.errors[0].toString(), status);
-        }
-        console.log(status);
+const journal = await Journal.open();
+process.on("SIGINT", () => {
+    void journal.close();
+});
+for await (const status of methods[type].call(journal)) {
+    const result = validator.validate(status, schema);
+    if (result.errors.length > 0) {
+        throw new ValidationError(result.errors[0].toString(), status);
     }
-})().catch(console.error);
+    console.log(status);
+}
