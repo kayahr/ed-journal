@@ -13,9 +13,9 @@ import "./events/exploration/Scan.js";
 import "./events/startup/Statistics.js";
 import "./events/other/Synthesis.js";
 
-import { open, readdir, readFile } from "fs/promises";
-import { homedir } from "os";
-import { join } from "path";
+import { open, readdir, readFile } from "node:fs/promises";
+import { homedir } from "node:os";
+import { basename, join, resolve } from "node:path";
 
 import type { AnyJournalEvent } from "./AnyJournalEvent.js";
 import type { Backpack } from "./events/odyssey/Backpack.js";
@@ -251,12 +251,12 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
     private async *watchJournalFiles(startFile: string): AsyncGenerator<string> {
         const initialFiles: string[] = [];
         let ready = false;
-        const watcher = watch("Journal.*.log", {
-            cwd: this.directory,
+        const watcher = watch("", {
+            ignored: path => path !== this.directory && (!basename(path).startsWith("Journal.") || !path.endsWith(".log")),
+            cwd: resolve(this.directory),
             depth: 0,
             ignoreInitial: false,
             usePolling: false,
-            useFsEvents: false,
             signal: this.abortController.signal
         });
         for await (const event of watcher) {
@@ -418,11 +418,9 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
     private async *watchFile<T extends JournalEvent>(filename: string): AsyncGenerator<T> {
         const watcher = watch(filename, {
             cwd: this.directory,
-            disableGlobbing: true,
             depth: 0,
             ignoreInitial: false,
             usePolling: false,
-            useFsEvents: false,
             signal: this.abortController.signal
         });
         for await (const event of watcher) {

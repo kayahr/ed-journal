@@ -5,13 +5,14 @@
 
 import type { Stats } from "node:fs";
 
-import { watch as chokidarWatch, WatchOptions } from "chokidar";
+import { ChokidarOptions, watch as chokidarWatch } from "chokidar";
 
+import { toError } from "./error.js";
 import { Notifier } from "./Notifier.js";
 
 /** Path-based watch event type. */
 export interface WatchPathEvent {
-    eventName: "add" | "addDir" | "change" | "unlink" | "unlinkDir";
+    eventName: "add" | "change";
     path: string;
     stats?: Stats;
 }
@@ -33,13 +34,17 @@ export type WatchEvent = WatchPathEvent | WatchReadyEvent;
  *                  watcher can be aborted.
  * @return The async generator generating watch events.
  */
-export async function *watch(paths: string | string[], options?: WatchOptions & { signal?: AbortSignal }):
+export async function *watch(paths: string | string[], options?: ChokidarOptions & { signal?: AbortSignal }):
         AsyncGenerator<WatchEvent> {
     const notifier = new Notifier();
     const events: WatchEvent[] = [];
     const watcher = chokidarWatch(paths, options);
-    watcher.on("all", (eventName, path, stats) => {
-        events.push({ eventName, path, stats });
+    watcher.on("add", (path, stats) => {
+        events.push({ eventName: "add", path, stats });
+        notifier.notify();
+    });
+    watcher.on("change", (path, stats) => {
+        events.push({ eventName: "change", path, stats });
         notifier.notify();
     });
     watcher.on("ready", () => {
@@ -47,7 +52,7 @@ export async function *watch(paths: string | string[], options?: WatchOptions & 
         notifier.notify();
     });
     watcher.on("error", error => {
-        notifier.abort(error);
+        notifier.abort(toError(error));
     });
     let aborted = false;
     const abort = async (): Promise<void> => {

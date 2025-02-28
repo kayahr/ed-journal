@@ -108,8 +108,8 @@ describe("Journal", () => {
         const writer = await JournalWriter.create(journalDir);
         try {
             const events: AnyJournalEvent[] = [];
+            const journal = await Journal.open({ directory: writer.directory, watch: true });
             const promise = (async () => {
-                const journal = await Journal.open({ directory: writer.directory, watch: true });
                 try {
                     for await (const event of journal) {
                         events.push(event);
@@ -127,7 +127,7 @@ describe("Journal", () => {
                 `{ "timestamp":"2023-01-01T00:00:02Z", "event":"Continued", "Part": 2 }`);
 
             // Write line into new file
-            await writer.append("Journal.2023-01-01T000000.02.log",
+            await writer.write("Journal.2023-01-01T000000.02.log",
                 `{ "timestamp":"2023-01-01T00:00:03Z", "event":"Died" }`);
 
             await promise;
@@ -141,12 +141,12 @@ describe("Journal", () => {
         const writer = await JournalWriter.create(journalDir);
         try {
             const records: AnyJournalEvent[] = [];
+            const journal = await Journal.open({
+                directory: writer.directory,
+                watch: true,
+                position: { file: "Journal.210101000000.01.log", offset: 163, line: 2 }
+            });
             const promise = (async () => {
-                const journal = await Journal.open({
-                    directory: writer.directory,
-                    watch: true,
-                    position: { file: "Journal.210101000000.01.log", offset: 163, line: 2 }
-                });
                 try {
                     for await (const record of journal) {
                         records.push(record);

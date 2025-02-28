@@ -1,2 +1,0 @@
-reject:
-  - chokidar # v4 has new API
