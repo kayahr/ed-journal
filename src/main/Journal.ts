@@ -332,6 +332,10 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
         // has been read this loop waits until the files generator reports the current journal file again when it has
         // been changed or a new journal file was found. Reading is then continued at this point.
         for await (const file of files) {
+            if (this.abortController.signal.aborted) {
+                break;
+            }
+
             // Create line reader or replace it when new journal file has been opened
             let lineReader = this.lineReader;
             if (lineReader == null || file !== this.position.file) {
@@ -345,6 +349,10 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
 
             // Iterate over all lines of the journal file
             for await (const line of lineReader) {
+                if (this.abortController.signal.aborted) {
+                    break;
+                }
+
                 try {
                     // Parse the journal event and yield it
                     yield this.parseJournalEvent(line);
