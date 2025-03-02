@@ -22,4 +22,7 @@ export interface StartJump extends JournalEvent<"StartJump"> {
 
     /** Star type (Only for a hyperspace jump) */
     StarClass?: string;
+
+    /** True if player is in a taxi. */
+    Taxi?: boolean;
 }
