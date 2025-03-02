@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { StationService } from "../types/StationService.js";
 
 export interface ApproachSettlement extends JournalEvent<"ApproachSettlement"> {
     MarketID?: number;
@@ -14,4 +15,17 @@ export interface ApproachSettlement extends JournalEvent<"ApproachSettlement"> {
     SystemAddress?: number;
     BodyID?: number;
     BodyName?: string;
+    StationFaction?: {
+        Name: string;
+    };
+    StationGovernment?: string;
+    StationGovernment_Localised?: string;
+    StationServices?: StationService[];
+    StationEconomy?: string;
+    StationEconomy_Localised?: string;
+    StationEconomies?: Array<{
+        Name: string;
+        Name_Localised?: string;
+        Proportion: number;
+    }>;
 }
