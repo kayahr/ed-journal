@@ -32,6 +32,7 @@ export interface CarrierStats extends JournalEvent<"CarrierStats"> {
         TaxRate_rearm?: number;
         TaxRate_refuel?: number;
         TaxRate_repair?: number;
+        TaxRate_pioneersupplies?: number;
     };
     Crew: Array<{
         CrewRole: string;

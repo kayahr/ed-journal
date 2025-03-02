@@ -18,4 +18,5 @@ export interface CarrierFinance extends JournalEvent<"CarrierFinance"> {
     TaxRate_rearm?: number;
     TaxRate_refuel?: number;
     TaxRate_repair?: number;
+    TaxRate_pioneersupplies?: number;
 }
