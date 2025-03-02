@@ -268,14 +268,13 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
             if (event.eventName === "add") {
                 if (isJournalFile(event.path) && journalTimeCompare(event.path, startFile) >= 0) {
                     if (ready) {
-                        if (startFile != null) {
+                        if (startFile != "") {
                             // Also yield the current file again in case the new file is reported before the change in
                             // the current file is reported. Otherwise we would loose the new lines in the current file
                             // and switch directly to the new file
                             yield startFile;
                         }
-                        startFile = event.path;
-                        yield startFile;
+                        yield startFile = event.path;
                     } else {
                         initialFiles.push(event.path);
                     }

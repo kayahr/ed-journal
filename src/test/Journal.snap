@@ -106,6 +106,24 @@ exports[`Journal > reads a journal starting at given position 1`] = `
 ]
 `;
 
+exports[`Journal > reports lines in correct order when new file is created right before changing the current file 1`] = `
+[
+  {
+    "event": "Shutdown",
+    "timestamp": "2025-03-03T00:00:01Z",
+  },
+  {
+    "Part": 2,
+    "event": "Continued",
+    "timestamp": "2025-03-03T00:00:02Z",
+  },
+  {
+    "event": "Died",
+    "timestamp": "2025-03-03T00:00:03Z",
+  },
+]
+`;
+
 exports[`Journal > watches a journal in chronological order 1`] = `
 [
   {

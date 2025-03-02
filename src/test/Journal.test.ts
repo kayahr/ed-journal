@@ -1,3 +1,4 @@
+import { appendFileSync, writeFileSync } from "node:fs";
 import { appendFile, chmod, mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -45,9 +46,11 @@ class JournalWriter {
         this.directory = directory;
     }
 
-    public static async create(source: string): Promise<JournalWriter> {
+    public static async create(source?: string): Promise<JournalWriter> {
         const directory = await mkdtemp(join(tmpdir(), "ed-journal-test-"));
-        await copy(source, directory);
+        if (source != null) {
+            await copy(source, directory);
+        }
         return new JournalWriter(directory);
     }
 
@@ -55,8 +58,16 @@ class JournalWriter {
         await appendFile(join(this.directory, filename), line + "\r\n", { flush: true });
     }
 
+    public appendSync(filename: string, line: string): void {
+        appendFileSync(join(this.directory, filename), line + "\r\n", { flush: true });
+    }
+
     public async write(filename: string, line: string): Promise<void> {
         await writeFile(join(this.directory, filename), line + "\r\n", { flush: true });
+    }
+
+    public writeSync(filename: string, line: string): void {
+        writeFileSync(join(this.directory, filename), line + "\r\n", { flush: true });
     }
 
     public async done(): Promise<void> {
@@ -208,6 +219,34 @@ describe("Journal", () => {
             await writer.append("Journal.2023-01-01T000000.02.log",
                 `{ "timestamp":"2023-01-01T00:00:03Z", "event":"Died" }`);
 
+            await promise;
+            expect(records).toMatchSnapshot();
+        } finally {
+            await writer.done();
+        }
+    });
+
+    it("reports lines in correct order when new file is created right before changing the current file", async () => {
+        const writer = await JournalWriter.create();
+        const journal = await Journal.open({ directory: writer.directory, watch: true });
+        try {
+            const records: AnyJournalEvent[] = [];
+            const promise = (async () => {
+                try {
+                    for await (const event of journal) {
+                        records.push(event);
+                        if (event.event === "Died") {
+                            break;
+                        }
+                    }
+                } finally {
+                    await journal.close();
+                }
+            })();
+            await sleep(100);
+            writer.writeSync("Journal.2025-03-03T000000.01.log", '{ "timestamp":"2025-03-03T00:00:01Z", "event":"Shutdown" }');
+            writer.writeSync("Journal.2025-03-03T000000.02.log", '{ "timestamp":"2025-03-03T00:00:03Z", "event":"Died" }');
+            writer.appendSync("Journal.2025-03-03T000000.01.log", '{ "timestamp":"2025-03-03T00:00:02Z", "event":"Continued", "Part": 2 }');
             await promise;
             expect(records).toMatchSnapshot();
         } finally {
