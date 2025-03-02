@@ -16,6 +16,7 @@ export interface MissionCompleted extends JournalEvent<"MissionCompleted"> {
     Count?: number;
     NewDestinationStation?: string;
     DestinationStation?: string;
+    DestinationSettlement?: string;
     NewDestinationSystem?: string;
     DestinationSystem?: string;
     Donation?: string | number; // TODO WHat the heck, number is older, string is newer but number makes more sense?
