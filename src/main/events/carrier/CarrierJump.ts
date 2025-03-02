@@ -10,6 +10,7 @@ import type { StationService } from "../types/StationService.js";
 
 export interface CarrierJump extends JournalEvent<"CarrierJump"> {
     Docked: boolean;
+    OnFoot?: boolean;
     StationName: string;
     StationType: string;
     MarketID: number;
