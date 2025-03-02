@@ -11,6 +11,7 @@ import type { JournalEvent } from "../../JournalEvent.js";
 export interface FSSSignalDiscovered extends JournalEvent<"FSSSignalDiscovered"> {
     SignalName: string;
     SignalName_Localised?: string;
+    SignalType?: string;
 
     /** The BGS state that triggered this event, if relevant. */
     SpawningState?: string;
