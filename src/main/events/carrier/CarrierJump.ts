@@ -11,17 +11,17 @@ import type { StationService } from "../types/StationService.js";
 export interface CarrierJump extends JournalEvent<"CarrierJump"> {
     Docked: boolean;
     OnFoot?: boolean;
-    StationName: string;
-    StationType: string;
-    MarketID: number;
-    StationFaction: {
+    StationName?: string;
+    StationType?: string;
+    MarketID?: number;
+    StationFaction?: {
         Name: string;
     };
-    StationGovernment: string;
-    StationGovernment_Localised: string;
-    StationServices: StationService[];
-    StationEconomy: string;
-    StationEconomy_Localised: string;
+    StationGovernment?: string;
+    StationGovernment_Localised?: string;
+    StationServices?: StationService[];
+    StationEconomy?: string;
+    StationEconomy_Localised?: string;
     StationEconomies?: Array<{
         Name: string;
         Name_Localised?: string;
