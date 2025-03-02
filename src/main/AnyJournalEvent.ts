@@ -125,6 +125,7 @@ import type { Scanned } from "./events/other/Scanned.js";
 import type { SelfDestruct } from "./events/other/SelfDestruct.js";
 import type { SendText } from "./events/other/SendText.js";
 import type { Shutdown } from "./events/other/Shutdown.js";
+import type { SupercruiseDestinationDrop } from "./events/other/SupercruiseDestinationDrop.js";
 import type { Synthesis } from "./events/other/Synthesis.js";
 import type { SystemsShutdown } from "./events/other/SystemsShutdown.js";
 import type { USSDrop } from "./events/other/USSDrop.js";
@@ -468,6 +469,7 @@ export type AnyJournalEvent =
     | StoredModules
     | StoredShips
     | SuitLoadout
+    | SupercruiseDestinationDrop
     | SupercruiseEntry
     | SupercruiseExit
     | SwitchSuitLoadout
