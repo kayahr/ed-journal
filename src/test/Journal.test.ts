@@ -380,6 +380,31 @@ describe("Journal", () => {
         });
     });
 
+    describe("close", () => {
+        it("Aborts watching for journals", async () => {
+            const journal = await Journal.open({ directory: journalDir, position: "start", watch: true });
+            for await (const event of journal) {
+                if (event.timestamp === "2022-01-01T00:00:00Z") {
+                    await journal.close();
+                }
+            }
+            expect(journal.getPosition()).toEqual({
+                file: "Journal.2022-01-01T000000.01.log",
+                line: 2,
+                offset: 163
+            });
+        });
+        it("Does not yield any data if closed right after open", async () => {
+            const journal = await Journal.open({ directory: journalDir, position: "start", watch: true });
+            await journal.close();
+            const events = [];
+            for await (const event of journal) {
+                events.push(event);
+            }
+            expect(events.length).toBe(0);
+        });
+    });
+
     const fileTypes = [
         "Backpack", "Cargo", "FCMaterials", "Market", "ModulesInfo", "NavRoute", "Outfitting", "ShipLocker",
         "Shipyard", "Status"
@@ -552,6 +577,15 @@ describe("Journal", () => {
                 } finally {
                     await writer.done();
                 }
+            });
+            it("can be terminated right away", async () => {
+                const journal = await Journal.open({ directory: journalDir, watch: true });
+                await journal.close();
+                const events = [];
+                for await (const status of watchMethods[fileType].call(journal)) {
+                    events.push(status);
+                }
+                expect(events.length).toBe(0);
             });
             it("reports the initial data", async () => {
                 const writer = await JournalWriter.create(journalDir);

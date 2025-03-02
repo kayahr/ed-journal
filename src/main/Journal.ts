@@ -76,6 +76,7 @@ export interface JournalOptions {
      * Optional position within the journal where to start at. Can be either a specific journal position or the
      * string "end" to indicate starting at the end of the journal. Starting at the end only makes sense for watch
      * mode to only watch for new events. In normal read mode you would simply read no events at all.
+     * Defaults to "start".
      */
     position?: JournalPosition | "start" | "end";
 
@@ -130,8 +131,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
     /**
      * Opens the journal.
      */
-    public static async open({ directory, position = "start", watch = false }: JournalOptions = {}):
-            Promise<Journal> {
+    public static async open({ directory, position = "start", watch = false }: JournalOptions = {}): Promise<Journal> {
         if (directory == null) {
             directory = await this.findDirectory();
         }
@@ -251,15 +251,20 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
     private async *watchJournalFiles(startFile: string): AsyncGenerator<string> {
         const initialFiles: string[] = [];
         let ready = false;
+        const directory = resolve(this.directory);
+        const signal = this.abortController.signal;
         const watcher = watch("", {
-            ignored: path => path !== this.directory && (!basename(path).startsWith("Journal.") || !path.endsWith(".log")),
-            cwd: resolve(this.directory),
+            ignored: path => path !== directory && (!basename(path).startsWith("Journal.") || !path.endsWith(".log")),
+            cwd: directory,
             depth: 0,
             ignoreInitial: false,
             usePolling: false,
-            signal: this.abortController.signal
+            signal
         });
         for await (const event of watcher) {
+            if (signal.aborted) {
+                break;
+            }
             if (event.eventName === "add") {
                 if (isJournalFile(event.path) && journalTimeCompare(event.path, startFile) >= 0) {
                     if (ready) {
@@ -269,7 +274,8 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
                             // and switch directly to the new file
                             yield startFile;
                         }
-                        yield startFile = event.path;
+                        startFile = event.path;
+                        yield startFile;
                     } else {
                         initialFiles.push(event.path);
                     }
@@ -328,11 +334,13 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
             ? this.watchJournalFiles(this.position.file)
             : await this.listJournalFiles(this.position.file);
 
+        const signal = this.abortController.signal;
+
         // Iterate over all journal files in chronological order. In watch mode, when the last line of the last file
         // has been read this loop waits until the files generator reports the current journal file again when it has
         // been changed or a new journal file was found. Reading is then continued at this point.
         for await (const file of files) {
-            if (this.abortController.signal.aborted) {
+            if (signal.aborted) {
                 break;
             }
 
@@ -349,7 +357,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
 
             // Iterate over all lines of the journal file
             for await (const line of lineReader) {
-                if (this.abortController.signal.aborted) {
+                if (signal.aborted) {
                     break;
                 }
 
@@ -416,14 +424,18 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      * @return Async iterator watching content changes.
      */
     private async *watchFile<T extends JournalEvent>(filename: string): AsyncGenerator<T> {
+        const signal = this.abortController.signal;
         const watcher = watch(filename, {
-            cwd: this.directory,
+            cwd: resolve(this.directory),
             depth: 0,
             ignoreInitial: false,
             usePolling: false,
-            signal: this.abortController.signal
+            signal
         });
         for await (const event of watcher) {
+            if (signal.aborted) {
+                break;
+            }
             if (event.eventName === "change" || event.eventName === "add") {
                 const content = await this.readFile<T>(filename);
                 if (content != null) {
