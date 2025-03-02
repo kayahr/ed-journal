@@ -1,9 +1,8 @@
 import { appendFileSync, writeFileSync } from "node:fs";
-import { appendFile, chmod, mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
+import { appendFile, chmod, cp, mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-import { copy } from "fs-extra";
 import { describe, expect, it } from "vitest";
 
 import type { AnyJournalEvent } from "../main/AnyJournalEvent.js";
@@ -49,7 +48,7 @@ class JournalWriter {
     public static async create(source?: string): Promise<JournalWriter> {
         const directory = await mkdtemp(join(tmpdir(), "ed-journal-test-"));
         if (source != null) {
-            await copy(source, directory);
+            await cp(source, directory, { recursive: true });
         }
         return new JournalWriter(directory);
     }
