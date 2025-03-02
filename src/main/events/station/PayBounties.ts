@@ -9,7 +9,7 @@ export interface PayBounties extends JournalEvent<"PayBounties"> {
     AllFines?: boolean;
     Amount: number;
     BrokerPercentage?: number;
-    Faction: string;
+    Faction?: string;
     Faction_Localised?: string;
     ShipID: number;
 }
