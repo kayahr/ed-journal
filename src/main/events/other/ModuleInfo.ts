@@ -15,7 +15,7 @@ export interface ExtendedModuleInfo extends ModuleInfo {
     Modules: Array<{
         Slot: string;
         Item: string;
-        Power: number;
+        Power?: number;
         Priority?: number;
     }>;
 }
