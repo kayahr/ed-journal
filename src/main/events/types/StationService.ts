@@ -44,7 +44,8 @@ export type StationService =
     | "apexinterstellar"
     | "frontlinesolutions"
     | "registeringcolonisation"
-    | "colonisationcontribution";
+    | "colonisationcontribution"
+    | "refinery";
 
 /**
  * Corrects an older station service string to correct new value.
