@@ -11,6 +11,7 @@ import type { JournalEvent } from "../../JournalEvent.js";
 export interface SupercruiseDestinationDrop extends JournalEvent<"SupercruiseDestinationDrop"> {
     /** The type fo destination being dropped into. */
     Type: string;
+    Type_Localised?: string;
 
     /** Threat level. */
     Threat: number;
