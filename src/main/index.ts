@@ -127,6 +127,7 @@ export * from "./events/other/SelfDestruct.js";
 export * from "./events/other/SendText.js";
 export * from "./events/other/Shutdown.js";
 export * from "./events/other/Status.js";
+export * from "./events/other/SupercruiseDestinationDrop.js";
 export * from "./events/other/Synthesis.js";
 export * from "./events/other/SystemsShutdown.js";
 export * from "./events/other/USSDrop.js";
