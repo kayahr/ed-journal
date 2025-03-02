@@ -42,7 +42,7 @@ class ValidationError extends Error {
 }
 
 const validator = new Validator();
-const schema = JSON.parse((await readFile(join("src", schemaFile))).toString()) as Schema;
+const schema = JSON.parse((await readFile(join("lib", schemaFile))).toString()) as Schema;
 
 const journal = await Journal.open();
 process.on("SIGINT", () => {
