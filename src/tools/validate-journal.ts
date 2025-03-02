@@ -49,8 +49,10 @@ for await (const event of journal) {
     if (narrowedSchema == null) {
         const definition = schema.definitions?.[event.event];
         if (definition != null) {
-            narrowedSchema = { ...schema, ...definition };
-            delete narrowedSchema.anyOf;
+            narrowedSchema = {
+                ...schema,
+                $ref: `#/definitions/${event.event}`
+            };
         } else {
             narrowedSchema = schema;
         }
