@@ -34,4 +34,7 @@ export interface Bounty extends JournalEvent<"Bounty"> {
 
     /** The reward (when bounty is for a skimmer). */
     Reward?: number;
+
+    PilotName?: string;
+    PilotName_Localised?: string;
 }
