@@ -17,9 +17,11 @@ export interface ApproachSettlement extends JournalEvent<"ApproachSettlement"> {
     BodyName?: string;
     StationFaction?: {
         Name: string;
+        FactionState?: string;
     };
     StationGovernment?: string;
     StationGovernment_Localised?: string;
+    StationAllegiance?: string;
     StationServices?: StationService[];
     StationEconomy?: string;
     StationEconomy_Localised?: string;
