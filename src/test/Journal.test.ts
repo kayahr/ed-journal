@@ -1,4 +1,4 @@
-import { chmod, mkdir, mkdtemp, open, rm, writeFile } from "node:fs/promises";
+import { appendFile, chmod, mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
@@ -52,16 +52,11 @@ class JournalWriter {
     }
 
     public async append(filename: string, line: string): Promise<void> {
-        const file = await open(join(this.directory, filename), "as");
-        try {
-            await file.write(line + "\r\n");
-        } finally {
-            await file.close();
-        }
+        await appendFile(join(this.directory, filename), line + "\r\n", { flush: true });
     }
 
     public async write(filename: string, line: string): Promise<void> {
-        await writeFile(join(this.directory, filename), line + "\r\n");
+        await writeFile(join(this.directory, filename), line + "\r\n", { flush: true });
     }
 
     public async done(): Promise<void> {
@@ -146,12 +141,12 @@ describe("Journal", () => {
         const writer = await JournalWriter.create(journalDir);
         try {
             const records: AnyJournalEvent[] = [];
-            const journal = await Journal.open({
-                directory: writer.directory,
-                watch: true,
-                position: { file: "Journal.210101000000.01.log", offset: 163, line: 2 }
-            });
             const promise = (async () => {
+                const journal = await Journal.open({
+                    directory: writer.directory,
+                    watch: true,
+                    position: { file: "Journal.210101000000.01.log", offset: 163, line: 2 }
+                });
                 try {
                     for await (const record of journal) {
                         records.push(record);
