@@ -11,4 +11,9 @@ export interface UpgradeWeapon extends JournalEvent<"UpgradeWeapon"> {
     Class: number;
     SuitModuleID: number;
     Cost: number;
+    Resources?: Array<{
+        Name: string;
+        Name_Localised?: string;
+        Count: number;
+    }>;
 }
