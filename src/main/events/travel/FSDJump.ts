@@ -84,6 +84,16 @@ export interface FSDJump extends JournalEvent<"FSDJump"> {
         Faction2: ConflictFaction;
     }>;
 
+    /** If starting in a system affected by the thargoid war. */
+    ThargoidWar?: {
+        CurrentState: string;
+        NextStateSuccess: string;
+        NextStateFailure: string;
+        SuccessStateReached: boolean;
+        WarProgress: number;
+        RemainingPorts: number;
+    };
+
     /** Names of any powers contesting the system, or the name of the controlling power. */
     Powers?: string[];
 
