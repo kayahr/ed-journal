@@ -14,7 +14,7 @@ export interface NavRoute extends JournalEvent<"NavRoute"> {}
 /**
  * Extended nav route data written to separate 'NavRoute.json' file.
  */
-export interface ExtendedNavRoute extends NavRoute {
+export interface ExtendedNavRoute extends JournalEvent<"NavRoute" | "NavRouteClear"> {
     Route: Array<{
         StarSystem: string;
         SystemAddress: number;
