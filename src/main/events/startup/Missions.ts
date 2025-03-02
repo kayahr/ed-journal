@@ -9,6 +9,7 @@ import type { JournalEvent } from "../../JournalEvent.js";
 export interface Mission {
     MissionID: number;
     Name: string;
+    Name_Localised?: string;
     PassengerMission: boolean;
 
     /** Time left in seconds. */
