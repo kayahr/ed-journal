@@ -196,6 +196,7 @@ export interface Statistics extends JournalEvent<"Statistics"> {
         Assets_Traded_Out?: number;
     };
     TG_ENCOUNTERS?: {
+        TG_ENCOUNTER_KILLED?: number;
         TG_ENCOUNTER_IMPRINT?: number;
         TG_ENCOUNTER_TOTAL?: number;
         TG_ENCOUNTER_TOTAL_LAST_SYSTEM?: string;
