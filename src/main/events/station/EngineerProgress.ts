@@ -7,8 +7,8 @@ import type { JournalEvent } from "../../JournalEvent.js";
 
 export interface EngineerProgress extends JournalEvent<"EngineerProgress"> {
     Engineers?: Array<{
-        Engineer: string;
-        EngineerID: number;
+        Engineer?: string;
+        EngineerID?: number;
         Progress: string;
         RankProgress?: number;
         Rank?: number;
