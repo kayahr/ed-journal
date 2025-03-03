@@ -147,6 +147,39 @@ describe("Journal", () => {
         }
     });
 
+    it("picks up new journal files changed/created while still initializing the watcher", async () => {
+        const writer = await JournalWriter.create(journalDir);
+        try {
+            const events: AnyJournalEvent[] = [];
+            const journal = await Journal.open({ directory: writer.directory, watch: true });
+            const promise = (async () => {
+                try {
+                    for await (const event of journal) {
+                        events.push(event);
+                        if (event.event === "Died") {
+                            break;
+                        }
+                    }
+                } finally {
+                    await journal.close();
+                }
+            })();
+
+            // Write line into existing file
+            writer.appendSync("Journal.2023-01-01T000000.01.log",
+                `{ "timestamp":"2023-01-01T00:00:02Z", "event":"Continued", "Part": 2 }`);
+
+            // Write line into new file
+            writer.writeSync("Journal.2023-01-01T000000.02.log",
+                `{ "timestamp":"2023-01-01T00:00:03Z", "event":"Died" }`);
+
+            await promise;
+            expect(events).toMatchSnapshot();
+        } finally {
+            await writer.done();
+        }
+    });
+
     it("watches a journal starting at given position", async () => {
         const writer = await JournalWriter.create(journalDir);
         try {
@@ -188,12 +221,12 @@ describe("Journal", () => {
         const writer = await JournalWriter.create(journalDir);
         try {
             const records: AnyJournalEvent[] = [];
+            const journal = await Journal.open({
+                directory: writer.directory,
+                watch: true,
+                position: "end"
+            });
             const promise = (async () => {
-                const journal = await Journal.open({
-                    directory: writer.directory,
-                    watch: true,
-                    position: "end"
-                });
                 try {
                     for await (const event of journal) {
                         records.push(event);
@@ -206,13 +239,9 @@ describe("Journal", () => {
                 }
             })();
 
-            await sleep(100);
-
             // Write line into existing file
             await writer.append("Journal.2023-01-01T000000.01.log",
                 `{ "timestamp":"2023-01-01T00:00:02Z", "event":"Continued", "Part": 2 }`);
-
-            await sleep(100);
 
             // Write line into new file
             await writer.append("Journal.2023-01-01T000000.02.log",
@@ -242,7 +271,6 @@ describe("Journal", () => {
                     await journal.close();
                 }
             })();
-            await sleep(100);
             writer.writeSync("Journal.2025-03-03T000000.01.log", '{ "timestamp":"2025-03-03T00:00:01Z", "event":"Shutdown" }');
             writer.writeSync("Journal.2025-03-03T000000.02.log", '{ "timestamp":"2025-03-03T00:00:03Z", "event":"Died" }');
             writer.appendSync("Journal.2025-03-03T000000.01.log", '{ "timestamp":"2025-03-03T00:00:02Z", "event":"Continued", "Part": 2 }');
@@ -400,7 +428,6 @@ describe("Journal", () => {
                 try {
                     expect(await journal.next()).toEqual({ timestamp: "2023-01-01T00:00:01Z", event: "Shutdown" });
                     const promise = journal.next();
-                    await sleep(50);
                     await writer.append("Journal.2023-01-01T000000.02.log",
                         `{ "timestamp":"2023-01-01T00:00:03Z", "event":"Died" }`);
                     expect(await promise).toEqual({ timestamp: "2023-01-01T00:00:03Z", event: "Died" });
@@ -619,6 +646,25 @@ describe("Journal", () => {
                     events.push(status);
                 }
                 expect(events.length).toBe(0);
+            });
+            it("can be terminated after first report", async () => {
+                const writer = await JournalWriter.create(journalDir);
+                try {
+                    const initial = json[fileType];
+                    await writer.write(`${fileType}.json`, JSON.stringify(initial));
+                    const journal = await Journal.open({ directory: writer.directory, watch: true });
+                    const events = [];
+                    void (async () => {
+                        await sleep(0);
+                        await journal.close();
+                    })();
+                    for await (const status of watchMethods[fileType].call(journal)) {
+                        events.push(status);
+                    }
+                    expect(events.length).toBe(1);
+                } finally {
+                    await writer.done();
+                }
             });
             it("reports the initial data", async () => {
                 const writer = await JournalWriter.create(journalDir);

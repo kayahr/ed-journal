@@ -13,9 +13,9 @@ import "./events/exploration/Scan.js";
 import "./events/startup/Statistics.js";
 import "./events/other/Synthesis.js";
 
-import { open, readdir, readFile } from "node:fs/promises";
+import { open, readdir, readFile, watch } from "node:fs/promises";
 import { homedir } from "node:os";
-import { basename, join, resolve } from "node:path";
+import { join, resolve } from "node:path";
 
 import type { AnyJournalEvent } from "./AnyJournalEvent.js";
 import type { Backpack } from "./events/odyssey/Backpack.js";
@@ -30,10 +30,10 @@ import { JournalError } from "./JournalError.js";
 import { type JournalEvent, updateJournalEvent } from "./JournalEvent.js";
 import type { JournalPosition } from "./JournalPosition.js";
 import { sleep } from "./util/async.js";
-import { getErrorMessage } from "./util/error.js";
+import { getErrorMessage, toError } from "./util/error.js";
 import { isDirectory, isPathReadable } from "./util/fs.js";
 import { LineReader } from "./util/LineReader.js";
-import { watch } from "./util/watch.js";
+import { Notifier } from "./util/Notifier.js";
 
 /**
  * Compare function to sort journal file names by time. Empty string is always earlier than any journal file.
@@ -249,46 +249,68 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      * @return New/changed journal files in chronological order.
      */
     private async *watchJournalFiles(startFile: string): AsyncGenerator<string> {
-        const initialFiles: string[] = [];
-        let ready = false;
-        const directory = resolve(this.directory);
         const signal = this.abortController.signal;
-        const watcher = watch("", {
-            ignored: path => path !== directory && (!basename(path).startsWith("Journal.") || !path.endsWith(".log")),
-            cwd: directory,
-            depth: 0,
-            ignoreInitial: false,
-            usePolling: false,
-            signal
-        });
-        for await (const event of watcher) {
-            if (signal.aborted) {
-                break;
-            }
-            if (event.eventName === "add") {
-                if (isJournalFile(event.path) && journalTimeCompare(event.path, startFile) >= 0) {
-                    if (ready) {
-                        if (startFile != "") {
-                            // Also yield the current file again in case the new file is reported before the change in
-                            // the current file is reported. Otherwise we would loose the new lines in the current file
-                            // and switch directly to the new file
-                            yield startFile;
+        const notifier = new Notifier();
+        const directory = resolve(this.directory);
+        const files: string[] = [];
+        let error: Error | null = null;
+        let initialized = false;
+
+        // Monitors journal directory for changes. This starts immediately, even when initial directories are still read, so we don't miss any changed or
+        // new file. When initialization is not done yet, then changed/new file is just recorded and taken into account during initialization. If
+        // initialization is done then changed/new files are reported right away.
+        void (async () => {
+            try {
+                for await (const event of watch(directory)) {
+                    const filename = event.filename;
+                    if (filename != null && isJournalFile(filename)) {
+                        if (initialized) {
+                            if (journalTimeCompare(filename, startFile) >= 0) {
+                                startFile = filename;
+                                files.push(filename);
+                                notifier.notify();
+                            }
+                        } else {
+                            files.push(filename);
                         }
-                        yield startFile = event.path;
-                    } else {
-                        initialFiles.push(event.path);
                     }
                 }
-            } else if (event.eventName === "change") {
-                if (ready && isJournalFile(event.path) && journalTimeCompare(event.path, startFile) >= 0) {
-                    yield event.path;
+            } catch (e) {
+                error = toError(e);
+                notifier.notify();
+            }
+        })();
+
+        // Asynchronous initialization. Reads all existing journal files and sorts them. While reading the directory the watcher can already contribute
+        // new/changed files.
+        void (async () => {
+            try {
+                for (const file of await this.listJournalFiles(startFile)) {
+                    if (signal.aborted) {
+                        break;
+                    }
+                    files.push(file);
                 }
-            } else if (event.eventName === "ready") {
-                ready = true;
-                initialFiles.sort(journalTimeCompare);
-                for (startFile of initialFiles) {
-                    yield startFile;
-                }
+                files.sort(journalTimeCompare);
+                startFile = files.at(-1) ?? "";
+                initialized = true;
+                notifier.notify();
+            } catch (e) {
+                error = toError(e);
+                notifier.notify();
+            }
+        })();
+
+        // Waits for reported new/changed files and yields them. Aborts on error and simply exits when user aborts the watcher.
+        while (!signal.aborted) {
+            if (error != null) {
+                throw error as Error;
+            }
+            const nextFile = files.shift();
+            if (nextFile != null) {
+                yield nextFile;
+            } else {
+                await notifier.wait();
             }
         }
     }
@@ -339,10 +361,6 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
         // has been read this loop waits until the files generator reports the current journal file again when it has
         // been changed or a new journal file was found. Reading is then continued at this point.
         for await (const file of files) {
-            if (signal.aborted) {
-                break;
-            }
-
             // Create line reader or replace it when new journal file has been opened
             let lineReader = this.lineReader;
             if (lineReader == null || file !== this.position.file) {
@@ -422,24 +440,25 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      * @param filename - The filename of the JSON file to read and watch. Relative to journal directory.
      * @return Async iterator watching content changes.
      */
-    private async *watchFile<T extends JournalEvent>(filename: string): AsyncGenerator<T> {
+    private async *watchFile(filename: string): AsyncGenerator<string> {
         const signal = this.abortController.signal;
-        const watcher = watch(filename, {
-            cwd: resolve(this.directory),
-            depth: 0,
-            ignoreInitial: false,
-            usePolling: false,
-            signal
-        });
-        for await (const event of watcher) {
-            if (signal.aborted) {
-                break;
-            }
-            if (event.eventName === "change" || event.eventName === "add") {
-                const content = await this.readFile<T>(filename);
-                if (content != null) {
-                    yield content;
+        yield filename;
+        try {
+            for await (const event of watch(this.directory, { signal })) {
+                if (event.filename === filename) {
+                    yield filename;
                 }
+            }
+        } catch {
+            // Ignoring watch abort, generator still stops yielding values
+        }
+    }
+
+    private async *watchFileContent<T extends JournalEvent>(filename: string): AsyncGenerator<T> {
+        for await (const file of this.watchFile(filename)) {
+            const content = await this.readFile<T>(file);
+            if (content != null) {
+                yield content;
             }
         }
     }
@@ -460,7 +479,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      * @return Async iterator watching backpack inventory changes.
      */
     public watchBackpack(): AsyncGenerator<Backpack> {
-        return this.watchFile("Backpack.json");
+        return this.watchFileContent("Backpack.json");
     }
 
     /**
@@ -479,7 +498,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      * @return Async iterator watching cargo changes.
      */
     public watchCargo(): AsyncGenerator<Backpack> {
-        return this.watchFile("Cargo.json");
+        return this.watchFileContent("Cargo.json");
     }
 
     /**
@@ -499,7 +518,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      * @return Async iterator watching fleet carrier materials data changes.
      */
     public watchFCMaterials(): AsyncGenerator<ExtendedFCMaterials> {
-        return this.watchFile("FCMaterials.json");
+        return this.watchFileContent("FCMaterials.json");
     }
 
     /**
@@ -518,7 +537,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      * @return Async iterator watching market data changes.
      */
     public watchMarket(): AsyncGenerator<ExtendedMarket> {
-        return this.watchFile("Market.json");
+        return this.watchFileContent("Market.json");
     }
 
     /**
@@ -537,7 +556,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      * @return Async iterator watching modules info changes.
      */
     public watchModulesInfo(): AsyncGenerator<ExtendedModuleInfo> {
-        return this.watchFile("ModulesInfo.json");
+        return this.watchFileContent("ModulesInfo.json");
     }
 
     /**
@@ -556,7 +575,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      * @return Async iterator watching nav route data changes.
      */
     public watchNavRoute(): AsyncGenerator<ExtendedNavRoute> {
-        return this.watchFile("NavRoute.json");
+        return this.watchFileContent("NavRoute.json");
     }
 
     /**
@@ -575,7 +594,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      * @return Async iterator watching outfitting data changes.
      */
     public watchOutfitting(): AsyncGenerator<ExtendedOutfitting> {
-        return this.watchFile("Outfitting.json");
+        return this.watchFileContent("Outfitting.json");
     }
 
     /**
@@ -594,7 +613,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      * @return Async iterator watching ship locker content changes.
      */
     public watchShipLocker(): AsyncGenerator<ExtendedShipyard> {
-        return this.watchFile("ShipLocker.json");
+        return this.watchFileContent("ShipLocker.json");
     }
 
     /**
@@ -613,7 +632,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      * @return Async iterator watching shipyard data changes.
      */
     public watchShipyard(): AsyncGenerator<ExtendedShipyard> {
-        return this.watchFile("Shipyard.json");
+        return this.watchFileContent("Shipyard.json");
     }
 
     /**
@@ -632,6 +651,6 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      * @return Async iterator watching status changes.
      */
     public watchStatus(): AsyncGenerator<Status> {
-        return this.watchFile("Status.json");
+        return this.watchFileContent("Status.json");
     }
 }

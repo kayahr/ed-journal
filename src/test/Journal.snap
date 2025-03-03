@@ -14,6 +14,72 @@ exports[`Journal > can watch new journal events only 1`] = `
 ]
 `;
 
+exports[`Journal > picks up new journal files changed/created while still initializing the watcher 1`] = `
+[
+  {
+    "Odyssey": true,
+    "build": "r271793/r0 ",
+    "event": "Fileheader",
+    "gameversion": "4.0.0.600",
+    "language": "English\\UK",
+    "part": 1,
+    "timestamp": "2020-01-01T00:00:00Z",
+  },
+  {
+    "event": "Shutdown",
+    "timestamp": "2020-01-01T00:00:01Z",
+  },
+  {
+    "Odyssey": true,
+    "build": "r271793/r0 ",
+    "event": "Fileheader",
+    "gameversion": "4.0.0.600",
+    "language": "English\\UK",
+    "part": 1,
+    "timestamp": "2021-01-01T00:00:00Z",
+  },
+  {
+    "event": "Shutdown",
+    "timestamp": "2021-01-01T00:00:01Z",
+  },
+  {
+    "Odyssey": true,
+    "build": "r271793/r0 ",
+    "event": "Fileheader",
+    "gameversion": "4.0.0.600",
+    "language": "English\\UK",
+    "part": 1,
+    "timestamp": "2022-01-01T00:00:00Z",
+  },
+  {
+    "event": "Shutdown",
+    "timestamp": "2022-01-01T00:00:01Z",
+  },
+  {
+    "Odyssey": true,
+    "build": "r271793/r0 ",
+    "event": "Fileheader",
+    "gameversion": "4.0.0.600",
+    "language": "English\\UK",
+    "part": 1,
+    "timestamp": "2023-01-01T00:00:00Z",
+  },
+  {
+    "event": "Shutdown",
+    "timestamp": "2023-01-01T00:00:01Z",
+  },
+  {
+    "Part": 2,
+    "event": "Continued",
+    "timestamp": "2023-01-01T00:00:02Z",
+  },
+  {
+    "event": "Died",
+    "timestamp": "2023-01-01T00:00:03Z",
+  },
+]
+`;
+
 exports[`Journal > reads a journal in chronological order 1`] = `
 [
   {
