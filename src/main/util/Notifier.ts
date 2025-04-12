@@ -50,12 +50,10 @@ export class Notifier {
         if (this.error != null) {
             throw this.error;
         }
-        if (this.promise == null) {
-            this.promise = new Promise((resolve, reject) => {
-                this.resolve = resolve;
-                this.reject = reject;
-            });
-        }
+        this.promise ??= new Promise((resolve, reject) => {
+            this.resolve = resolve;
+            this.reject = reject;
+        });
         return this.promise;
     }
 }

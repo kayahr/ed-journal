@@ -132,9 +132,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      * Opens the journal.
      */
     public static async open({ directory, position = "start", watch = false }: JournalOptions = {}): Promise<Journal> {
-        if (directory == null) {
-            directory = await this.findDirectory();
-        }
+        directory ??= await this.findDirectory();
         if (position === "start") {
             position = { file: "", offset: 0, line: 1 };
         } else if (position === "end") {
