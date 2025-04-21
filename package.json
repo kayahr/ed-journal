@@ -67,7 +67,7 @@
         "cspell": "8.18.1",
         "jsonschema": "1.5.0",
         "npm-run-all": "4.1.5",
-        "playwright": "1.51.1",
+        "playwright": "1.52.0",
         "rimraf": "6.0.1",
         "source-map-support": "0.5.21",
         "ts-json-schema-generator": "2.4.0",
