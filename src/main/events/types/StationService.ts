@@ -4,8 +4,8 @@
  */
 
 /** The station services. */
-export type StationService =
-    | "dock"
+export type StationService
+    = "dock"
     | "autodock"
     | "blackmarket"
     | "commodities"

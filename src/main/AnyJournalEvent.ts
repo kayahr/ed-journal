@@ -248,8 +248,8 @@ import type { Undocked } from "./events/travel/Undocked.js";
 /**
  * Union type of all existing journal event types.
  */
-export type AnyJournalEvent =
-    | ApproachBody
+export type AnyJournalEvent
+    = ApproachBody
     | AfmuRepairs
     | AppliedToSquadron
     | ApproachSettlement

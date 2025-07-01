@@ -6,8 +6,8 @@
 import type { JournalEvent } from "../../JournalEvent.js";
 
 /** Valid legal states. */
-export type LegalState =
-    | "Clean"
+export type LegalState
+    = "Clean"
     | "IllegalCargo"
     | "Speeding"
     | "Wanted"
