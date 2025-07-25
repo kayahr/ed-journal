@@ -9,6 +9,8 @@
     "excludePrivate": true,
     "excludeExternals": true,
     "excludeInternal": true,
+    "validation": true,
+    "requiredToBeDocumented": [],
     "treatWarningsAsErrors": true,
     "plugin": [
         "typedoc-github-theme"

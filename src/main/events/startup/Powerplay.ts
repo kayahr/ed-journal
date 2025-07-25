@@ -14,7 +14,7 @@ export interface Powerplay extends JournalEvent<"Powerplay"> {
 
     Rank: number;
     Merits: number;
-    Votes: number;
+    Votes?: number;
 
     /** Time in seconds. */
     TimePledged: number;

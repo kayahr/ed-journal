@@ -5,6 +5,7 @@
 
 import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
 import type { ConflictFaction } from "../types/ConflictFaction.js";
+import type { ConflictProgress } from "../types/ConflictProgress.js";
 import type { PowerState } from "../types/PowerState.js";
 
 /**
@@ -22,6 +23,7 @@ export interface FSDJump extends JournalEvent<"FSDJump"> {
     Body?: string;
     BodyID?: number;
     BodyType?: string;
+    ControllingPower?: string;
 
     /** Distance jumped. */
     JumpDist: number;
@@ -99,6 +101,11 @@ export interface FSDJump extends JournalEvent<"FSDJump"> {
 
     /** The system's powerplay state. */
     PowerplayState?: PowerState;
+
+    PowerplayStateControlProgress?: number;
+    PowerplayStateReinforcement?: number;
+    PowerplayStateUndermining?: number;
+    PowerplayConflictProgress?: ConflictProgress[];
 
     Taxi?: boolean;
     Multicrew?: boolean;

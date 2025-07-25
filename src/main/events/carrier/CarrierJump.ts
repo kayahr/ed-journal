@@ -5,6 +5,7 @@
 
 import type { JournalEvent } from "../../JournalEvent.js";
 import type { ConflictFaction } from "../types/ConflictFaction.js";
+import type { ConflictProgress } from "../types/ConflictProgress.js";
 import type { PowerState } from "../types/PowerState.js";
 import type { StationService } from "../types/StationService.js";
 
@@ -35,6 +36,10 @@ export interface CarrierJump extends JournalEvent<"CarrierJump"> {
     }>;
     Powers?: string[];
     PowerplayState?: PowerState;
+    PowerplayStateControlProgress?: number;
+    PowerplayStateReinforcement?: number;
+    PowerplayStateUndermining?: number;
+    PowerplayConflictProgress?: ConflictProgress[];
     Taxi?: boolean;
     Multicrew?: boolean;
     StarSystem: string;
@@ -53,6 +58,7 @@ export interface CarrierJump extends JournalEvent<"CarrierJump"> {
     Body: string;
     BodyID: number;
     BodyType: string;
+    ControllingPower?: string;
     Factions?: Array<{
         Name: string;
         FactionState: string;

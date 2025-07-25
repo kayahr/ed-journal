@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { MicroResource } from "../types/MicroResource.js";
 
 export interface OldBuyMicroResources extends JournalEvent<"BuyMicroResources"> {
     Name: string;
@@ -16,12 +17,7 @@ export interface OldBuyMicroResources extends JournalEvent<"BuyMicroResources"> 
 
 export interface NewBuyMicroResources extends JournalEvent<"BuyMicroResources"> {
     TotalCount: number;
-    MicroResources: Array<{
-        Name: string;
-        Name_Localised: string;
-        Category: string;
-        Count: number;
-    }>;
+    MicroResources: MicroResource[];
     Price: number;
     MarketID: number;
 }

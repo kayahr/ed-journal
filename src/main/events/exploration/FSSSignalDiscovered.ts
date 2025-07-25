@@ -32,6 +32,9 @@ export interface FSSSignalDiscovered extends JournalEvent<"FSSSignalDiscovered">
     USSType?: string;
     USSType_Localised?: string;
 
+    SpawningPower?: string;
+    OpposingPower?: string;
+
     /** True if it is a station. */
     IsStation?: boolean;
 }

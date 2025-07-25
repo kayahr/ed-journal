@@ -5,6 +5,7 @@
 
 import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
 import type { ConflictFaction } from "../types/ConflictFaction.js";
+import type { ConflictProgress } from "../types/ConflictProgress.js";
 import type { PowerState } from "../types/PowerState.js";
 import { correctStationService, type StationService } from "../types/StationService.js";
 
@@ -22,6 +23,7 @@ export interface Location extends JournalEvent<"Location"> {
     Body_Localised?: string;
     BodyID?: number;
     BodyType: string;
+    ControllingPower?: string;
     DistFromStarLS?: number;
     Docked: boolean;
     Latitude?: number;
@@ -85,6 +87,20 @@ export interface Location extends JournalEvent<"Location"> {
 
     /** The system's powerplay state. */
     PowerplayState?: PowerState;
+
+    PowerplayStateControlProgress?: number;
+    PowerplayStateReinforcement?: number;
+    PowerplayStateUndermining?: number;
+    PowerplayConflictProgress?: ConflictProgress[];
+
+    ThargoidWar?: {
+        CurrentState: string;
+        NextStateSuccess: string;
+        NextStateFailure: string;
+        SuccessStateReached: boolean;
+        WarProgress: number;
+        RemainingPorts: number;
+    };
 
     StationFaction?: {
         Name: string;

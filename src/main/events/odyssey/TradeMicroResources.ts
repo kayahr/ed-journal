@@ -4,14 +4,10 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { MicroResource } from "../types/MicroResource.js";
 
 export interface TradeMicroResources extends JournalEvent<"TradeMicroResources"> {
-    Offered: Array<{
-        Name: string;
-        Name_Localised?: string;
-        Category: string;
-        Count: number;
-    }>;
+    Offered: MicroResource[];
     TotalCount: number;
     Received: string;
     Received_Localised?: string;

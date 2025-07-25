@@ -6,6 +6,7 @@
 import type { JournalEvent } from "../../JournalEvent.js";
 
 export interface BookDropship extends JournalEvent<"BookDropship"> {
+    Retreat?: boolean;
     Cost: number;
     DestinationSystem: string;
     DestinationLocation: string;

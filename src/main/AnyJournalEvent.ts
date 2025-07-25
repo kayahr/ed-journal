@@ -12,6 +12,7 @@ import type { CarrierFinance } from "./events/carrier/CarrierFinance.js";
 import type { CarrierJump } from "./events/carrier/CarrierJump.js";
 import type { CarrierJumpCancelled } from "./events/carrier/CarrierJumpCancelled.js";
 import type { CarrierJumpRequest } from "./events/carrier/CarrierJumpRequest.js";
+import type { CarrierLocation } from "./events/carrier/CarrierLocation.js";
 import type { CarrierNameChange } from "./events/carrier/CarrierNameChange.js";
 import type { CarrierStats } from "./events/carrier/CarrierStats.js";
 import type { CarrierTradeOrder } from "./events/carrier/CarrierTradeOrder.js";
@@ -57,6 +58,7 @@ import type { BuyMicroResources } from "./events/odyssey/BuyMicroResources.js";
 import type { BuySuit } from "./events/odyssey/BuySuit.js";
 import type { BuyWeapon } from "./events/odyssey/BuyWeapon.js";
 import type { CancelDropship } from "./events/odyssey/CancelDropship.js";
+import type { CancelTaxi } from "./events/odyssey/CancelTaxi.js";
 import type { CollectItems } from "./events/odyssey/CollectItems.js";
 import type { CreateSuitLoadout } from "./events/odyssey/CreateSuitLoadout.js";
 import type { DeleteSuitLoadout } from "./events/odyssey/DeleteSuitLoadout.js";
@@ -134,12 +136,15 @@ import type { WingAdd } from "./events/other/WingAdd.js";
 import type { WingInvite } from "./events/other/WingInvite.js";
 import type { WingJoin } from "./events/other/WingJoin.js";
 import type { WingLeave } from "./events/other/WingLeave.js";
+import type { DeliverPowerMicroResources } from "./events/powerplay/DeliverPowerMicroResources.js";
 import type { PowerplayCollect } from "./events/powerplay/PowerplayCollect.js";
 import type { PowerplayDefect } from "./events/powerplay/PowerplayDefect.js";
 import type { PowerplayDeliver } from "./events/powerplay/PowerplayDeliver.js";
 import type { PowerplayFastTrack } from "./events/powerplay/PowerplayFastTrack.js";
 import type { PowerplayJoin } from "./events/powerplay/PowerplayJoin.js";
 import type { PowerplayLeave } from "./events/powerplay/PowerplayLeave.js";
+import type { PowerplayMerits } from "./events/powerplay/PowerplayMerits.js";
+import type { PowerplayRank } from "./events/powerplay/PowerplayRank.js";
 import type { PowerplaySalary } from "./events/powerplay/PowerplaySalary.js";
 import type { PowerplayVote } from "./events/powerplay/PowerplayVote.js";
 import type { PowerplayVoucher } from "./events/powerplay/PowerplayVoucher.js";
@@ -209,9 +214,11 @@ import type { SearchAndRescue } from "./events/station/SearchAndRescue.js";
 import type { SellDrones } from "./events/station/SellDrones.js";
 import type { SellShipOnRebuy } from "./events/station/SellShipOnRebuy.js";
 import type { SetUserShipName } from "./events/station/SetUserShipName.js";
+import type { ShipRedeemed } from "./events/station/ShipRedeemed.js";
 import type { Shipyard } from "./events/station/Shipyard.js";
 import type { ShipyardBuy } from "./events/station/ShipyardBuy.js";
 import type { ShipyardNew } from "./events/station/ShipyardNew.js";
+import type { ShipyardRedeem } from "./events/station/ShipyardRedeem.js";
 import type { ShipyardSell } from "./events/station/ShipyardSell.js";
 import type { ShipyardSwap } from "./events/station/ShipyardSwap.js";
 import type { ShipyardTransfer } from "./events/station/ShipyardTransfer.js";
@@ -267,6 +274,7 @@ export type AnyJournalEvent
     | BuyTradeData
     | BuyWeapon
     | CancelDropship
+    | CancelTaxi
     | CapShipBond
     | Cargo
     | CargoDepot
@@ -280,6 +288,7 @@ export type AnyJournalEvent
     | CarrierJump
     | CarrierJumpCancelled
     | CarrierJumpRequest
+    | CarrierLocation
     | CarrierNameChange
     | CarrierStats
     | CarrierTradeOrder
@@ -403,12 +412,15 @@ export type AnyJournalEvent
     | PayBounties
     | PayFines
     | PayLegacyFines
+    | DeliverPowerMicroResources
     | PowerplayCollect
     | PowerplayDefect
     | PowerplayDeliver
     | PowerplayFastTrack
     | PowerplayJoin
     | PowerplayLeave
+    | PowerplayMerits
+    | PowerplayRank
     | PowerplaySalary
     | Powerplay
     | PowerplayVote
@@ -454,9 +466,11 @@ export type AnyJournalEvent
     | SetUserShipName
     | ShieldState
     | ShipLocker
+    | ShipRedeemed
     | ShipTargeted
     | ShipyardBuy
     | ShipyardNew
+    | ShipyardRedeem
     | ShipyardSell
     | ShipyardSwap
     | ShipyardTransfer

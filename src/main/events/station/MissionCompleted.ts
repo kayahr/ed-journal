@@ -41,11 +41,12 @@ export interface MissionCompleted extends JournalEvent<"MissionCompleted"> {
     }>;
     MissionID: number;
     Name: string;
+    LocalisedName?: string;
     PermitsAwarded?: string[];
     Reward?: number;
     MaterialsReward?: Array<{
         Name: string;
-        Name_Localised: string;
+        Name_Localised?: string;
         Category: string;
         Category_Localised: string;
         Count: number;

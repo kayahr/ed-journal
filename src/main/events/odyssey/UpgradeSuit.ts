@@ -11,4 +11,9 @@ export interface UpgradeSuit extends JournalEvent<"UpgradeSuit"> {
     SuitID: number;
     Class: number;
     Cost: number;
+    Resources?: Array<{
+        Name: string;
+        Name_Localised?: string;
+        Count: number;
+    }>;
 }

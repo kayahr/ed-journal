@@ -73,7 +73,7 @@ export interface Loadout extends JournalEvent<"Loadout"> {
             BlueprintName: string;
 
             /** The name of the engineer. */
-            Engineer: string;
+            Engineer?: string;
 
             /** The ID of the engineer. */
             EngineerID: number;
