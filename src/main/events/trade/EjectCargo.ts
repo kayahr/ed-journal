@@ -10,4 +10,5 @@ export interface EjectCargo extends JournalEvent<"EjectCargo"> {
     Count: number;
     Type: string;
     Type_Localised?: string;
+    PowerplayOrigin?: string;
 }
