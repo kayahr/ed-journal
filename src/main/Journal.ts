@@ -257,9 +257,9 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
         // Monitors journal directory for changes. This starts immediately, even when initial directories are still read, so we don't miss any changed or
         // new file. When initialization is not done yet, then changed/new file is just recorded and taken into account during initialization. If
         // initialization is done then changed/new files are reported right away.
-        void (async () => {
+        const journalDirMonitor = (async () => {
             try {
-                for await (const event of watch(directory)) {
+                for await (const event of watch(directory, { signal: this.abortController.signal })) {
                     const filename = event.filename;
                     if (filename != null && isJournalFile(filename)) {
                         if (initialized) {
@@ -281,7 +281,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
 
         // Asynchronous initialization. Reads all existing journal files and sorts them. While reading the directory the watcher can already contribute
         // new/changed files.
-        void (async () => {
+        const asyncInit = (async () => {
             try {
                 for (const file of await this.listJournalFiles(startFile)) {
                     if (signal.aborted) {
@@ -311,6 +311,10 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
                 await notifier.wait();
             }
         }
+
+        // Await background processes to make sure they existed correctly
+        await asyncInit;
+        await journalDirMonitor;
     }
 
     /**
