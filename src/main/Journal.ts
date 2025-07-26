@@ -248,7 +248,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      */
     private async *watchJournalFiles(startFile: string): AsyncGenerator<string> {
         const signal = this.abortController.signal;
-        const notifier = new Notifier();
+        const notifier = new Notifier(signal);
         const directory = resolve(this.directory);
         const files: string[] = [];
         let error: Error | null = null;
@@ -259,7 +259,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
         // initialization is done then changed/new files are reported right away.
         const journalDirMonitor = (async () => {
             try {
-                for await (const event of watch(directory, { signal: this.abortController.signal })) {
+                for await (const event of watch(directory, { signal })) {
                     const filename = event.filename;
                     if (filename != null && isJournalFile(filename)) {
                         if (initialized) {

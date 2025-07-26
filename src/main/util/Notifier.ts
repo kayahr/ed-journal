@@ -13,6 +13,15 @@ export class Notifier {
     private reject: ((e: Error) => void) | null = null;
 
     /**
+     * Creates a new notifier.
+     *
+     * @param signal - Optional abort signal to connect to. When signal reports an abort then the notifier is notified.
+     */
+    public constructor(signal?: AbortSignal) {
+        signal?.addEventListener("abort", () => this.notify());
+    }
+
+    /**
      * Notifies waiting processes. This resolves the promise returned by {@link wait} method.
      */
     public notify(): void {
