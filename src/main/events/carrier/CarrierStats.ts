@@ -5,6 +5,11 @@
 
 import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
 
+export interface Pack {
+    PackTheme: string;
+    PackTier: number;
+}
+
 export interface CarrierStats extends JournalEvent<"CarrierStats"> {
     CarrierID: number;
     Callsign: string;
@@ -33,6 +38,8 @@ export interface CarrierStats extends JournalEvent<"CarrierStats"> {
         TaxRate_refuel?: number;
         TaxRate_repair?: number;
         TaxRate_pioneersupplies?: number;
+        TaxRate_shipyard?: number;
+        TaxRate_outfitting?: number;
     };
     Crew: Array<{
         CrewRole: string;
@@ -40,8 +47,8 @@ export interface CarrierStats extends JournalEvent<"CarrierStats"> {
         Enabled?: boolean;
         CrewName?: string;
     }>;
-    ShipPacks: string[];
-    ModulePacks: string[];
+    ShipPacks: Pack[];
+    ModulePacks: Pack[];
 }
 
 interface DeprecatedCarrierStats extends JournalEvent<"CarrierStats"> {
