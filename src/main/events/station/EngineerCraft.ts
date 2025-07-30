@@ -11,7 +11,7 @@ export interface EngineerCraft extends JournalEvent<"EngineerCraft"> {
     Blueprint?: string;
     BlueprintID?: number;
     BlueprintName?: string;
-    Engineer: string;
+    Engineer?: string;
     EngineerID?: number;
     ExperimentalEffect?: string;
     ExperimentalEffect_Localised?: string;
