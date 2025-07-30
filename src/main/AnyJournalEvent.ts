@@ -13,7 +13,9 @@ import type { CarrierJump } from "./events/carrier/CarrierJump.js";
 import type { CarrierJumpCancelled } from "./events/carrier/CarrierJumpCancelled.js";
 import type { CarrierJumpRequest } from "./events/carrier/CarrierJumpRequest.js";
 import type { CarrierLocation } from "./events/carrier/CarrierLocation.js";
+import type { CarrierModulePack } from "./events/carrier/CarrierModulePack.js";
 import type { CarrierNameChange } from "./events/carrier/CarrierNameChange.js";
+import type { CarrierShipPack } from "./events/carrier/CarrierShipPack.js";
 import type { CarrierStats } from "./events/carrier/CarrierStats.js";
 import type { CarrierTradeOrder } from "./events/carrier/CarrierTradeOrder.js";
 import type { Bounty } from "./events/combat/Bounty.js";
@@ -289,7 +291,9 @@ export type AnyJournalEvent
     | CarrierJumpCancelled
     | CarrierJumpRequest
     | CarrierLocation
+    | CarrierModulePack
     | CarrierNameChange
+    | CarrierShipPack
     | CarrierStats
     | CarrierTradeOrder
     | ChangeCrewRole
