@@ -11,6 +11,8 @@ export interface ScanOrganic extends JournalEvent<"ScanOrganic"> {
     Genus_Localised: string;
     Species: string;
     Species_Localised: string;
+    Variant?: string;
+    Variant_Localised?: string;
     SystemAddress: number;
     Body: number;
 }

@@ -12,6 +12,8 @@ export interface SellOrganicData extends JournalEvent<"SellOrganicData"> {
         Genus_Localised: string;
         Species: string;
         Species_Localised: string;
+        Variant?: string;
+        Variant_Localised?: string;
         Value: number;
         Bonus: number;
     }>;
