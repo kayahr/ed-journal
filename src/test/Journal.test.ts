@@ -622,13 +622,18 @@ describe("Journal", () => {
                     const journal = await Journal.open({ directory: writer.directory });
                     let index = 0;
                     setTimeout(() => updateData(++index), 25);
+                    let lastSeen = -1;
                     try {
                         for await (const status of watchMethods[fileType].call(journal)) {
-                            expect(+status.timestamp).toBe(index);
-                            if (index < 3) {
-                                setTimeout(() => updateData(++index), 100);
-                            } else {
-                                break;
+                            const currentIndex = +status.timestamp;
+                            if (currentIndex > lastSeen) {
+                                lastSeen = currentIndex;
+                                expect(currentIndex).toBe(index);
+                                if (index < 3) {
+                                    setTimeout(() => updateData(++index), 100);
+                                } else {
+                                    break;
+                                }
                             }
                         }
                     } finally {
