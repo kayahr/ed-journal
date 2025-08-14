@@ -13,8 +13,9 @@
 
 import "source-map-support/register.js";
 
+import { Ajv, type Schema } from "ajv";
 import { readFile } from "fs/promises";
-import { type Schema, Validator } from "jsonschema";
+import { JSONStringify } from "json-with-bigint";
 import { join } from "path";
 
 import { Journal } from "../main/Journal.js";
@@ -37,21 +38,22 @@ const methods: Record<string, () => AsyncGenerator<JournalEvent>> = {
 
 class ValidationError extends Error {
     public constructor(message: string, event: JournalEvent) {
-        super(`${message}:\n\n${JSON.stringify(event, undefined, 4)}`);
+        super(`${message}:\n\n${JSONStringify(event, undefined, 4)}`);
     }
 }
 
-const validator = new Validator();
+const ajv = new Ajv({ strict: true });
 const schema = JSON.parse((await readFile(join("lib", schemaFile))).toString()) as Schema;
+const validator = ajv.compile(schema);
 
 const journal = await Journal.open();
 process.on("SIGINT", () => {
     void journal.close();
 });
 for await (const status of methods[type].call(journal)) {
-    const result = validator.validate(status, schema);
-    if (result.errors.length > 0) {
-        throw new ValidationError(result.errors[0].toString(), status);
+    const result = validator(status);
+    if (!result) {
+        throw new ValidationError(ajv.errorsText(validator.errors, { dataVar: "status" }), status);
     }
     console.log(status);
 }

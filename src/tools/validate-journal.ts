@@ -11,8 +11,9 @@
 
 import "source-map-support/register.js";
 
+import { Ajv, type Schema, type ValidateFunction } from "ajv";
 import { readFile } from "fs/promises";
-import { type Schema, Validator } from "jsonschema";
+import { JSONStringify } from "json-with-bigint";
 import { join } from "path";
 
 import type { AnyJournalEvent } from "../main/AnyJournalEvent.js";
@@ -26,13 +27,36 @@ if (position !== "start" && position !== "end") {
 
 class ValidationError extends Error {
     public constructor(message: string, event: AnyJournalEvent) {
-        super(`${message}:\n\n${JSON.stringify(event, undefined, 4)}`);
+        super(`${message}\n\n${JSONStringify(event, undefined, 4)}`);
     }
 }
 
-const validator = new Validator();
-const schema = JSON.parse((await readFile(join("lib", "journal-event.schema.json"))).toString()) as Schema;
-const narrowedSchemas = new Map<string, Schema>();
+const ajv = new Ajv({ strict: true, allowUnionTypes: true });
+const schema = JSON.parse((await readFile(join("lib", "journal-event.schema.json"))).toString()) as { definitions: Record<string, unknown> };
+const validators = new Map<string, ValidateFunction>();
+
+function bigintToNumber(obj: unknown): void {
+    if (obj != null && typeof obj === "object") {
+        if (Array.isArray(obj)) {
+            for (let i = 0; i < obj.length; i++) {
+                const value = obj[i] as unknown;
+                if (typeof value === "bigint") {
+                    obj[i] = Number(value);
+                } else if (typeof value === "object") {
+                    bigintToNumber(value);
+                }
+            }
+        } else {
+            for (const [ key, value ] of Object.entries(obj)) {
+                if (typeof value === "bigint") {
+                    (obj as Record<string, number>)[key] = Number(value);
+                } else if (typeof value === "object") {
+                    bigintToNumber(value);
+                }
+            }
+        }
+    }
+}
 
 const journal = await Journal.open({ position, watch: true });
 process.on("SIGINT", () => {
@@ -45,9 +69,10 @@ for await (const event of journal) {
         console.log("Validating file:", file);
         currentFile = file;
     }
-    let narrowedSchema = narrowedSchemas.get(event.event);
-    if (narrowedSchema == null) {
+    let validator = validators.get(event.event);
+    if (validator == null) {
         const definition = schema.definitions?.[event.event];
+        let narrowedSchema: Schema;
         if (definition != null) {
             narrowedSchema = {
                 ...schema,
@@ -56,10 +81,13 @@ for await (const event of journal) {
         } else {
             narrowedSchema = schema;
         }
-        narrowedSchemas.set(event.event, narrowedSchema);
+        validator = ajv.compile(narrowedSchema);
+        validators.set(event.event, validator);
     }
-    const result = validator.validate(event, narrowedSchema);
-    if (result.errors.length > 0) {
-        throw new ValidationError(result.errors[0].toString(), event);
+    // AJV cannot validate bigint against integer json type. So we have to convert bigint to number first
+    bigintToNumber(event);
+    const result = validator(event);
+    if (!result) {
+        throw new ValidationError(ajv.errorsText(validator.errors, { dataVar: "event" }), event);
     }
 }
