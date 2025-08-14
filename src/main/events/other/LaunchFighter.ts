@@ -4,9 +4,10 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface LaunchFighter extends JournalEvent<"LaunchFighter"> {
     Loadout: string;
     PlayerControlled: boolean;
-    ID?: number;
+    ID?: ID;
 }

@@ -4,6 +4,7 @@
  */
 
 import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 import { correctStationService, type StationService } from "../types/StationService.js";
 
 /**
@@ -16,7 +17,7 @@ export interface Docked extends JournalEvent<"Docked"> {
     /** The name of the station. */
     StationName: string;
 
-    MarketID?: number;
+    MarketID?: ID;
     SystemAddress?: number;
 
     /** The type of the station. */

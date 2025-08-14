@@ -4,8 +4,9 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface FighterRebuilt extends JournalEvent<"FighterRebuilt"> {
     Loadout: string;
-    ID?: number;
+    ID?: ID;
 }

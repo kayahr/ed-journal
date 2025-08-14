@@ -4,9 +4,10 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface ShipRedeemed extends JournalEvent<"ShipRedeemed"> {
     ShipType: string;
     ShipType_Localised: string;
-    NewShipID: number;
+    NewShipID: ID;
 }

@@ -4,10 +4,11 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface SearchAndRescue extends JournalEvent<"SearchAndRescue"> {
     Count: number;
-    MarketID?: number;
+    MarketID?: ID;
     Name: string;
     Name_Localised?: string;
     Reward: number;

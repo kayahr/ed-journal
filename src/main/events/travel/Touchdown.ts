@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /**
  * Written when landing on a planet surface.
@@ -14,7 +15,7 @@ export interface Touchdown extends JournalEvent<"Touchdown"> {
     StarSystem?: string;
     SystemAddress?: number;
     Body?: string;
-    BodyID?: number;
+    BodyID?: ID;
     OnStation?: boolean;
     OnPlanet?: boolean;
 

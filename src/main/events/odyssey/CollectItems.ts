@@ -4,12 +4,13 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface CollectItems extends JournalEvent<"CollectItems"> {
     Name: string;
     Name_Localised?: string;
     Type: string;
-    OwnerID: number;
+    OwnerID: ID;
     Count: number;
     Stolen: boolean;
 }

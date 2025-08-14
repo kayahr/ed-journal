@@ -4,9 +4,10 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface Market extends JournalEvent<"Market"> {
-    MarketID: number;
+    MarketID: ID;
     StarSystem: string;
     StationName: string;
     StationType?: string;

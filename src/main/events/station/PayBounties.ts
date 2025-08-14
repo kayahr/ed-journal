@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface PayBounties extends JournalEvent<"PayBounties"> {
     AllFines?: boolean;
@@ -11,5 +12,5 @@ export interface PayBounties extends JournalEvent<"PayBounties"> {
     BrokerPercentage?: number;
     Faction?: string;
     Faction_Localised?: string;
-    ShipID: number;
+    ShipID: ID;
 }

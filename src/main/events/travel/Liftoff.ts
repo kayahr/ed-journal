@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /**
  * Written when taking off from planet surface.
@@ -14,7 +15,7 @@ export interface Liftoff extends JournalEvent<"Liftoff"> {
     StarSystem?: string;
     SystemAddress?: number;
     Body?: string;
-    BodyID?: number;
+    BodyID?: ID;
     OnStation?: boolean;
     OnPlanet?: boolean;
     NearestDestination?: string;

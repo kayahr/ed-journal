@@ -4,15 +4,16 @@
  */
 
 import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface EngineerCraft extends JournalEvent<"EngineerCraft"> {
     timestamp: string;
     ApplyExperimentalEffect?: string;
     Blueprint?: string;
-    BlueprintID?: number;
+    BlueprintID?: ID;
     BlueprintName?: string;
     Engineer?: string;
-    EngineerID?: number;
+    EngineerID?: ID;
     ExperimentalEffect?: string;
     ExperimentalEffect_Localised?: string;
     Ingredients: Array<{

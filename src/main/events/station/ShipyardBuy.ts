@@ -4,16 +4,17 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /** Verify by buying a new ship and selling the current one the same time. */
 export interface ShipyardBuy extends JournalEvent<"ShipyardBuy"> {
-    MarketID?: number;
+    MarketID?: ID;
     ShipPrice: number;
     ShipType: string;
     ShipType_Localised?: string;
     StoreOldShip?: string;
-    StoreShipID?: number;
+    StoreShipID?: ID;
     SellOldShip?: string;
-    SellShipID?: number;
+    SellShipID?: ID;
     SellPrice?: number;
 }

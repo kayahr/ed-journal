@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /**
  * Written after using the Surface Area Analysis scanner.
@@ -11,7 +12,7 @@ import type { JournalEvent } from "../../JournalEvent.js";
 export interface SAAScanComplete extends JournalEvent<"SAAScanComplete"> {
     SystemAddress?: number;
     BodyName: string;
-    BodyID: number;
+    BodyID: ID;
     ProbesUsed: number;
     EfficiencyTarget: number;
 }

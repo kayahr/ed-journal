@@ -4,12 +4,13 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /**
  * Change to tax rate or reserve
  */
 export interface CarrierFinance extends JournalEvent<"CarrierFinance"> {
-    CarrierID: number;
+    CarrierID: ID;
     TaxRate?: number;
     CarrierBalance: number;
     ReserveBalance: number;

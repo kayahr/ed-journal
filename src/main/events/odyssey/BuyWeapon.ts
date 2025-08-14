@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface BuyWeapon extends JournalEvent<"BuyWeapon"> {
     Name: string;
@@ -11,5 +12,5 @@ export interface BuyWeapon extends JournalEvent<"BuyWeapon"> {
     Class?: number;
     WeaponMods?: string[];
     Price: number;
-    SuitModuleID: number;
+    SuitModuleID: ID;
 }

@@ -4,12 +4,13 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /**
  * Written when a new discovery is added to the Codex.
  */
 export interface CodexEntry extends JournalEvent<"CodexEntry"> {
-    EntryID: number;
+    EntryID: ID;
     Name: string;
     Name_Localised: string;
     SubCategory: string;
@@ -20,7 +21,7 @@ export interface CodexEntry extends JournalEvent<"CodexEntry"> {
     Region_Localised: string;
     System: string;
     SystemAddress: number;
-    BodyID?: number;
+    BodyID?: ID;
 
     /** Added if within 50km of a location listed in the navigation panel. */
     NearestDestination?: string;

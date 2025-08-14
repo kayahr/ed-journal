@@ -4,15 +4,16 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface CargoDepot extends JournalEvent<"CargoDepot"> {
-    MissionID: number;
+    MissionID: ID;
     UpdateType: string;
     CargoType?: string;
     CargoType_Localised?: string;
     Count?: number;
-    StartMarketID: number;
-    EndMarketID: number;
+    StartMarketID: ID;
+    EndMarketID: ID;
     ItemsCollected: number;
     ItemsDelivered: number;
     TotalItemsToDeliver: number;

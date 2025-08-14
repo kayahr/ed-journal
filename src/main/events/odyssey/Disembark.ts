@@ -4,19 +4,20 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface Disembark extends JournalEvent<"Disembark"> {
     SRV: boolean;
     Taxi: boolean;
     Multicrew: boolean;
-    ID?: number;
+    ID?: ID;
     StarSystem: string;
     SystemAddress: number;
     Body: string;
-    BodyID: number;
+    BodyID: ID;
     OnStation: boolean;
     OnPlanet: boolean;
     StationName?: string;
     StationType?: string;
-    MarketID?: number;
+    MarketID?: ID;
 }

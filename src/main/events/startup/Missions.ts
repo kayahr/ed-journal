@@ -4,10 +4,11 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /** Data about a single mission. */
 export interface Mission {
-    MissionID: number;
+    MissionID: ID;
     Name: string;
     Name_Localised?: string;
     PassengerMission: boolean;

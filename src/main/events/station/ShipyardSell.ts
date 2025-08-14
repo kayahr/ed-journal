@@ -4,13 +4,14 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface ShipyardSell extends JournalEvent<"ShipyardSell"> {
-    MarketID?: number;
-    SellShipID: number;
+    MarketID?: ID;
+    SellShipID: ID;
     ShipPrice: number;
     ShipType: string;
     ShipType_Localised?: string;
     System?: string;
-    ShipMarketID?: number;
+    ShipMarketID?: ID;
 }

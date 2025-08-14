@@ -4,11 +4,12 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface DropItems extends JournalEvent<"DropItems"> {
     Name: string;
     Name_Localised?: string;
     Type: string;
-    OwnerID: number;
+    OwnerID: ID;
     Count: number;
 }

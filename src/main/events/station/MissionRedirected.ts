@@ -4,9 +4,10 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface MissionRedirected extends JournalEvent<"MissionRedirected"> {
-    MissionID: number;
+    MissionID: ID;
     Name: string;
     LocalisedName?: string;
     NewDestinationStation: string;

@@ -4,12 +4,13 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface ModuleBuyAndStore extends JournalEvent<"ModuleBuyAndStore"> {
     BuyItem: string;
     BuyItem_Localised?: string;
     BuyPrice: number;
-    MarketID?: number;
+    MarketID?: ID;
     Ship: string;
-    ShipID: number;
+    ShipID: ID;
 }

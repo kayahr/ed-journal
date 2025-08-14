@@ -4,17 +4,18 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface LoadoutEquipModule extends JournalEvent<"LoadoutEquipModule"> {
     LoadoutName: string;
-    SuitID: number;
+    SuitID: ID;
     SuitName: string;
     SuitName_Localised: string;
-    LoadoutID: number;
+    LoadoutID: ID;
     SlotName: string;
     ModuleName: string;
     ModuleName_Localised: string;
     Class?: number;
     WeaponMods?: string[];
-    SuitModuleID: number;
+    SuitModuleID: ID;
 }

@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface MassModuleStore extends JournalEvent<"MassModuleStore"> {
     Items: Array<{
@@ -15,7 +16,7 @@ export interface MassModuleStore extends JournalEvent<"MassModuleStore"> {
         Quality?: number;
         Slot: string;
     }>;
-    MarketID?: number;
+    MarketID?: ID;
     Ship: string;
-    ShipID: number;
+    ShipID: ID;
 }

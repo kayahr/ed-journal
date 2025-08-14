@@ -4,9 +4,10 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface CarrierBankTransfer extends JournalEvent<"CarrierBankTransfer"> {
-    CarrierID: number;
+    CarrierID: ID;
     Deposit?: number;
     Withdraw?: number;
     PlayerBalance: number;

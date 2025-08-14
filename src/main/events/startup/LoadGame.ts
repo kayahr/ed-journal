@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /** The game mode. */
 export type GameMode = "Open" | "Solo" | "Group";
@@ -28,7 +29,7 @@ export interface LoadGame extends JournalEvent<"LoadGame"> {
     Ship?: string;
 
     /** The ID of the current ship. */
-    ShipID?: number;
+    ShipID?: ID;
 
     /** Localised ship type. */
     Ship_Localised?: string;

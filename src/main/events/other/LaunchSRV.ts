@@ -4,11 +4,12 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface LaunchSRV extends JournalEvent<"LaunchSRV"> {
     Loadout: string;
     PlayerControlled: boolean;
-    ID?: number;
+    ID?: ID;
     SRVType?: string;
     SRVType_Localised?: string;
 }

@@ -6,6 +6,7 @@
 import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
 import type { ConflictFaction } from "../types/ConflictFaction.js";
 import type { ConflictProgress } from "../types/ConflictProgress.js";
+import type { ID } from "../types/ID.js";
 import type { PowerState } from "../types/PowerState.js";
 import { correctStationService, type StationService } from "../types/StationService.js";
 
@@ -21,7 +22,7 @@ export interface Location extends JournalEvent<"Location"> {
 
     Body: string;
     Body_Localised?: string;
-    BodyID?: number;
+    BodyID?: ID;
     BodyType: string;
     ControllingPower?: string;
     DistFromStarLS?: number;
@@ -30,7 +31,7 @@ export interface Location extends JournalEvent<"Location"> {
     Longitude?: number;
     StationName?: string;
     StationType?: string;
-    MarketID?: number;
+    MarketID?: ID;
 
     /** Star system's controlling faction. */
     SystemFaction?: {

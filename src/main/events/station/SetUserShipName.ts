@@ -4,10 +4,11 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface SetUserShipName extends JournalEvent<"SetUserShipName"> {
     Ship: string;
-    ShipID: number;
+    ShipID: ID;
     UserShipId: string;
     UserShipName: string;
 }

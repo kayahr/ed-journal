@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface ModuleSellRemote extends JournalEvent<"ModuleSellRemote"> {
     SellItem: string;
@@ -11,6 +12,6 @@ export interface ModuleSellRemote extends JournalEvent<"ModuleSellRemote"> {
     SellPrice: number;
     ServerId?: number;
     Ship: string;
-    ShipID: number;
+    ShipID: ID;
     StorageSlot?: number;
 }

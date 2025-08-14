@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /** Accept some kill missions to verify */
 export interface MissionAccepted extends JournalEvent<"MissionAccepted"> {
@@ -18,7 +19,7 @@ export interface MissionAccepted extends JournalEvent<"MissionAccepted"> {
     Influence?: string;
     KillCount?: number;
     LocalisedName?: string;
-    MissionID: number;
+    MissionID: ID;
     Name: string;
     PassengerCount?: number;
     PassengerType?: string;

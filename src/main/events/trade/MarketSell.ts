@@ -4,13 +4,14 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface MarketSell extends JournalEvent<"MarketSell"> {
     AvgPricePaid: number;
     BlackMarket?: boolean;
     Count: number;
     IllegalGoods?: boolean;
-    MarketID?: number;
+    MarketID?: ID;
     SellPrice: number;
     StolenGoods?: boolean;
     TotalSale: number;

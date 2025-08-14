@@ -4,6 +4,7 @@
  */
 
 import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface Pack {
     PackTheme: string;
@@ -11,7 +12,7 @@ export interface Pack {
 }
 
 export interface CarrierStats extends JournalEvent<"CarrierStats"> {
-    CarrierID: number;
+    CarrierID: ID;
     Callsign: string;
     Name: string;
     DockingAccess: string;

@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface RestockVehicle extends JournalEvent<"RestockVehicle"> {
     Cost: number;
@@ -11,5 +12,5 @@ export interface RestockVehicle extends JournalEvent<"RestockVehicle"> {
     Loadout: string;
     Type: string;
     Type_Localised?: string;
-    ID?: number;
+    ID?: ID;
 }

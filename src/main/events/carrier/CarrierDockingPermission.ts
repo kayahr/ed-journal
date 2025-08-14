@@ -4,9 +4,10 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface CarrierDockingPermission extends JournalEvent<"CarrierDockingPermission"> {
-    CarrierID: number;
+    CarrierID: ID;
     DockingAccess: string;
     AllowNotorious: boolean;
 }

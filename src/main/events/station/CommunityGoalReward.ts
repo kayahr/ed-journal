@@ -4,10 +4,11 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface CommunityGoalReward extends JournalEvent<"CommunityGoalReward"> {
     Name: string;
     Reward: number;
     System: string;
-    CGID?: number;
+    CGID?: ID;
 }

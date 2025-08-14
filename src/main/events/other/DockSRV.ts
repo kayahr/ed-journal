@@ -4,9 +4,10 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface DockSRV extends JournalEvent<"DockSRV"> {
-    ID?: number;
+    ID?: ID;
     SRVType?: string;
     SRVType_Localised?: string;
 }

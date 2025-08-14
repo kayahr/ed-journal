@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface PayFines extends JournalEvent<"PayFines"> {
     Amount: number;
@@ -11,5 +12,5 @@ export interface PayFines extends JournalEvent<"PayFines"> {
     Faction?: string;
     Faction_Localised?: string;
     BrokerPercentage?: number;
-    ShipID?: number;
+    ShipID?: ID;
 }

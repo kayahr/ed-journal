@@ -4,12 +4,13 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface CarrierJumpRequest extends JournalEvent<"CarrierJumpRequest"> {
-    CarrierID: number;
+    CarrierID: ID;
     SystemName: string;
     Body?: string;
     SystemAddress: number;
-    BodyID: number;
+    BodyID: ID;
     DepartureTime?: string;
 }

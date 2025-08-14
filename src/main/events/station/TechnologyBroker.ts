@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface TechnologyBroker extends JournalEvent<"TechnologyBroker"> {
     BrokerType: string;
@@ -16,7 +17,7 @@ export interface TechnologyBroker extends JournalEvent<"TechnologyBroker"> {
         Name: string;
         Name_Localised?: string;
     }>;
-    MarketID: number;
+    MarketID: ID;
     Materials: Array<{
         Category: string;
         Count: number;

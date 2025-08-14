@@ -4,9 +4,10 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface CarrierNameChange extends JournalEvent<"CarrierNameChange"> {
-    CarrierID: number;
+    CarrierID: ID;
     Name: string;
     Callsign: string;
 }

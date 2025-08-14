@@ -4,11 +4,12 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface RenameSuitLoadout extends JournalEvent<"RenameSuitLoadout"> {
-    SuitID: number;
+    SuitID: ID;
     SuitName: string;
     SuitName_Localised: string;
-    LoadoutID: number;
+    LoadoutID: ID;
     LoadoutName: string;
 }

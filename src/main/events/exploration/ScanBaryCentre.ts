@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /**
  * Written when scanning a body of a binary pair. YOu will now get an event detailing the orbital parameters of their
@@ -12,7 +13,7 @@ import type { JournalEvent } from "../../JournalEvent.js";
 export interface ScanBaryCentre extends JournalEvent<"ScanBaryCentre"> {
     StarSystem: string;
     SystemAddress: number;
-    BodyID: number;
+    BodyID: ID;
     SemiMajorAxis: number;
     Eccentricity: number;
     OrbitalInclination: number;

@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /**
  * Written at startup when loading from main menu, when switching ships, after changing the ship in outfitting or
@@ -14,7 +15,7 @@ export interface Loadout extends JournalEvent<"Loadout"> {
     Ship: string;
 
     /** Ship ID number. */
-    ShipID: number;
+    ShipID: ID;
 
     /** User-defined ship name. */
     ShipName: string;
@@ -67,7 +68,7 @@ export interface Loadout extends JournalEvent<"Loadout"> {
         /** Set if module is engineered. */
         Engineering?: {
             /** The ID of the applied blueprint. */
-            BlueprintID: number;
+            BlueprintID: ID;
 
             /** The name of the applied blueprint. */
             BlueprintName: string;
@@ -76,7 +77,7 @@ export interface Loadout extends JournalEvent<"Loadout"> {
             Engineer?: string;
 
             /** The ID of the engineer. */
-            EngineerID: number;
+            EngineerID: ID;
 
             /** The experimental effect if applied. */
             ExperimentalEffect?: string;

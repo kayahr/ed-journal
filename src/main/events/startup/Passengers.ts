@@ -4,13 +4,14 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /**
  * List of passengers in the ship. Written at startup when loading the saved game file.
  */
 export interface Passengers extends JournalEvent<"Passengers"> {
     Manifest: Array<{
-        MissionID: number;
+        MissionID: ID;
         Type: string;
         VIP: boolean;
         Wanted: boolean;

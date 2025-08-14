@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 import type { MicroResource } from "../types/MicroResource.js";
 
 export interface TradeMicroResources extends JournalEvent<"TradeMicroResources"> {
@@ -13,5 +14,5 @@ export interface TradeMicroResources extends JournalEvent<"TradeMicroResources">
     Received_Localised?: string;
     Count: number;
     Category: string;
-    MarketID: number;
+    MarketID: ID;
 }

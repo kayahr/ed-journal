@@ -88,6 +88,26 @@ export interface JournalOptions {
 }
 
 /**
+ * JSON reviver function which converts numbers of ID properties to bigint if needed.
+ *
+ * @param key     - The JSON property key.
+ * @param value   - The parsed JSON property value.
+ * @param context - The reviver context containing the raw JSON source string.
+ * @returns The already parsed JSON property value if suitable or the raw source converted into a bigint.
+ */
+function jsonReviver(key: string, value: unknown, context?: { source: string }): unknown {
+    if (context != null && typeof value === "number" && (value > Number.MAX_SAFE_INTEGER || value < Number.MIN_SAFE_INTEGER)) {
+        const source = context.source;
+        if (key.endsWith("ID")) {
+            return BigInt(source);
+        } else if (/^[-+]?\d+$/.test(source)) {
+            throw new JournalError(`Value of property '${key}' looks like a bigint (${source}) but was parsed as an imprecise number (${value})`);
+        }
+    }
+    return value;
+}
+
+/**
  * Journal reader/watcher.
  *
  * Reads or watches a journal directory. It implements the AsyncIterable interface so for reading/watching the
@@ -339,7 +359,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      * @return The parsed journal event.
      */
     private parseJournalEvent(line: string): AnyJournalEvent {
-        const json = JSON.parse(line) as AnyJournalEvent;
+        const json = JSON.parse(line, jsonReviver) as AnyJournalEvent;
         updateJournalEvent(json);
         return json;
     }
@@ -432,7 +452,8 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
             await sleep(25);
             return this.readFile(filename);
         }
-        return JSON.parse(result) as T;
+
+        return JSON.parse(result, jsonReviver) as T;
     }
 
     /**

@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /**
  * Written when the player requests a docking at a station.
@@ -11,7 +12,7 @@ import type { JournalEvent } from "../../JournalEvent.js";
 export interface DockingRequested extends JournalEvent<"DockingRequested"> {
     StationName: string;
     StationType?: string;
-    MarketID?: number;
+    MarketID?: ID;
     LandingPads?: {
         Small: number;
         Medium: number;

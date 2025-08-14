@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /**
  * Written in Supercruise, and distance from planet drops to within the 'Orbital Cruise' zone.
@@ -12,5 +13,5 @@ export interface ApproachBody extends JournalEvent<"ApproachBody"> {
     StarSystem: string;
     SystemAddress: number;
     Body: string;
-    BodyID: number;
+    BodyID: ID;
 }

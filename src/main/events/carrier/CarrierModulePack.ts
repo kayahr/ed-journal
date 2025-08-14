@@ -4,9 +4,10 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface CarrierModulePackBase extends JournalEvent<"CarrierModulePack"> {
-    CarrierID: number;
+    CarrierID: ID;
     PackTheme: string;
     PackTier: number;
 }

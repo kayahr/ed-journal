@@ -4,12 +4,13 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /**
  * Written when accessing the outfitting menu.
  */
 export interface Outfitting extends JournalEvent<"Outfitting"> {
-    MarketID: number;
+    MarketID: ID;
     StarSystem: string;
     StationName: string;
 }

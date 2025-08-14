@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /** The vessel for which the cargo event is written. */
 export type CargoVessel = "Ship" | "SRV";
@@ -38,6 +39,6 @@ export interface Cargo extends JournalEvent<"Cargo"> {
         Stolen?: number;
 
         /** ID of the mission the item belongs to. */
-        MissionID?: number;
+        MissionID?: ID;
     }>;
 }

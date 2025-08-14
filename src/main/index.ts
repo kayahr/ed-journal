@@ -257,6 +257,7 @@ export * from "./events/travel/Touchdown.js";
 export * from "./events/travel/Undocked.js";
 export * from "./events/types/ConflictFaction.js";
 export * from "./events/types/ConflictProgress.js";
+export * from "./events/types/ID.js";
 export * from "./events/types/MicroResource.js";
 export * from "./events/types/PowerState.js";
 export { type StationService } from "./events/types/StationService.js";

@@ -4,14 +4,15 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface EngineerLegacyConvert extends JournalEvent<"EngineerLegacyConvert"> {
     ApplyExperimentalEffect?: string;
     Blueprint?: string;
-    BlueprintID?: number;
+    BlueprintID?: ID;
     BlueprintName?: string;
     Engineer: string;
-    EngineerID?: number;
+    EngineerID?: ID;
     ExperimentalEffect?: string;
     ExperimentalEffect_Localised?: string;
     IsPreview: boolean;

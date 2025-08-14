@@ -4,13 +4,14 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface StoredShips extends JournalEvent<"StoredShips"> {
-    MarketID: number;
+    MarketID: ID;
     ShipsHere: Array<{
         Hot: boolean;
         Name?: string;
-        ShipID: number;
+        ShipID: ID;
         ShipType: string;
         ShipType_Localised?: string;
         Value: number;
@@ -19,8 +20,8 @@ export interface StoredShips extends JournalEvent<"StoredShips"> {
         Hot: boolean;
         InTransit?: boolean;
         Name?: string;
-        ShipID: number;
-        ShipMarketID?: number;
+        ShipID: ID;
+        ShipMarketID?: ID;
         ShipType: string;
         ShipType_Localised?: string;
         StarSystem?: string;

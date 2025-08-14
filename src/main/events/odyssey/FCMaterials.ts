@@ -4,13 +4,14 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /**
  * Written when trading with a Fleet Carrier Bartender for materials, a file is written with the price list.
  * Similar to the Shipyard and Cargo events, a brief entry is written in the journal.
  */
 export interface FCMaterials extends JournalEvent<"FCMaterials"> {
-    MarketID: number;
+    MarketID: ID;
     CarrierName: string;
     CarrierID: string;
 }

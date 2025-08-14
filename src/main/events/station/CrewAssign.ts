@@ -4,9 +4,10 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface CrewAssign extends JournalEvent<"CrewAssign"> {
-    CrewID?: number;
+    CrewID?: ID;
     Name: string;
     Role: string;
 }

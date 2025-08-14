@@ -4,9 +4,10 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface MaterialTrade extends JournalEvent<"MaterialTrade"> {
-    MarketID: number;
+    MarketID: ID;
     Paid: {
         Category: string;
         Category_Localised?: string;

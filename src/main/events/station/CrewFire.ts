@@ -4,8 +4,9 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface CrewFire extends JournalEvent<"CrewFire"> {
-    CrewID?: number;
+    CrewID?: ID;
     Name: string;
 }

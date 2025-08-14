@@ -4,9 +4,10 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface SellOrganicData extends JournalEvent<"SellOrganicData"> {
-    MarketID: number;
+    MarketID: ID;
     BioData: Array<{
         Genus: string;
         Genus_Localised: string;

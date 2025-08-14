@@ -4,10 +4,11 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface FSSBodySignals extends JournalEvent<"FSSBodySignals"> {
     BodyName: string;
-    BodyID: number;
+    BodyID: ID;
     SystemAddress: number;
     Signals: Array<{
         Type: string;

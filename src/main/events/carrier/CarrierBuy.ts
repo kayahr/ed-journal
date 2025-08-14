@@ -4,9 +4,10 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface CarrierBuy extends JournalEvent<"CarrierBuy"> {
-    CarrierID: number;
+    CarrierID: ID;
     BoughtAtMarket: number;
     Location: string;
     SystemAddress: number;

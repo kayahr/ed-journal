@@ -6,6 +6,7 @@
 import type { JournalEvent } from "../../JournalEvent.js";
 import type { ConflictFaction } from "../types/ConflictFaction.js";
 import type { ConflictProgress } from "../types/ConflictProgress.js";
+import type { ID } from "../types/ID.js";
 import type { PowerState } from "../types/PowerState.js";
 import type { StationService } from "../types/StationService.js";
 
@@ -14,7 +15,7 @@ export interface CarrierJump extends JournalEvent<"CarrierJump"> {
     OnFoot?: boolean;
     StationName?: string;
     StationType?: string;
-    MarketID?: number;
+    MarketID?: ID;
     StationFaction?: {
         Name: string;
     };
@@ -56,7 +57,7 @@ export interface CarrierJump extends JournalEvent<"CarrierJump"> {
     SystemSecurity_Localised: string;
     Population: number;
     Body: string;
-    BodyID: number;
+    BodyID: ID;
     BodyType: string;
     ControllingPower?: string;
     Factions?: Array<{

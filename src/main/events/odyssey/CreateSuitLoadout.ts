@@ -4,17 +4,18 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface CreateSuitLoadout extends JournalEvent<"CreateSuitLoadout"> {
-    SuitID: number;
+    SuitID: ID;
     SuitName: string;
     SuitName_Localised: string;
     SuitMods?: string[];
-    LoadoutID: number;
+    LoadoutID: ID;
     LoadoutName: string;
     Modules: Array<{
         SlotName: string;
-        SuitModuleID: number;
+        SuitModuleID: ID;
         ModuleName: string;
         ModuleName_Localised: string;
         Class?: number;

@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /**
  * Written when a docking request has timed out.
@@ -11,5 +12,5 @@ import type { JournalEvent } from "../../JournalEvent.js";
 export interface DockingTimeout extends JournalEvent<"DockingTimeout"> {
     StationName: string;
     StationType?: string;
-    MarketID?: number;
+    MarketID?: ID;
 }

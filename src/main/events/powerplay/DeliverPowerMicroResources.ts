@@ -4,10 +4,11 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 import type { MicroResource } from "../types/MicroResource.js";
 
 export interface DeliverPowerMicroResources extends JournalEvent<"DeliverPowerMicroResources"> {
     TotalCount: number;
     MicroResources: MicroResource[];
-    MarketID: number;
+    MarketID: ID;
 }

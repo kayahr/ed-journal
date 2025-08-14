@@ -4,16 +4,17 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 import type { StationService } from "../types/StationService.js";
 
 export interface ApproachSettlement extends JournalEvent<"ApproachSettlement"> {
-    MarketID?: number;
+    MarketID?: ID;
     Name: string;
     Name_Localised?: string;
     Latitude?: number;
     Longitude?: number;
     SystemAddress?: number;
-    BodyID?: number;
+    BodyID?: ID;
     BodyName?: string;
     StationFaction?: {
         Name: string;

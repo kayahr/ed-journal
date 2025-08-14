@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface MissionCompleted extends JournalEvent<"MissionCompleted"> {
     Commodity?: string;
@@ -39,7 +40,7 @@ export interface MissionCompleted extends JournalEvent<"MissionCompleted"> {
         ReputationTrend?: string;
         Reputation: string;
     }>;
-    MissionID: number;
+    MissionID: ID;
     Name: string;
     LocalisedName?: string;
     PermitsAwarded?: string[];

@@ -6,6 +6,7 @@
 import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
 import type { ConflictFaction } from "../types/ConflictFaction.js";
 import type { ConflictProgress } from "../types/ConflictProgress.js";
+import type { ID } from "../types/ID.js";
 import type { PowerState } from "../types/PowerState.js";
 
 /**
@@ -21,7 +22,7 @@ export interface FSDJump extends JournalEvent<"FSDJump"> {
     StarPos: [number, number, number];
 
     Body?: string;
-    BodyID?: number;
+    BodyID?: ID;
     BodyType?: string;
     ControllingPower?: string;
 

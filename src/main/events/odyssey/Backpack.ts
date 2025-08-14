@@ -4,13 +4,14 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface BackpackItem {
     Name: string;
     Name_Localised?: string;
-    OwnerID: number;
+    OwnerID: ID;
     Count: number;
-    MissionID?: number;
+    MissionID?: ID;
 }
 
 export interface Backpack extends JournalEvent<"Backpack"> {

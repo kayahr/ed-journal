@@ -4,12 +4,13 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /**
  * Written when accessing shipyard in a station.
  */
 export interface Shipyard extends JournalEvent<"Shipyard"> {
-    MarketID: number;
+    MarketID: ID;
     StarSystem: string;
     StationName: string;
 }

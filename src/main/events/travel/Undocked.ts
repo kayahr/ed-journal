@@ -4,13 +4,14 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /**
  * Written when liftoff from a landing pad in a station, outpost or settlement.
  */
 export interface Undocked extends JournalEvent<"Undocked"> {
     StationName: string;
-    MarketID?: number;
+    MarketID?: ID;
     StationType?: string;
     Taxi?: boolean;
     Multicrew?: boolean;

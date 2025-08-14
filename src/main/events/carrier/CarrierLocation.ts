@@ -4,10 +4,11 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface CarrierLocation extends JournalEvent<"CarrierLocation"> {
-    CarrierID: number;
+    CarrierID: ID;
     StarSystem: string;
     SystemAddress: number;
-    BodyID: number;
+    BodyID: ID;
 }

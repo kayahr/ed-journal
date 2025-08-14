@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /**
  * Written when using SAA scanner on a planet or rings.
@@ -11,7 +12,7 @@ import type { JournalEvent } from "../../JournalEvent.js";
 export interface SAASignalsFound extends JournalEvent<"SAASignalsFound"> {
     SystemAddress: number;
     BodyName: string;
-    BodyID: number;
+    BodyID: ID;
     Signals: Array<{
         Type: string;
         Type_Localised?: string;

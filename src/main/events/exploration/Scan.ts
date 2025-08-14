@@ -4,6 +4,7 @@
  */
 
 import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /**
  * Written on basic or detailed discovery scan of a star, planet or moon.
@@ -19,7 +20,7 @@ export interface Scan extends JournalEvent<"Scan"> {
     /** Name of body. */
     BodyName: string;
 
-    BodyID?: number;
+    BodyID?: ID;
     DistanceFromArrivalLS: number;
 
     /** Stellar classification. */

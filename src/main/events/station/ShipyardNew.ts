@@ -4,9 +4,10 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface ShipyardNew extends JournalEvent<"ShipyardNew"> {
-    NewShipID: number;
+    NewShipID: ID;
     ShipType: string;
     ShipType_Localised?: string;
 }

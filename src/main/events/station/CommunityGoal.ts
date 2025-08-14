@@ -4,11 +4,12 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface CommunityGoal extends JournalEvent<"CommunityGoal"> {
     CurrentGoals: Array<{
         Bonus?: number;
-        CGID: number;
+        CGID: ID;
         CurrentTotal: number;
         Expiry: string;
         IsComplete: boolean;

@@ -4,7 +4,8 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface DockFighter extends JournalEvent<"DockFighter"> {
-    ID?: number;
+    ID?: ID;
 }

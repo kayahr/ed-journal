@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /** TODO Revalidate? Some mismatches between Log and API doc */
 export interface StoredModules extends JournalEvent<"StoredModules"> {
@@ -13,7 +14,7 @@ export interface StoredModules extends JournalEvent<"StoredModules"> {
         Hot: boolean;
         InTransit?: boolean;
         Level?: number;
-        MarketID?: number;
+        MarketID?: ID;
         Name: string;
         Name_Localised?: string;
         Quality?: number;
@@ -22,7 +23,7 @@ export interface StoredModules extends JournalEvent<"StoredModules"> {
         TransferCost?: number;
         TransferTime?: number;
     }>;
-    MarketID: number;
+    MarketID: ID;
     StarSystem: string;
     StationName: string;
 }

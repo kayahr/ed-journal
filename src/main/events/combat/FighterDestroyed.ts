@@ -4,10 +4,11 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /**
  * Written when a ship-launched fighter is destroyed.
  */
 export interface FighterDestroyed extends JournalEvent<"FighterDestroyed"> {
-    ID?: number;
+    ID?: ID;
 }

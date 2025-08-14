@@ -4,17 +4,18 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface ModuleStore extends JournalEvent<"ModuleStore"> {
     Cost?: number;
     EngineerModifications?: string;
     Hot?: boolean;
     Level?: number;
-    MarketID?: number;
+    MarketID?: ID;
     Quality?: number;
     ReplacementItem?: string;
     Ship: string;
-    ShipID: number;
+    ShipID: ID;
     Slot: string;
     StoredItem: string;
     StoredItem_Localised?: string;
