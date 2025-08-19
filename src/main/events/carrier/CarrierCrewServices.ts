@@ -4,10 +4,12 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { CarrierType } from "../types/CarrierType.js";
 import type { ID } from "../types/ID.js";
 
 export interface CarrierCrewServices extends JournalEvent<"CarrierCrewServices"> {
     CarrierID: ID;
+    CarrierType?: CarrierType;
     CrewRole: string;
     Operation: string;
     CrewName: string;

@@ -145,6 +145,32 @@ export interface Statistics extends JournalEvent<"Statistics"> {
         Settlements_State_FireOut?: number;
         Settlements_State_Reboot?: number;
     };
+    Squadron?: {
+        Squadron_Bank_Credits_Deposited: number;
+        Squadron_Bank_Credits_Withdrawn: number;
+        Squadron_Bank_Commodities_Deposited_Num: number;
+        Squadron_Bank_Commodities_Deposited_Value: number;
+        Squadron_Bank_Commodities_Withdrawn_Num: number;
+        Squadron_Bank_Commodities_Withdrawn_Value: number;
+        Squadron_Bank_PersonalAssets_Deposited_Num: number;
+        Squadron_Bank_PersonalAssets_Deposited_Value: number;
+        Squadron_Bank_PersonalAssets_Withdrawn_Num: number;
+        Squadron_Bank_PersonalAssets_Withdrawn_Value: number;
+        Squadron_Bank_Ships_Deposited_Num: number;
+        Squadron_Bank_Ships_Deposited_Value: number;
+        Squadron_Leaderboard_aegis_highestcontribution: number;
+        Squadron_Leaderboard_bgs_highestcontribution: number;
+        Squadron_Leaderboard_bounty_highestcontribution: number;
+        Squadron_Leaderboard_colonisation_contribution_highestcontribution: number;
+        Squadron_Leaderboard_combat_highestcontribution: number;
+        Squadron_Leaderboard_cqc_highestcontribution: number;
+        Squadron_Leaderboard_exploration_highestcontribution: number;
+        Squadron_Leaderboard_mining_highestcontribution: number;
+        Squadron_Leaderboard_powerplay_highestcontribution: number;
+        Squadron_Leaderboard_trade_highestcontribution: number;
+        Squadron_Leaderboard_trade_illicit_highestcontribution: number;
+        Squadron_Leaderboard_podiums: number;
+    };
     Crafting?: {
         Count_Of_Used_Engineers?: number;
         Recipes_Generated?: number;

@@ -77,7 +77,7 @@ class JournalWriter {
 describe("Journal", () => {
     it("reads a journal in chronological order", async () => {
         const events: AnyJournalEvent[] = [];
-        const journal = await Journal.open({ directory: journalDir });
+        const journal = await Journal.open({ directory: journalDir, position: "start" });
         try {
             for await (const event of journal) {
                 events.push(event);
@@ -118,7 +118,7 @@ describe("Journal", () => {
         const writer = await JournalWriter.create(journalDir);
         try {
             const events: AnyJournalEvent[] = [];
-            const journal = await Journal.open({ directory: writer.directory, watch: true });
+            const journal = await Journal.open({ directory: writer.directory, watch: true, position: "start" });
             const promise = (async () => {
                 try {
                     for await (const event of journal) {
@@ -151,7 +151,7 @@ describe("Journal", () => {
         const writer = await JournalWriter.create(journalDir);
         try {
             const events: AnyJournalEvent[] = [];
-            const journal = await Journal.open({ directory: writer.directory, watch: true });
+            const journal = await Journal.open({ directory: writer.directory, watch: true, position: "start" });
             const promise = (async () => {
                 try {
                     for await (const event of journal) {
@@ -292,6 +292,7 @@ describe("Journal", () => {
             await chmod(parentDirectory, 0);
             const journal = await Journal.open({
                 directory: journalDirectory,
+                position: "start",
                 watch: true
             });
             try {

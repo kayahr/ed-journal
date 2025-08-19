@@ -6,7 +6,7 @@ const directory = "src/test/data/events/Docked";
 
 describe("Docked", () => {
     it("updates old properties to new properties", async () => {
-        const journal = await Journal.open({ directory });
+        const journal = await Journal.open({ directory, position: "start" });
         try {
             const event = await journal.next();
             expect(event?.event).toBe("Docked");

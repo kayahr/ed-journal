@@ -6,7 +6,7 @@
 import type { JournalEvent } from "../../JournalEvent.js";
 import type { ID } from "../types/ID.js";
 
-export interface LeftSquadron extends JournalEvent<"LeftSquadron"> {
-    SquadronID?: ID;
+export interface SquadronCreated extends JournalEvent<"SquadronCreated"> {
+    SquadronID: ID;
     SquadronName: string;
 }

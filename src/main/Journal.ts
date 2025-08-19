@@ -4,6 +4,7 @@
  */
 
 // Import events which registers event updates
+import "./events/carrier/CarrierNameChange.js";
 import "./events/carrier/CarrierStats.js";
 import "./events/travel/Docked.js";
 import "./events/station/EngineerCraft.js";

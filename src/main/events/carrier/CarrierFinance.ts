@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { CarrierType } from "../types/CarrierType.js";
 import type { ID } from "../types/ID.js";
 
 /**
@@ -11,6 +12,7 @@ import type { ID } from "../types/ID.js";
  */
 export interface CarrierFinance extends JournalEvent<"CarrierFinance"> {
     CarrierID: ID;
+    CarrierType?: CarrierType;
     TaxRate?: number;
     CarrierBalance: number;
     ReserveBalance: number;

@@ -154,6 +154,7 @@ import type { AppliedToSquadron } from "./events/squadrons/AppliedToSquadron.js"
 import type { InvitedToSquadron } from "./events/squadrons/InvitedToSquadron.js";
 import type { JoinedSquadron } from "./events/squadrons/JoinedSquadron.js";
 import type { LeftSquadron } from "./events/squadrons/LeftSquadron.js";
+import type { SquadronCreated } from "./events/squadrons/SquadronCreated.js";
 import type { SquadronStartup } from "./events/squadrons/SquadronStartup.js";
 import type { Cargo } from "./events/startup/Cargo.js";
 import type { ClearSavedGame } from "./events/startup/ClearSavedGame.js";
@@ -480,6 +481,7 @@ export type AnyJournalEvent
     | ShipyardTransfer
     | Shipyard
     | Shutdown
+    | SquadronCreated
     | SquadronStartup
     | SRVDestroyed
     | StartJump
