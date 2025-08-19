@@ -1,4 +1,6 @@
 Afmu
+Analyse
+analysed
 apexinterstellar
 Asuna
 autodock
@@ -65,6 +67,7 @@ STOLENPROFIT
 STOLENSPEND
 Supercruise
 TELEPRESENCE
+Terraformable
 Thargoid
 TRADEPROFIT
 TRADESPEND
