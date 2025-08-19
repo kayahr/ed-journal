@@ -17,7 +17,7 @@ import { open, readdir, readFile, watch } from "node:fs/promises";
 import { homedir } from "node:os";
 import { join, resolve } from "node:path";
 
-import type { AnyJournalEvent } from "./AnyJournalEvent.js";
+import type { AnyJournalEvent, JournalEventName } from "./AnyJournalEvent.js";
 import type { Backpack } from "./events/odyssey/Backpack.js";
 import type { ExtendedFCMaterials } from "./events/odyssey/FCMaterials.js";
 import type { ExtendedModuleInfo } from "./events/other/ModuleInfo.js";
@@ -73,12 +73,16 @@ export interface JournalOptions {
     directory?: string;
 
     /**
-     * Optional position within the journal where to start at. Can be either a specific journal position or the
-     * string "end" to indicate starting at the end of the journal. Starting at the end only makes sense for watch
-     * mode to only watch for new events. In normal read mode you would simply read no events at all.
-     * Defaults to "start".
+     * Optional position within the journal where to start at. Can be either a specific journal position or a string with the following meaning:
+     *
+     * - "start"     : Indicates the very beginning of the earliest journal file.
+     * - "end"       : Indicates the end of the latest journal file. So only future events will be read (only makes sense in watch mode)
+     * - "last-file" : Indicates the beginning of the latest journal file.
+     * - event name  : Any other string is treated as a journal event name. Indicates the last position of the given event in the latest journal file.
+     *
+     * Defaults to "last-file".
      */
-    position?: JournalPosition | "start" | "end";
+    position?: JournalPosition | "start" | "end" | "last-file" | JournalEventName;
 
     /**
      * Set to true to watch the journal for new events. False (default) just reads the existing journal events and
@@ -151,12 +155,16 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
     /**
      * Opens the journal.
      */
-    public static async open({ directory, position = "start", watch = false }: JournalOptions = {}): Promise<Journal> {
+    public static async open({ directory, position = "last-file", watch = false }: JournalOptions = {}): Promise<Journal> {
         directory ??= await this.findDirectory();
         if (position === "start") {
             position = { file: "", offset: 0, line: 1 };
+        } else if (position === "last-file") {
+            position = await this.findLastFile(directory);
         } else if (position === "end") {
             position = await this.findEnd(directory);
+        } else if (typeof position === "string") {
+            position = await this.findLastEvent(directory, position);
         } else {
             position = { ...position };
         }
@@ -221,6 +229,45 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
             await this.lineReader.close();
             this.lineReader = null;
         }
+    }
+
+    /**
+     * Finds the last position of the journal and returns it. The last position is the beginning of the latest journal file.
+     *
+     * @return Latest position of the journal.
+     */
+    public static async findLastFile(directory: string): Promise<JournalPosition> {
+        const filename = (await readdir(directory)).filter(isJournalFile).sort(journalTimeCompare).reverse()[0];
+        if (filename == null) {
+            // No journal file found, return start as end
+            return { file: "", offset: 0, line: 1 };
+        }
+        return { file: filename, offset: 0, line: 1 };
+    }
+
+    /**
+     * Finds the last position of the given event in the latest file of the journal and returns it. Returns end of journal if the latest journal file
+     * does not contain this event.
+     *
+     * @param directory - The journal directory.
+     * @param eventName - The event name to look for.
+     * @return Last position of given event in latest journal file or end of journal if not found.
+     */
+    public static async findLastEvent(directory: string, eventName: JournalEventName): Promise<JournalPosition> {
+        let lastEventPosition: JournalPosition | null = null;
+        const journal = await Journal.open({ directory, position: "last-file" });
+        let lastPosition = journal.getPosition();
+        try {
+            for await (const event of journal) {
+                if (event.event === eventName) {
+                    lastEventPosition = lastPosition;
+                }
+                lastPosition = journal.getPosition();
+            }
+        } finally {
+            await journal.close();
+        }
+        return lastEventPosition ?? lastPosition;
     }
 
     /**
@@ -400,16 +447,19 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
                     break;
                 }
 
+                // Remember current journal position for error messages
+                const position = this.position;
+
+                // Set position of next journal event
+                this.position = { file, offset: lineReader.getOffset(), line: lineReader.getLine() };
+
                 try {
                     // Parse the journal event and yield it
                     yield this.parseJournalEvent(line);
                 } catch (error) {
-                    throw new JournalError(`Parse error in ${this.position.file}:${this.position.line}: `
+                    throw new JournalError(`Parse error in ${position.file}:${position.line}: `
                         + `${getErrorMessage(error)}: ${line.trim()}`);
                 }
-
-                // Remember position of next journal event
-                this.position = { file, offset: lineReader.getOffset(), line: lineReader.getLine() };
             }
         }
     }

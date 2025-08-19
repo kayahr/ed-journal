@@ -508,3 +508,6 @@ export type AnyJournalEvent
     | WingInvite
     | WingJoin
     | WingLeave;
+
+/** Union-type of all journal event names. */
+export type JournalEventName = AnyJournalEvent["event"];
