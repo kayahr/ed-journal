@@ -45,7 +45,8 @@ export type StationService
     | "frontlinesolutions"
     | "registeringcolonisation"
     | "colonisationcontribution"
-    | "refinery";
+    | "refinery"
+    | "squadronBank";
 
 /**
  * Corrects an older station service string to correct new value.
