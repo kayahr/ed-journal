@@ -221,6 +221,7 @@ export * from "./events/station/SellShipOnRebuy.js";
 export * from "./events/station/SetUserShipName.js";
 export * from "./events/station/ShipRedeemed.js";
 export * from "./events/station/Shipyard.js";
+export * from "./events/station/ShipyardBankDeposit.js";
 export * from "./events/station/ShipyardBuy.js";
 export * from "./events/station/ShipyardNew.js";
 export * from "./events/station/ShipyardRedeem.js";

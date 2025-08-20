@@ -219,6 +219,7 @@ import type { SellShipOnRebuy } from "./events/station/SellShipOnRebuy.js";
 import type { SetUserShipName } from "./events/station/SetUserShipName.js";
 import type { ShipRedeemed } from "./events/station/ShipRedeemed.js";
 import type { Shipyard } from "./events/station/Shipyard.js";
+import type { ShipyardBankDeposit } from "./events/station/ShipyardBankDeposit.js";
 import type { ShipyardBuy } from "./events/station/ShipyardBuy.js";
 import type { ShipyardNew } from "./events/station/ShipyardNew.js";
 import type { ShipyardRedeem } from "./events/station/ShipyardRedeem.js";
@@ -473,6 +474,7 @@ export type AnyJournalEvent
     | ShipLocker
     | ShipRedeemed
     | ShipTargeted
+    | ShipyardBankDeposit
     | ShipyardBuy
     | ShipyardNew
     | ShipyardRedeem
