@@ -1,0 +1,4 @@
+{ "timestamp": "2016-11-01T09:51:39Z", "event": "EngineerProgress", "Engineer": "Bill Turner", "Progress": "Known" }
+{ "timestamp": "2016-11-01T09:51:40Z", "event": "EngineerProgress", "Engineer": "Bill Turner", "EngineerID": 1234, "Progress": "Known" }
+{ "timestamp": "2016-11-01T09:51:41Z", "event": "EngineerProgress", "Engineer": "Bill Turner", "Progress": "Invited" }
+{ "timestamp": "2016-11-01T09:51:42Z", "event": "EngineerProgress", "Engineer": "Bill Turner", "EngineerID": 1234, "Progress": "Unlocked", "Rank": 5 }

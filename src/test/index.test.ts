@@ -186,7 +186,9 @@ import type { EngineerApply } from "../main/events/station/EngineerApply.js";
 import type { EngineerContribution } from "../main/events/station/EngineerContribution.js";
 import type { EngineerCraft } from "../main/events/station/EngineerCraft.js";
 import type { EngineerLegacyConvert } from "../main/events/station/EngineerLegacyConvert.js";
-import type { EngineerProgress } from "../main/events/station/EngineerProgress.js";
+import type {
+    Engineer, EngineerBase, EngineerProgress, EngineerProgressState, LockedEngineer, UnlockedEngineer
+} from "../main/events/station/EngineerProgress.js";
 import type { FetchRemoteModule } from "../main/events/station/FetchRemoteModule.js";
 import type { ExtendedMarket, Market } from "../main/events/station/Market.js";
 import type { MassModuleStore } from "../main/events/station/MassModuleStore.js";
@@ -486,7 +488,12 @@ describe("core", () => {
         ((): ExtendedMarket => (({} as exports.ExtendedMarket)))();
         ((): Market => (({} as exports.Market)))();
         ((): CommunityGoalJoin => (({} as exports.CommunityGoalJoin)))();
+        ((): Engineer => (({} as exports.Engineer)))();
+        ((): EngineerBase => (({} as exports.EngineerBase)))();
         ((): EngineerProgress => (({} as exports.EngineerProgress)))();
+        ((): EngineerProgressState => (({} as exports.EngineerProgressState)))();
+        ((): LockedEngineer => (({} as exports.LockedEngineer)))();
+        ((): UnlockedEngineer => (({} as exports.UnlockedEngineer)))();
         ((): PayBounties => (({} as exports.PayBounties)))();
         ((): ShipyardBankDeposit => (({} as exports.ShipyardBankDeposit)))();
         ((): ShipyardRedeem => (({} as exports.ShipyardRedeem)))();

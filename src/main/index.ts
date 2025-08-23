@@ -190,7 +190,7 @@ export type { EngineerApply } from "./events/station/EngineerApply.js";
 export type { EngineerContribution } from "./events/station/EngineerContribution.js";
 export type { EngineerCraft } from "./events/station/EngineerCraft.js";
 export type { EngineerLegacyConvert } from "./events/station/EngineerLegacyConvert.js";
-export type { EngineerProgress } from "./events/station/EngineerProgress.js";
+export type { Engineer, EngineerBase, EngineerProgress, EngineerProgressState, LockedEngineer, UnlockedEngineer } from "./events/station/EngineerProgress.js";
 export type { FetchRemoteModule } from "./events/station/FetchRemoteModule.js";
 export type { ExtendedMarket, Market } from "./events/station/Market.js";
 export type { MassModuleStore } from "./events/station/MassModuleStore.js";
