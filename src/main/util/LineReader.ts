@@ -23,7 +23,7 @@ function concat(a: Uint8Array, b: Uint8Array): Uint8Array {
 /**
  * Reads lines from a UTF-8 encoded file.
  */
-export class LineReader implements AsyncIterable<string> {
+export class LineReader implements AsyncIterable<string>, AsyncDisposable {
     /** The read buffer. */
     private readonly buffer: Uint8Array;
 
@@ -65,6 +65,11 @@ export class LineReader implements AsyncIterable<string> {
         this.currentOffset = offset;
         this.currentLine = line;
         this.buffer = new Uint8Array(bufferSize);
+    }
+
+    /** @inheritDoc */
+    public async [Symbol.asyncDispose](): Promise<void> {
+        await this.close();
     }
 
     /**

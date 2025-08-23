@@ -29,7 +29,7 @@ import type { ExtendedShipyard } from "./events/station/Shipyard.js";
 import type { ExtendedNavRoute } from "./events/travel/NavRoute.js";
 import { JournalError } from "./JournalError.js";
 import { type JournalEvent, updateJournalEvent } from "./JournalEvent.js";
-import type { JournalPosition } from "./JournalPosition.js";
+import type { JournalPosition, NamedJournalPosition } from "./JournalPosition.js";
 import { sleep } from "./util/async.js";
 import { getErrorMessage, toError } from "./util/error.js";
 import { isDirectory, isPathReadable } from "./util/fs.js";
@@ -78,12 +78,13 @@ export interface JournalOptions {
      *
      * - "start"     : Indicates the very beginning of the earliest journal file.
      * - "end"       : Indicates the end of the latest journal file. So only future events will be read (only makes sense in watch mode)
-     * - "last-file" : Indicates the beginning of the latest journal file.
-     * - event name  : Any other string is treated as a journal event name. Indicates the last position of the given event in the latest journal file.
+     * - event name  : Any other string is treated as a journal event name. Indicates the last (newest) position of the given event in the journal. When
+     *                 specifying 'FSDJump" for example then journal reading begins at the last FSDJump event found in the game. If there is no FSDJump in
+     *                 the whole journal then reading begins a the end of the journal (same as specifying position "end").
      *
-     * Defaults to "last-file".
+     * Defaults to "start".
      */
-    position?: JournalPosition | "start" | "end" | "last-file" | JournalEventName;
+    position?: JournalPosition | NamedJournalPosition;
 
     /**
      * Set to true to watch the journal for new events. False (default) just reads the existing journal events and
@@ -93,7 +94,7 @@ export interface JournalOptions {
 }
 
 /**
- * JSON reviver function which converts numbers of ID properties to bigint if needed.
+ * JSON reviver function which converts numbers of ID properties (property names ending with 'ID' or 'Address') to bigint if needed.
  *
  * @param key     - The JSON property key.
  * @param value   - The parsed JSON property value.
@@ -156,12 +157,10 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
     /**
      * Opens the journal.
      */
-    public static async open({ directory, position = "last-file", watch = false }: JournalOptions = {}): Promise<Journal> {
+    public static async open({ directory, position = "start", watch = false }: JournalOptions = {}): Promise<Journal> {
         directory ??= await this.findDirectory();
         if (position === "start") {
             position = { file: "", offset: 0, line: 1 };
-        } else if (position === "last-file") {
-            position = await this.findLastFile(directory);
         } else if (position === "end") {
             position = await this.findEnd(directory);
         } else if (typeof position === "string") {
@@ -233,20 +232,6 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
     }
 
     /**
-     * Finds the last position of the journal and returns it. The last position is the beginning of the latest journal file.
-     *
-     * @return Latest position of the journal.
-     */
-    public static async findLastFile(directory: string): Promise<JournalPosition> {
-        const filename = (await readdir(directory)).filter(isJournalFile).sort(journalTimeCompare).reverse()[0];
-        if (filename == null) {
-            // No journal file found, return start as end
-            return { file: "", offset: 0, line: 1 };
-        }
-        return { file: filename, offset: 0, line: 1 };
-    }
-
-    /**
      * Finds the last position of the given event in the latest file of the journal and returns it. Returns end of journal if the latest journal file
      * does not contain this event.
      *
@@ -255,18 +240,27 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
      * @return Last position of given event in latest journal file or end of journal if not found.
      */
     public static async findLastEvent(directory: string, eventName: JournalEventName): Promise<JournalPosition> {
+        const files = (await readdir(directory)).filter(isJournalFile).sort(journalTimeCompare).reverse();
         let lastEventPosition: JournalPosition | null = null;
-        const journal = await Journal.open({ directory, position: "last-file" });
-        let lastPosition = journal.getPosition();
-        try {
-            for await (const event of journal) {
-                if (event.event === eventName) {
-                    lastEventPosition = lastPosition;
+        let lastPosition: JournalPosition = { file: "", offset: 0, line: 1 };
+        for (const file of files) {
+            await using lineReader = await LineReader.create(join(directory, file));
+            lastPosition = { file, offset: lineReader.getOffset(), line: lineReader.getLine() };
+            for await (const line of lineReader) {
+                try {
+                    const json = JSON.parse(line, jsonReviver) as AnyJournalEvent;
+                    updateJournalEvent(json);
+                    if (json.event === eventName) {
+                        lastEventPosition = lastPosition;
+                    }
+                    lastPosition = { file, offset: lineReader.getOffset(), line: lineReader.getLine() };
+                } catch (error) {
+                    throw new JournalError(`Parse error in ${lastPosition.file}:${lastPosition.line}: ${getErrorMessage(error)}: ${line.trim()}`);
                 }
-                lastPosition = journal.getPosition();
             }
-        } finally {
-            await journal.close();
+            if (lastEventPosition != null) {
+                break;
+            }
         }
         return lastEventPosition ?? lastPosition;
     }

@@ -18,11 +18,14 @@ import { join } from "path";
 
 import type { AnyJournalEvent } from "../main/AnyJournalEvent.js";
 import { Journal } from "../main/Journal.js";
-import type { JournalPosition } from "../main/JournalPosition.js";
+import type { JournalPosition, NamedJournalPosition } from "../main/JournalPosition.js";
 
-let position: JournalPosition | string = process.argv[2] ?? "start";
-if (position !== "start" && position !== "end") {
-    position = { file: position, offset: 0, line: 1 };
+const arg = process.argv[2] ?? "start";
+let position: JournalPosition | NamedJournalPosition;
+if (arg.endsWith(".log")) {
+    position = { file: arg, offset: 0, line: 1 };
+} else {
+    position = arg as NamedJournalPosition;
 }
 
 class ValidationError extends Error {
@@ -85,6 +88,7 @@ for await (const event of journal) {
         validators.set(event.event, validator);
     }
     // AJV cannot validate bigint against integer json type. So we have to convert bigint to number first
+    console.log(event.event);
     bigintToNumber(event);
     const result = validator(event);
     if (!result) {
