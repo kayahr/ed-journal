@@ -38,6 +38,17 @@ try {
 }
 ```
 
+With modern JavaScript it also possible to use the Journal with `await using` instead of `try...finally` so it is closed automatically when the end of the scope is reached:
+
+```typescript
+import { Journal } from "@kayahr/ed-journal";
+
+await using journal = await Journal.open();
+for await (const event of journal) {
+    console.log(event.timestamp, event.event);
+});
+```
+
 Options
 -------
 

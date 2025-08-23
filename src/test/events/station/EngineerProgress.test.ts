@@ -28,29 +28,21 @@ const engineers: Engineer[] = [
 
 describe("EngineerProgress", () => {
     it("updates engineer object to array", async () => {
-        const journal = await Journal.open({ directory: "src/test/data/events/EngineerProgress" });
-        try {
-            for (const engineer of engineers) {
-                const event = await journal.next();
-                expect(event?.event).toBe("EngineerProgress");
-                if (event?.event === "EngineerProgress") {
-                    expect(event.Engineers).toEqual([ engineer ]);
-                }
-            }
-        } finally {
-            await journal.close();
-        }
-    });
-    it("removes broken engineer objects where crucial engineer name is missing", async () => {
-        const journal = await Journal.open({ directory: "src/test/data/events/EngineerProgress2" });
-        try {
+        await using journal = await Journal.open({ directory: "src/test/data/events/EngineerProgress" });
+        for (const engineer of engineers) {
             const event = await journal.next();
             expect(event?.event).toBe("EngineerProgress");
             if (event?.event === "EngineerProgress") {
-                expect(event.Engineers).toEqual(engineers);
+                expect(event.Engineers).toEqual([ engineer ]);
             }
-        } finally {
-            await journal.close();
+        }
+    });
+    it("removes broken engineer objects where crucial engineer name is missing", async () => {
+        await using journal = await Journal.open({ directory: "src/test/data/events/EngineerProgress2" });
+        const event = await journal.next();
+        expect(event?.event).toBe("EngineerProgress");
+        if (event?.event === "EngineerProgress") {
+            expect(event.Engineers).toEqual(engineers);
         }
     });
 });

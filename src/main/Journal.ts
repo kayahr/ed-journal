@@ -125,7 +125,7 @@ function jsonReviver(key: string, value: unknown, context?: { source: string }):
  * In watch mode the iteration does not end and is continued every time a new event is appended to the journal by the
  * game. Watch mode can be stopped by calling the {@link close} method. Iteration loops will end when journal is closed.
  */
-export class Journal implements AsyncIterable<AnyJournalEvent> {
+export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable {
     /** The journal directory. */
     private readonly directory: string;
 
@@ -153,6 +153,11 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
         this.position = position;
         this.abortController = new AbortController();
         this.generator = this.createGenerator(watch);
+    }
+
+    /** @inheritDoc */
+    public [Symbol.asyncDispose](): PromiseLike<void> {
+        return this.close();
     }
 
     /**
