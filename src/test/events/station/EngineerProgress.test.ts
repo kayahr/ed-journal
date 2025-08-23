@@ -3,8 +3,6 @@ import { describe, expect, it } from "vitest";
 import type { Engineer } from "../../../main/events/station/EngineerProgress.js";
 import { Journal } from "../../../main/Journal.js";
 
-const directory = "src/test/data/events/EngineerProgress";
-
 const engineers: Engineer[] = [
     {
         Engineer: "Bill Turner",
@@ -30,7 +28,7 @@ const engineers: Engineer[] = [
 
 describe("EngineerProgress", () => {
     it("updates engineer object to array", async () => {
-        const journal = await Journal.open({ directory });
+        const journal = await Journal.open({ directory: "src/test/data/events/EngineerProgress" });
         try {
             for (const engineer of engineers) {
                 const event = await journal.next();
@@ -38,6 +36,18 @@ describe("EngineerProgress", () => {
                 if (event?.event === "EngineerProgress") {
                     expect(event.Engineers).toEqual([ engineer ]);
                 }
+            }
+        } finally {
+            await journal.close();
+        }
+    });
+    it("removes broken engineer objects where crucial engineer name is missing", async () => {
+        const journal = await Journal.open({ directory: "src/test/data/events/EngineerProgress2" });
+        try {
+            const event = await journal.next();
+            expect(event?.event).toBe("EngineerProgress");
+            if (event?.event === "EngineerProgress") {
+                expect(event.Engineers).toEqual(engineers);
             }
         } finally {
             await journal.close();
