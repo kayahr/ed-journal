@@ -46,7 +46,7 @@ You can pass [JournalOptions] when opening a [Journal] with the following proper
 | Option      | Description
 | ----------- | -------------------------------------------------------------------------------------------------------
 | directory   | The journal directory to scan. Automatically determined if not specified (See *Journal directory location* section below)
-| position    | The position within the journal to start reading it. Can be "start" (Default) or "end" or a [JournalPosition] object with properties `file`, `offset` and `line` to specify an exact position within the journal.
+| position    | The position within the journal to start reading it. Can be `start` (Default, start of journal), `end` (end of journal), a event name (starting at last occurrence of this event in the journal) or a [JournalPosition] object with properties `file`, `offset` and `line` to specify an exact manual position within the journal.
 | watch       | Set to `true` to watch the journal directory for new events after reading the existing ones. When `false` (default) then only existing events are read and then reading ends.
 
 
