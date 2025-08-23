@@ -23,6 +23,16 @@ describe("LineReader", () => {
             await reader.close();
         }
     });
+    it("can be used as async disposable", async () => {
+        await using reader = await LineReader.create(testTxt);
+        let text = "";
+        for await (const line of reader) {
+            expect(line.endsWith("\n")).toBe(true);
+            text += line;
+        }
+        const origText = (await readFile(testTxt)).toString();
+        expect(text).toBe(origText);
+    });
     it("works with buffer size 1", async () => {
         const reader = await LineReader.create(smallTxt, 0, 1, 1);
         try {

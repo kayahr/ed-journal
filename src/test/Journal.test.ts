@@ -1,3 +1,5 @@
+import "@kayahr/vitest-matchers";
+
 import { appendFileSync, writeFileSync } from "node:fs";
 import { appendFile, chmod, cp, mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -6,6 +8,8 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
 import type { AnyJournalEvent } from "../main/AnyJournalEvent.js";
+import type { CarrierJump } from "../main/events/carrier/CarrierJump.js";
+import type { CarrierStats } from "../main/events/carrier/CarrierStats.js";
 import type { Backpack } from "../main/events/odyssey/Backpack.js";
 import type { ExtendedFCMaterials } from "../main/events/odyssey/FCMaterials.js";
 import type { ShipLocker } from "../main/events/odyssey/ShipLocker.js";
@@ -217,6 +221,22 @@ describe("Journal", () => {
         }
     });
 
+    it("reads a journal starting at given event", async () => {
+        const records: AnyJournalEvent[] = [];
+        const journal = await Journal.open({
+            directory: journalDir,
+            position: "Commander"
+        });
+        try {
+            for await (const record of journal) {
+                records.push(record);
+            }
+        } finally {
+            await journal.close();
+        }
+        expect(records).toMatchSnapshot();
+    });
+
     it("can watch new journal events only", async () => {
         const writer = await JournalWriter.create(journalDir);
         try {
@@ -252,6 +272,34 @@ describe("Journal", () => {
         } finally {
             await writer.done();
         }
+    });
+
+    it("automatically reads ID values as bigint if needed", async () => {
+        const journal = await Journal.open({ directory: "src/test/data/events/bigint" });
+
+        // First event needs bigint in CarrierID
+        let event = await journal.next();
+        expect(event?.event === "CarrierStats");
+        expect((event as CarrierStats).CarrierID).toBe(9007199254740992n);
+
+        // Second event does not need bigint in CarrierID
+        event = await journal.next();
+        expect(event?.event === "CarrierStats");
+        expect((event as CarrierStats).CarrierID).toBe(9007199254740991);
+
+        // Third event needs bigint in SystemAddress
+        event = await journal.next();
+        expect(event?.event === "CarrierJump");
+        expect((event as CarrierJump).SystemAddress).toBe(9007199254740992n);
+
+        // Fourth event does not need bigint in SystemAddress
+        event = await journal.next();
+        expect(event?.event === "CarrierJump");
+        expect((event as CarrierJump).SystemAddress).toBe(9007199254740991);
+
+        // Fifth event does not need bigint in FuelLevel causing exception
+        await expect(journal.next()).rejects.toThrow("Parse error in Journal.201122113238.01.log:5: Value of property 'FuelLevel' looks like a "
+            + "bigint (9007199254740992) but was parsed as an imprecise number (9007199254740992): ");
     });
 
     it("reports lines in correct order when new file is created right before changing the current file", async () => {
@@ -389,8 +437,29 @@ describe("Journal", () => {
             expect(await Journal.findEnd(journalDir)).toEqual(
                 { file: "Journal.2023-01-01T000000.01.log", offset: 222, line: 3 });
         });
-        it("returns start position when no journal find found", async () => {
+        it("returns start position when no journal file found", async () => {
             expect(await Journal.findEnd("src/test")).toEqual({ file: "", offset: 0, line: 1 });
+        });
+    });
+
+    describe("findLastEvent", () => {
+        it("returns end position of journal if event was not found", async () => {
+            expect(await Journal.findLastEvent(journalDir, "SquadronCreated")).toEqual(
+                { file: "Journal.2023-01-01T000000.01.log", offset: 222, line: 3 });
+        });
+        it("returns start position when no journal file found", async () => {
+            expect(await Journal.findLastEvent("src/test", "Commander")).toEqual({ file: "", offset: 0, line: 1 });
+        });
+        it("returns last position of journal event if fond", async () => {
+            expect(await Journal.findLastEvent(journalDir, "Commander")).toEqual(
+                { file: "Journal.2022-01-01T000000.01.log", offset: 163, line: 2 });
+            expect(await Journal.findLastEvent(journalDir, "Fileheader")).toEqual(
+                { file: "Journal.2023-01-01T000000.01.log", offset: 0, line: 1 });
+        });
+        it("throws error when encountering broken journal file", async () => {
+            await expect(Journal.findLastEvent("src/test/data/broken", "Commander")).rejects.toThrow(
+                "Parse error in Journal.2023-01-01T000000.01.log:2: Expected double-quoted property name in JSON at position 38 (line 1 column 39): "
+                + "{ \"timestamp\":\"2023-01-01T00:00:01Z\", ]");
         });
     });
 
@@ -401,7 +470,8 @@ describe("Journal", () => {
                 position: { file: "Journal.2022-01-01T000000.01.log", offset: 163, line: 2 }
             });
             try {
-                expect(await journal.next()).toEqual({ timestamp: "2022-01-01T00:00:01Z", event: "Shutdown" });
+                expect(await journal.next()).toEqual({ timestamp: "2022-01-01T00:00:01Z", event: "Commander", FID: "F1234", Name: "Jameson" });
+                expect(await journal.next()).toEqual({ timestamp: "2022-01-01T00:00:02Z", event: "Shutdown" });
                 expect(await journal.next()).toEqual({
                     timestamp: "2023-01-01T00:00:00Z",
                     event: "Fileheader",

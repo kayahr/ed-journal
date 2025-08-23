@@ -262,7 +262,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent> {
                 break;
             }
         }
-        return lastEventPosition ?? lastPosition;
+        return lastEventPosition ?? this.findEnd(directory);
     }
 
     /**
