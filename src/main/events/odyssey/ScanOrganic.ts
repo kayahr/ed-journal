@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 export interface ScanOrganic extends JournalEvent<"ScanOrganic"> {
     ScanType: string;
@@ -13,6 +14,6 @@ export interface ScanOrganic extends JournalEvent<"ScanOrganic"> {
     Species_Localised: string;
     Variant?: string;
     Variant_Localised?: string;
-    SystemAddress: number;
+    SystemAddress: ID;
     Body: number;
 }

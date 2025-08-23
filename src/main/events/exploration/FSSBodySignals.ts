@@ -9,7 +9,7 @@ import type { ID } from "../types/ID.js";
 export interface FSSBodySignals extends JournalEvent<"FSSBodySignals"> {
     BodyName: string;
     BodyID: ID;
-    SystemAddress: number;
+    SystemAddress: ID;
     Signals: Array<{
         Type: string;
         Type_Localised: string;

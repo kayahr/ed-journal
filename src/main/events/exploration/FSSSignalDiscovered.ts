@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /**
  * Written when zooming in on a signal using the FSS scanner.
@@ -24,7 +25,7 @@ export interface FSSSignalDiscovered extends JournalEvent<"FSSSignalDiscovered">
     /** Remaining lifetime in seconds, if relevant */
     TimeRemaining?: number;
 
-    SystemAddress: number;
+    SystemAddress: ID;
 
     /** Threat level of a USS. */
     ThreatLevel?: number;

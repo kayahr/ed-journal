@@ -11,7 +11,7 @@ import type { ID } from "../types/ID.js";
  */
 export interface LeaveBody extends JournalEvent<"LeaveBody"> {
     StarSystem: string;
-    SystemAddress: number;
+    SystemAddress: ID;
     Body: string;
     BodyID: ID;
 }

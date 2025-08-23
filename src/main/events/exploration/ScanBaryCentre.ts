@@ -12,7 +12,7 @@ import type { ID } from "../types/ID.js";
  */
 export interface ScanBaryCentre extends JournalEvent<"ScanBaryCentre"> {
     StarSystem: string;
-    SystemAddress: number;
+    SystemAddress: ID;
     BodyID: ID;
     SemiMajorAxis: number;
     Eccentricity: number;

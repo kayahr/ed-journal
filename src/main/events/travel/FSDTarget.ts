@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /**
  * Written when selecting a star system to jump to.
@@ -15,5 +16,5 @@ export interface FSDTarget extends JournalEvent<"FSDTarget"> {
     Name: string;
     RemainingJumpsInRoute?: number;
     StarClass?: string;
-    SystemAddress: number;
+    SystemAddress: ID;
 }

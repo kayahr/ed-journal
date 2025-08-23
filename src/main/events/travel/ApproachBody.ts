@@ -11,7 +11,7 @@ import type { ID } from "../types/ID.js";
  */
 export interface ApproachBody extends JournalEvent<"ApproachBody"> {
     StarSystem: string;
-    SystemAddress: number;
+    SystemAddress: ID;
     Body: string;
     BodyID: ID;
 }

@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /**
  * Written when using the discovery scanner, and new body discoveries are displayed in the cockpit info window.
@@ -11,7 +12,7 @@ import type { JournalEvent } from "../../JournalEvent.js";
  * before the active scan is complete.
  */
 export interface DiscoveryScan extends JournalEvent<"DiscoveryScan"> {
-    SystemAddress: number;
+    SystemAddress: ID;
 
     /** Number of new bodies discovered. */
     Bodies: number;

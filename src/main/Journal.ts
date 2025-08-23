@@ -103,7 +103,7 @@ export interface JournalOptions {
 function jsonReviver(key: string, value: unknown, context?: { source: string }): unknown {
     if (context != null && typeof value === "number" && (value > Number.MAX_SAFE_INTEGER || value < Number.MIN_SAFE_INTEGER)) {
         const source = context.source;
-        if (key.endsWith("ID")) {
+        if (key.endsWith("ID") || key.endsWith("Address")) {
             return BigInt(source);
         } else if (/^[-+]?\d+$/.test(source)) {
             throw new JournalError(`Value of property '${key}' looks like a bigint (${source}) but was parsed as an imprecise number (${value})`);

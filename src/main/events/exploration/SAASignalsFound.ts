@@ -10,7 +10,7 @@ import type { ID } from "../types/ID.js";
  * Written when using SAA scanner on a planet or rings.
  */
 export interface SAASignalsFound extends JournalEvent<"SAASignalsFound"> {
-    SystemAddress: number;
+    SystemAddress: ID;
     BodyName: string;
     BodyID: ID;
     Signals: Array<{

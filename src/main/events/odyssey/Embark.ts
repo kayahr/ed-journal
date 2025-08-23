@@ -16,7 +16,7 @@ export interface Embark extends JournalEvent<"Embark"> {
         Role: string;
     }>;
     StarSystem: string;
-    SystemAddress: number;
+    SystemAddress: ID;
     Body: string;
     BodyID: ID;
     OnStation: boolean;

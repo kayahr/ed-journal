@@ -12,7 +12,7 @@ export interface CarrierBuy extends JournalEvent<"CarrierBuy"> {
     CarrierType?: CarrierType;
     BoughtAtMarket: number;
     Location: string;
-    SystemAddress: number;
+    SystemAddress: ID;
     Price: number;
     Variant: string;
     Callsign: string;

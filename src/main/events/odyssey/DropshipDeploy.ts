@@ -8,7 +8,7 @@ import type { ID } from "../types/ID.js";
 
 export interface DropshipDeploy extends JournalEvent<"DropshipDeploy"> {
     StarSystem: string;
-    SystemAddress: number;
+    SystemAddress: ID;
     Body: string;
     BodyID: ID;
     OnStation: boolean;

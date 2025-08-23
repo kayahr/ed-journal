@@ -44,7 +44,7 @@ export interface CarrierJump extends JournalEvent<"CarrierJump"> {
     Taxi?: boolean;
     Multicrew?: boolean;
     StarSystem: string;
-    SystemAddress: number;
+    SystemAddress: ID;
     StarPos: [ number, number, number ];
     SystemAllegiance: string;
     SystemEconomy: string;

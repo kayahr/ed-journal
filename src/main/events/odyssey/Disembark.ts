@@ -12,7 +12,7 @@ export interface Disembark extends JournalEvent<"Disembark"> {
     Multicrew: boolean;
     ID?: ID;
     StarSystem: string;
-    SystemAddress: number;
+    SystemAddress: ID;
     Body: string;
     BodyID: ID;
     OnStation: boolean;

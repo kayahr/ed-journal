@@ -11,6 +11,6 @@ export interface CarrierLocation extends JournalEvent<"CarrierLocation"> {
     CarrierID: ID;
     CarrierType?: CarrierType;
     StarSystem: string;
-    SystemAddress: number;
+    SystemAddress: ID;
     BodyID: ID;
 }
