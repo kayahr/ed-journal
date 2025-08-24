@@ -41,7 +41,7 @@ export type { DiscoveryScan } from "./events/exploration/DiscoveryScan.js";
 export type { FSSAllBodiesFound } from "./events/exploration/FSSAllBodiesFound.js";
 export type { FSSBodySignals } from "./events/exploration/FSSBodySignals.js";
 export type { FSSDiscoveryScan } from "./events/exploration/FSSDiscoveryScan.js";
-export type { FSSSignalDiscovered } from "./events/exploration/FSSSignalDiscovered.js";
+export type { FSSSignalDiscovered, SignalType } from "./events/exploration/FSSSignalDiscovered.js";
 export type { MaterialCollected } from "./events/exploration/MaterialCollected.js";
 export type { MaterialDiscarded } from "./events/exploration/MaterialDiscarded.js";
 export type { MaterialDiscovered } from "./events/exploration/MaterialDiscovered.js";

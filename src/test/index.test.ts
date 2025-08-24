@@ -37,7 +37,7 @@ import type { DiscoveryScan } from "../main/events/exploration/DiscoveryScan.js"
 import type { FSSAllBodiesFound } from "../main/events/exploration/FSSAllBodiesFound.js";
 import type { FSSBodySignals } from "../main/events/exploration/FSSBodySignals.js";
 import type { FSSDiscoveryScan } from "../main/events/exploration/FSSDiscoveryScan.js";
-import type { FSSSignalDiscovered } from "../main/events/exploration/FSSSignalDiscovered.js";
+import type { FSSSignalDiscovered, SignalType } from "../main/events/exploration/FSSSignalDiscovered.js";
 import type { MaterialCollected } from "../main/events/exploration/MaterialCollected.js";
 import type { MaterialDiscarded } from "../main/events/exploration/MaterialDiscarded.js";
 import type { MaterialDiscovered } from "../main/events/exploration/MaterialDiscovered.js";
@@ -427,6 +427,7 @@ describe("core", () => {
         ((): SAAScanComplete => (({} as exports.SAAScanComplete)))();
         ((): Scan => (({} as exports.Scan)))();
         ((): FSSSignalDiscovered => (({} as exports.FSSSignalDiscovered)))();
+        ((): SignalType => (({} as exports.SignalType)))();
         ((): BuyExplorationData => (({} as exports.BuyExplorationData)))();
         ((): Screenshot => (({} as exports.Screenshot)))();
         ((): MaterialDiscovered => (({} as exports.MaterialDiscovered)))();

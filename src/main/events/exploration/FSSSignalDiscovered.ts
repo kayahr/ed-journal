@@ -6,13 +6,19 @@
 import type { JournalEvent } from "../../JournalEvent.js";
 import type { ID } from "../types/ID.js";
 
+export type SignalType = "Outpost" | "StationCoriolis" | "FleetCarrier" | "StationONeilOrbis" | "NavBeacon" | "Megaship" | "Combat" | "Installation"
+    | "StationONeilCylinder" | "Generic" | "ResourceExtraction" | "StationBernalSphere" | "TouristBeacon" | "Titan" | "StationMegaShip" | "USS" | "Codex"
+    | "StationAsteroid" | "SquadronCarrier";
+
 /**
  * Written when zooming in on a signal using the FSS scanner.
  */
 export interface FSSSignalDiscovered extends JournalEvent<"FSSSignalDiscovered"> {
     SignalName: string;
     SignalName_Localised?: string;
-    SignalType?: string;
+
+    /** The type of the signal. May be missing in older journals. */
+    SignalType?: SignalType;
 
     /** The BGS state that triggered this event, if relevant. */
     SpawningState?: string;

@@ -14,6 +14,7 @@ Aurasus
 Aureum
 autodock
 Bary
+Bernal
 Biconcavis
 Bioluminescent
 blackmarket
@@ -101,6 +102,7 @@ Luteolum
 Maglocks
 Margaritus
 materialtrader
+Megaship
 Metallicum
 missionsgenerated
 modulepacks
@@ -114,6 +116,7 @@ Nitris
 öäüßá
 Omnipol
 ondockmission
+Orbis
 Osseus
 Ostrinum
 Paleas
