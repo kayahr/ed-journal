@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { BodyType } from "../types/BodyType.js";
 import type { ID } from "../types/ID.js";
 
 /**
@@ -14,7 +15,7 @@ export interface SupercruiseExit extends JournalEvent<"SupercruiseExit"> {
     SystemAddress?: number;
     Body: string;
     BodyID?: ID;
-    BodyType: string;
+    BodyType: BodyType;
     Taxi?: boolean;
     Multicrew?: boolean;
 }

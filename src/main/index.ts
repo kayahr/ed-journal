@@ -260,6 +260,7 @@ export type { SupercruiseEntry } from "./events/travel/SupercruiseEntry.js";
 export type { SupercruiseExit } from "./events/travel/SupercruiseExit.js";
 export type { Touchdown } from "./events/travel/Touchdown.js";
 export type { Undocked } from "./events/travel/Undocked.js";
+export type { BodyType } from "./events/types/BodyType.js";
 export type { CarrierType } from "./events/types/CarrierType.js";
 export type { ConflictFaction } from "./events/types/ConflictFaction.js";
 export type { ConflictProgress } from "./events/types/ConflictProgress.js";

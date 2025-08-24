@@ -258,6 +258,7 @@ import type { SupercruiseEntry } from "../main/events/travel/SupercruiseEntry.js
 import type { SupercruiseExit } from "../main/events/travel/SupercruiseExit.js";
 import type { Touchdown } from "../main/events/travel/Touchdown.js";
 import type { Undocked } from "../main/events/travel/Undocked.js";
+import type { BodyType } from "../main/events/types/BodyType.js";
 import type { CarrierType } from "../main/events/types/CarrierType.js";
 import type { ConflictFaction } from "../main/events/types/ConflictFaction.js";
 import type { ConflictProgress } from "../main/events/types/ConflictProgress.js";
@@ -310,6 +311,7 @@ describe("core", () => {
         ((): PowerState => (({} as exports.PowerState)))();
         ((): PowerState1 => (({} as exports.PowerState1)))();
         ((): PowerState2 => (({} as exports.PowerState2)))();
+        ((): BodyType => (({} as exports.BodyType)))();
         ((): CarrierType => (({} as exports.CarrierType)))();
         ((): MicroResource => (({} as exports.MicroResource)))();
         ((): StationService => (({} as exports.StationService)))();

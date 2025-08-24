@@ -4,6 +4,7 @@
  */
 
 import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
+import type { BodyType } from "../types/BodyType.js";
 import type { ConflictFaction } from "../types/ConflictFaction.js";
 import type { ConflictProgress } from "../types/ConflictProgress.js";
 import type { ID } from "../types/ID.js";
@@ -23,7 +24,7 @@ export interface Location extends JournalEvent<"Location"> {
     Body: string;
     Body_Localised?: string;
     BodyID?: ID;
-    BodyType: string;
+    BodyType: BodyType;
     ControllingPower?: string;
     DistFromStarLS?: number;
     Docked: boolean;
