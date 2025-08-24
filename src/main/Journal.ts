@@ -337,11 +337,11 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
                                 files.push(filename);
                                 notifier.notify();
                             }
-                        } else {
+                        } /* v8 ignore next 2 (hard to time this situation in unit test) */ else {
                             files.push(filename);
                         }
                     }
-                }
+                } /* v8 ignore next (for loop never exits, throws exception when cancelled) */
             } catch (e) {
                 error = toError(e);
                 notifier.notify();
@@ -523,7 +523,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
                 if (event.filename === filename) {
                     yield filename;
                 }
-            }
+            } /* v8 ignore next (for loop never exits, throws exception when cancelled) */
         } catch {
             // Ignoring watch abort, generator still stops yielding values
         }
