@@ -268,6 +268,7 @@ export type { ID } from "./events/types/ID.js";
 export type { MicroResource } from "./events/types/MicroResource.js";
 export type { PowerState, PowerState1, PowerState2 } from "./events/types/PowerState.js";
 export type { StationService } from "./events/types/StationService.js";
+export type { StationType } from "./events/types/StationType.js";
 export { Journal, type JournalOptions } from "./Journal.js";
 export { JournalError } from "./JournalError.js";
 export type { JournalEvent } from "./JournalEvent.js";

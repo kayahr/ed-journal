@@ -266,6 +266,7 @@ import type { ID } from "../main/events/types/ID.js";
 import type { MicroResource } from "../main/events/types/MicroResource.js";
 import type { PowerState, PowerState1, PowerState2 } from "../main/events/types/PowerState.js";
 import type { StationService } from "../main/events/types/StationService.js";
+import type { StationType } from "../main/events/types/StationType.js";
 import * as exports from "../main/index.js";
 import { Journal, type JournalOptions } from "../main/Journal.js";
 import { JournalError } from "../main/JournalError.js";
@@ -312,6 +313,7 @@ describe("core", () => {
         ((): PowerState1 => (({} as exports.PowerState1)))();
         ((): PowerState2 => (({} as exports.PowerState2)))();
         ((): BodyType => (({} as exports.BodyType)))();
+        ((): StationType => (({} as exports.StationType)))();
         ((): CarrierType => (({} as exports.CarrierType)))();
         ((): MicroResource => (({} as exports.MicroResource)))();
         ((): StationService => (({} as exports.StationService)))();

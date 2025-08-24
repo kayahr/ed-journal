@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import { type JournalEvent,registerJournalEventUpdate } from "../../JournalEvent.js";
+import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
 import type { ID } from "../types/ID.js";
 import type { StationType } from "../types/StationType.js";
 
