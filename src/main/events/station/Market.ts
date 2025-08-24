@@ -3,14 +3,15 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent.js";
+import { type JournalEvent,registerJournalEventUpdate } from "../../JournalEvent.js";
 import type { ID } from "../types/ID.js";
+import type { StationType } from "../types/StationType.js";
 
 export interface Market extends JournalEvent<"Market"> {
     MarketID: ID;
     StarSystem: string;
     StationName: string;
-    StationType?: string;
+    StationType?: StationType;
     CarrierDockingAccess?: string;
 }
 
@@ -36,3 +37,10 @@ export interface ExtendedMarket extends Market {
         Rare: boolean;
     }>;
 }
+
+registerJournalEventUpdate<Market, Market>("Market", (from, to) => {
+    if (to.StationType as string === "") {
+        // Remove empty station type
+        delete to.StationType;
+    }
+});

@@ -10,12 +10,13 @@ import type { ConflictProgress } from "../types/ConflictProgress.js";
 import type { ID } from "../types/ID.js";
 import type { PowerState } from "../types/PowerState.js";
 import type { StationService } from "../types/StationService.js";
+import type { StationType } from "../types/StationType.js";
 
 export interface CarrierJump extends JournalEvent<"CarrierJump"> {
     Docked: boolean;
     OnFoot?: boolean;
     StationName?: string;
-    StationType?: string;
+    StationType?: StationType;
     MarketID?: ID;
     StationFaction?: {
         Name: string;

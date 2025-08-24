@@ -5,6 +5,7 @@
 
 import type { JournalEvent } from "../../JournalEvent.js";
 import type { ID } from "../types/ID.js";
+import type { StationType } from "../types/StationType.js";
 
 export interface Embark extends JournalEvent<"Embark"> {
     SRV: boolean;
@@ -22,6 +23,6 @@ export interface Embark extends JournalEvent<"Embark"> {
     OnStation: boolean;
     OnPlanet: boolean;
     StationName?: string;
-    StationType?: string;
+    StationType?: StationType;
     MarketID?: ID;
 }

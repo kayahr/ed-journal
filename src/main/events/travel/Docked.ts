@@ -6,6 +6,7 @@
 import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
 import type { ID } from "../types/ID.js";
 import { correctStationService, type StationService } from "../types/StationService.js";
+import type { StationType } from "../types/StationType.js";
 
 /**
  * Written when landing at landing pad in a space station, output, or surface settlement.
@@ -20,8 +21,8 @@ export interface Docked extends JournalEvent<"Docked"> {
     MarketID?: ID;
     SystemAddress?: number;
 
-    /** The type of the station. */
-    StationType?: string;
+    /** The type of the station. Not set in older journals. */
+    StationType?: StationType;
 
     /** The name of the start system. */
     StarSystem?: string;

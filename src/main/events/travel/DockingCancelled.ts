@@ -5,6 +5,7 @@
 
 import type { JournalEvent } from "../../JournalEvent.js";
 import type { ID } from "../types/ID.js";
+import type { StationType } from "../types/StationType.js";
 
 /**
  * Written when the player cancels a docking request.
@@ -12,5 +13,5 @@ import type { ID } from "../types/ID.js";
 export interface DockingCancelled extends JournalEvent<"DockingCancelled"> {
     StationName?: string;
     MarketID?: ID;
-    StationType?: string;
+    StationType?: StationType;
 }

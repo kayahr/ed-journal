@@ -9,6 +9,7 @@ import "./events/carrier/CarrierStats.js";
 import "./events/travel/Docked.js";
 import "./events/station/EngineerCraft.js";
 import "./events/station/EngineerProgress.js";
+import "./events/station/Market.js";
 import "./events/travel/FSDJump.js";
 import "./events/travel/Location.js";
 import "./events/exploration/Scan.js";

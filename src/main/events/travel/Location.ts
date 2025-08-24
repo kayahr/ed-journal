@@ -10,6 +10,7 @@ import type { ConflictProgress } from "../types/ConflictProgress.js";
 import type { ID } from "../types/ID.js";
 import type { PowerState } from "../types/PowerState.js";
 import { correctStationService, type StationService } from "../types/StationService.js";
+import type { StationType } from "../types/StationType.js";
 
 /**
  * Written at startup or when being resurrected at a station.
@@ -31,7 +32,7 @@ export interface Location extends JournalEvent<"Location"> {
     Latitude?: number;
     Longitude?: number;
     StationName?: string;
-    StationType?: string;
+    StationType?: StationType;
     MarketID?: ID;
 
     /** Star system's controlling faction. */
@@ -214,5 +215,9 @@ registerJournalEventUpdate<DeprecatedLocation, Location>("Location", (from, to) 
     }
     if (from.StationServices instanceof Array) {
         to.StationServices = from.StationServices.map(correctStationService);
+    }
+    if (to.StationType as string === "") {
+        // Remove empty station type
+        delete to.StationType;
     }
 });

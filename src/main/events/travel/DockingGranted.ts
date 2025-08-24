@@ -5,13 +5,14 @@
 
 import type { JournalEvent } from "../../JournalEvent.js";
 import type { ID } from "../types/ID.js";
+import type { StationType } from "../types/StationType.js";
 
 /**
  * Written when a docking request is granted.
  */
 export interface DockingGranted extends JournalEvent<"DockingGranted"> {
     StationName: string;
-    StationType?: string;
+    StationType?: StationType;
     MarketID?: ID;
     LandingPad: number;
 }
