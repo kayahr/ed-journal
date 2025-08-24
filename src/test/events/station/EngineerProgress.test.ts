@@ -23,6 +23,18 @@ const engineers: Engineer[] = [
         Progress: "Unlocked",
         Rank: 5,
         RankProgress: 0
+    },
+    {
+        Engineer: "Bill Turner",
+        EngineerID: 1234,
+        Progress: "Unlocked",
+        Rank: 0,
+        RankProgress: 0
+    },
+    {
+        Engineer: "Bill Turner",
+        EngineerID: 1234,
+        Progress: "Known"
     }
 ];
 
