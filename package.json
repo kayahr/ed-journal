@@ -69,12 +69,12 @@
         "cspell": "9.2.0",
         "json-with-bigint": "3.4.4",
         "npm-run-all": "4.1.5",
-        "playwright": "1.54.2",
+        "playwright": "1.55.0",
         "rimraf": "6.0.1",
         "source-map-support": "0.5.21",
         "ts-json-schema-generator": "2.4.0",
-        "typedoc": "0.28.10",
-        "typedoc-github-theme": "0.3.0",
+        "typedoc": "0.28.11",
+        "typedoc-github-theme": "0.3.1",
         "typescript": "5.9.2",
         "vitest": "3.2.4"
     }
