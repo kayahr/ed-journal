@@ -4,4 +4,4 @@
  */
 
 /** Body types. */
-export type BodyType = "Planet" | "Station" | "Star" | "PlanetaryRing" | "AsteroidCluster" | "Null" | "StellarRing";
+export type BodyType = "Planet" | "Station" | "Star" | "PlanetaryRing" | "AsteroidCluster" | "Null" | "StellarRing" | "Ring";
