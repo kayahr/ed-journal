@@ -58,6 +58,7 @@ Digitos
 Divisa
 Dropship
 Dropships
+Earthlike
 Electricae
 emissiondata
 Excutitus
@@ -161,6 +162,7 @@ steamuser
 Stigmasis
 STOLENPROFIT
 STOLENSPEND
+Sudarsky
 Supercruise
 Tectonicas
 Tela

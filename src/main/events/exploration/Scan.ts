@@ -7,6 +7,65 @@ import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEven
 import type { BodyType } from "../types/BodyType.js";
 import type { ID } from "../types/ID.js";
 
+/** Star types */
+export type StarType
+    = "A"
+    | "AeBe"
+    | "B"
+    | "B_BlueWhiteSuperGiant"
+    | "CN"
+    | "D"
+    | "DA"
+    | "DAB"
+    | "DAV"
+    | "DB"
+    | "DBV"
+    | "DC"
+    | "DCV"
+    | "DQ"
+    | "F"
+    | "F_WhiteSuperGiant"
+    | "G"
+    | "H"
+    | "K"
+    | "K_OrangeGiant"
+    | "L"
+    | "M"
+    | "M_RedGiant"
+    | "M_RedSuperGiant"
+    | "MS"
+    | "N"
+    | "O"
+    | "S"
+    | "T"
+    | "TTS"
+    | "W"
+    | "WC"
+    | "WO"
+    | "Y"
+    ;
+
+/** Planet classes */
+export type PlanetClass
+    = "Ammonia world"
+    | "Earthlike body"
+    | "Gas giant with ammonia based life"
+    | "Gas giant with water based life"
+    | "Helium rich gas giant"
+    | "High metal content body"
+    | "Icy body"
+    | "Metal rich body"
+    | "Rocky ice body"
+    | "Rocky body"
+    | "Sudarsky class I gas giant"
+    | "Sudarsky class II gas giant"
+    | "Sudarsky class III gas giant"
+    | "Sudarsky class IV gas giant"
+    | "Sudarsky class V gas giant"
+    | "Water giant"
+    | "Water world"
+    ;
+
 /**
  * Written on basic or detailed discovery scan of a star, planet or moon.
  *
@@ -25,7 +84,7 @@ export interface Scan extends JournalEvent<"Scan"> {
     DistanceFromArrivalLS: number;
 
     /** Stellar classification. */
-    StarType?: string;
+    StarType?: StarType;
 
     /** Star's heat classification (0-9). */
     Subclass?: number;
@@ -65,7 +124,7 @@ export interface Scan extends JournalEvent<"Scan"> {
     /** Terraform state of planet/moon. */
     TerraformState?: string;
 
-    PlanetClass?: string;
+    PlanetClass?: PlanetClass;
     Atmosphere?: string;
     AtmosphereType?: string;
     AtmosphereComposition?: Array<{
