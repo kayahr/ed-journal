@@ -10,13 +10,25 @@ import type { PlanetClass } from "../types/PlanetClass.js";
 import type { StarType } from "../types/StarType.js";
 
 /**
+ * The scan type.
+ *
+ * - `AutoScan`: Automatic scan of nearby bodies after jumping into a system.
+ * - `Basic`: A basic scan in older game versions, when no Detailed Surface Scanner was installed.
+ * - `Detailed`: Normal scan made with Full Spectrum System Scanner or in older game versions a scan made with the Detailed Surface Scanner installed.
+ * - `NavBeaconDetail`: Data learned by scanning a nav beacon.
+ */
+export type ScanType = "AutoScan" | "Basic" | "Detailed" | "NavBeaconDetail";
+
+/**
  * Written on basic or detailed discovery scan of a star, planet or moon.
  *
  * This is also generated when scanning a navigation beacon in a populated system, to record info
  * about all the bodies in the system
  */
 export interface Scan extends JournalEvent<"Scan"> {
-    ScanType?: string;
+    /** The scan type. Missing in older journals. Maybe it is safe to assume a missing scan type is an auto scan. */
+    ScanType?: ScanType;
+
     StarSystem?: string;
     SystemAddress?: number;
 
