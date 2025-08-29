@@ -4,6 +4,7 @@
  */
 
 import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
+import type { BodyType } from "../types/BodyType.js";
 import type { ID } from "../types/ID.js";
 
 /**
@@ -55,13 +56,8 @@ export interface Scan extends JournalEvent<"Scan"> {
     WasDiscovered?: boolean;
     WasMapped?: boolean;
 
-    /** Array of BodyType:BodyID pairs. */
-    Parents?: Array<{
-        Null?: number;
-        Planet?: number;
-        Ring?: number;
-        Star?: number;
-    }>;
+    /** Array of BodyType:BodyID pairs describing the body hierarchy from direct parent to root. */
+    Parents?: Array<{ [K in BodyType]: Record<K, number> & Partial<Record<Exclude<BodyType, K>, never>> }[BodyType]>;
 
     /** If planet/moon is tidally locked. */
     TidalLock?: boolean;
