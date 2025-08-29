@@ -45,7 +45,7 @@ import type { MultiSellExplorationData } from "../main/events/exploration/MultiS
 import type { NavBeaconScan } from "../main/events/exploration/NavBeaconScan.js";
 import type { SAAScanComplete } from "../main/events/exploration/SAAScanComplete.js";
 import type { SAASignalsFound } from "../main/events/exploration/SAASignalsFound.js";
-import type { Scan } from "../main/events/exploration/Scan.js";
+import type { PlanetClass, Scan, StarType } from "../main/events/exploration/Scan.js";
 import type { ScanBaryCentre } from "../main/events/exploration/ScanBaryCentre.js";
 import type { Screenshot } from "../main/events/exploration/Screenshot.js";
 import type { SellExplorationData } from "../main/events/exploration/SellExplorationData.js";
@@ -427,7 +427,9 @@ describe("core", () => {
         ((): Music => (({} as exports.Music)))();
         ((): CodexEntry => (({} as exports.CodexEntry)))();
         ((): SAAScanComplete => (({} as exports.SAAScanComplete)))();
+        ((): PlanetClass => (({} as exports.PlanetClass)))();
         ((): Scan => (({} as exports.Scan)))();
+        ((): StarType => (({} as exports.StarType)))();
         ((): FSSSignalDiscovered => (({} as exports.FSSSignalDiscovered)))();
         ((): SignalType => (({} as exports.SignalType)))();
         ((): BuyExplorationData => (({} as exports.BuyExplorationData)))();

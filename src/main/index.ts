@@ -49,7 +49,7 @@ export type { MultiSellExplorationData } from "./events/exploration/MultiSellExp
 export type { NavBeaconScan } from "./events/exploration/NavBeaconScan.js";
 export type { SAAScanComplete } from "./events/exploration/SAAScanComplete.js";
 export type { SAASignalsFound } from "./events/exploration/SAASignalsFound.js";
-export type { Scan } from "./events/exploration/Scan.js";
+export type { PlanetClass, Scan, StarType } from "./events/exploration/Scan.js";
 export type { ScanBaryCentre } from "./events/exploration/ScanBaryCentre.js";
 export type { Screenshot } from "./events/exploration/Screenshot.js";
 export type { SellExplorationData } from "./events/exploration/SellExplorationData.js";
