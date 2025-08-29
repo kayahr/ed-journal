@@ -33,7 +33,7 @@ export interface MissionCompleted extends JournalEvent<"MissionCompleted"> {
         }>;
         Influence: Array<{
             System?: number; // TODO Is this the same as SystemAddress?
-            SystemAddress?: number;
+            SystemAddress?: ID;
             Trend: string;
             Influence?: string;
         }>;

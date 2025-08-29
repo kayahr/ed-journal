@@ -13,7 +13,7 @@ export interface Liftoff extends JournalEvent<"Liftoff"> {
     Latitude?: number;
     Longitude?: number;
     StarSystem?: string;
-    SystemAddress?: number;
+    SystemAddress?: ID;
     Body?: string;
     BodyID?: ID;
     OnStation?: boolean;

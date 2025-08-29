@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /**
  * Written when scanning a navigation beacon, before the scan data for all the bodies in the system is written into
@@ -11,5 +12,5 @@ import type { JournalEvent } from "../../JournalEvent.js";
  */
 export interface NavBeaconScan extends JournalEvent<"NavBeaconScan"> {
     NumBodies: number;
-    SystemAddress?: number;
+    SystemAddress?: ID;
 }

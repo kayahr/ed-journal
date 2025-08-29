@@ -29,8 +29,11 @@ export interface Scan extends JournalEvent<"Scan"> {
     /** The scan type. Missing in older journals. Maybe it is safe to assume a missing scan type is an auto scan. */
     ScanType?: ScanType;
 
+    /** Star system name. May not be set in older journals and must be taken from previous events (like {@link FSDJump} which always set a system name. */
     StarSystem?: string;
-    SystemAddress?: number;
+
+    /** The system ID. Not set in older journals. */
+    SystemAddress?: ID;
 
     /** Name of body. */
     BodyName: string;

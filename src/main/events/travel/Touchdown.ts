@@ -13,7 +13,7 @@ export interface Touchdown extends JournalEvent<"Touchdown"> {
     Latitude?: number;
     Longitude?: number;
     StarSystem?: string;
-    SystemAddress?: number;
+    SystemAddress?: ID;
     Body?: string;
     BodyID?: ID;
     OnStation?: boolean;

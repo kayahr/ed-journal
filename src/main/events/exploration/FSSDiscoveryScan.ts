@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 
 /**
  * Written when performing a full system scan ("Honk")
@@ -19,5 +20,5 @@ export interface FSSDiscoveryScan extends JournalEvent<"FSSDiscoveryScan"> {
     NonBodyCount: number;
 
     SystemName?: string;
-    SystemAddress?: number;
+    SystemAddress?: ID;
 }

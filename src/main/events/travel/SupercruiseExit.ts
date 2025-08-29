@@ -12,7 +12,7 @@ import type { ID } from "../types/ID.js";
  */
 export interface SupercruiseExit extends JournalEvent<"SupercruiseExit"> {
     StarSystem: string;
-    SystemAddress?: number;
+    SystemAddress?: ID;
     Body: string;
     BodyID?: ID;
     BodyType: BodyType;

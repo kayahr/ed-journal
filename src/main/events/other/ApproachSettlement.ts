@@ -13,7 +13,7 @@ export interface ApproachSettlement extends JournalEvent<"ApproachSettlement"> {
     Name_Localised?: string;
     Latitude?: number;
     Longitude?: number;
-    SystemAddress?: number;
+    SystemAddress?: ID;
     BodyID?: ID;
     BodyName?: string;
     StationFaction?: {

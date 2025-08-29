@@ -19,7 +19,7 @@ export interface Docked extends JournalEvent<"Docked"> {
     StationName: string;
 
     MarketID?: ID;
-    SystemAddress?: number;
+    SystemAddress?: ID;
 
     /** The type of the station. Not set in older journals. */
     StationType?: StationType;

@@ -10,7 +10,7 @@ import type { ID } from "../types/ID.js";
  * Written after using the Surface Area Analysis scanner.
  */
 export interface SAAScanComplete extends JournalEvent<"SAAScanComplete"> {
-    SystemAddress?: number;
+    SystemAddress?: ID;
     BodyName: string;
     BodyID: ID;
     ProbesUsed: number;

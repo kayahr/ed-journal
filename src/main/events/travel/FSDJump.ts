@@ -17,7 +17,7 @@ export interface FSDJump extends JournalEvent<"FSDJump"> {
     /** Name of destination star system. */
     StarSystem: string;
 
-    SystemAddress?: number;
+    SystemAddress?: ID;
 
     /** Star position as array (x, y, z) in light years. */
     StarPos: [number, number, number];

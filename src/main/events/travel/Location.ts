@@ -17,7 +17,7 @@ import type { StationType } from "../types/StationType.js";
  */
 export interface Location extends JournalEvent<"Location"> {
     StarSystem: string;
-    SystemAddress?: number;
+    SystemAddress?: ID;
 
     /** Star position as array (x, y, z) in light years. */
     StarPos: [number, number, number];

@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { ID } from "../types/ID.js";
 import type { StarType } from "../types/StarType.js";
 
 /** The type of jump. */
@@ -19,7 +20,7 @@ export interface StartJump extends JournalEvent<"StartJump"> {
     /** Name of destination system (for a hyperspace jump) */
     StarSystem?: string;
 
-    SystemAddress?: number;
+    SystemAddress?: ID;
 
     /** Star type (Only for a hyperspace jump) */
     StarClass?: StarType;
