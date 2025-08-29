@@ -49,7 +49,7 @@ export type { MultiSellExplorationData } from "./events/exploration/MultiSellExp
 export type { NavBeaconScan } from "./events/exploration/NavBeaconScan.js";
 export type { SAAScanComplete } from "./events/exploration/SAAScanComplete.js";
 export type { SAASignalsFound } from "./events/exploration/SAASignalsFound.js";
-export type { PlanetClass, Scan, StarType } from "./events/exploration/Scan.js";
+export type { Scan } from "./events/exploration/Scan.js";
 export type { ScanBaryCentre } from "./events/exploration/ScanBaryCentre.js";
 export type { Screenshot } from "./events/exploration/Screenshot.js";
 export type { SellExplorationData } from "./events/exploration/SellExplorationData.js";
@@ -266,7 +266,9 @@ export type { ConflictFaction } from "./events/types/ConflictFaction.js";
 export type { ConflictProgress } from "./events/types/ConflictProgress.js";
 export type { ID } from "./events/types/ID.js";
 export type { MicroResource } from "./events/types/MicroResource.js";
+export type { PlanetClass } from "./events/types/PlanetClass.js";
 export type { PowerState, PowerState1, PowerState2 } from "./events/types/PowerState.js";
+export type { StarType } from "./events/types/StarType.js";
 export type { StationService } from "./events/types/StationService.js";
 export type { StationType } from "./events/types/StationType.js";
 export { Journal, type JournalOptions } from "./Journal.js";

@@ -4,6 +4,7 @@
  */
 
 import type { JournalEvent } from "../../JournalEvent.js";
+import type { StarType } from "../types/StarType.js";
 
 /** The type of jump. */
 export type JumpType = "Hyperspace" | "Supercruise";
@@ -21,7 +22,7 @@ export interface StartJump extends JournalEvent<"StartJump"> {
     SystemAddress?: number;
 
     /** Star type (Only for a hyperspace jump) */
-    StarClass?: string;
+    StarClass?: StarType;
 
     /** True if player is in a taxi. */
     Taxi?: boolean;

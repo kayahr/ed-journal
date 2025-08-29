@@ -5,6 +5,7 @@
 
 import type { JournalEvent } from "../../JournalEvent.js";
 import type { ID } from "../types/ID.js";
+import type { StarType } from "../types/StarType.js";
 
 /**
  * When plotting a multi-star route, the file “NavRoute.json” is written in the same directory as the journal, with a
@@ -20,6 +21,6 @@ export interface ExtendedNavRoute extends JournalEvent<"NavRoute" | "NavRouteCle
         StarSystem: string;
         SystemAddress: ID;
         StarPos: [ number, number, number ];
-        StarClass: string;
+        StarClass: StarType;
     }>;
 }

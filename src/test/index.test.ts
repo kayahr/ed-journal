@@ -45,7 +45,7 @@ import type { MultiSellExplorationData } from "../main/events/exploration/MultiS
 import type { NavBeaconScan } from "../main/events/exploration/NavBeaconScan.js";
 import type { SAAScanComplete } from "../main/events/exploration/SAAScanComplete.js";
 import type { SAASignalsFound } from "../main/events/exploration/SAASignalsFound.js";
-import type { PlanetClass, Scan, StarType } from "../main/events/exploration/Scan.js";
+import type { Scan } from "../main/events/exploration/Scan.js";
 import type { ScanBaryCentre } from "../main/events/exploration/ScanBaryCentre.js";
 import type { Screenshot } from "../main/events/exploration/Screenshot.js";
 import type { SellExplorationData } from "../main/events/exploration/SellExplorationData.js";
@@ -264,7 +264,9 @@ import type { ConflictFaction } from "../main/events/types/ConflictFaction.js";
 import type { ConflictProgress } from "../main/events/types/ConflictProgress.js";
 import type { ID } from "../main/events/types/ID.js";
 import type { MicroResource } from "../main/events/types/MicroResource.js";
+import type { PlanetClass } from "../main/events/types/PlanetClass.js";
 import type { PowerState, PowerState1, PowerState2 } from "../main/events/types/PowerState.js";
+import type { StarType } from "../main/events/types/StarType.js";
 import type { StationService } from "../main/events/types/StationService.js";
 import type { StationType } from "../main/events/types/StationType.js";
 import * as exports from "../main/index.js";

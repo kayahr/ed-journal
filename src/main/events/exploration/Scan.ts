@@ -6,65 +6,8 @@
 import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
 import type { BodyType } from "../types/BodyType.js";
 import type { ID } from "../types/ID.js";
-
-/** Star types */
-export type StarType
-    = "A"
-    | "AeBe"
-    | "B"
-    | "B_BlueWhiteSuperGiant"
-    | "CN"
-    | "D"
-    | "DA"
-    | "DAB"
-    | "DAV"
-    | "DB"
-    | "DBV"
-    | "DC"
-    | "DCV"
-    | "DQ"
-    | "F"
-    | "F_WhiteSuperGiant"
-    | "G"
-    | "H"
-    | "K"
-    | "K_OrangeGiant"
-    | "L"
-    | "M"
-    | "M_RedGiant"
-    | "M_RedSuperGiant"
-    | "MS"
-    | "N"
-    | "O"
-    | "S"
-    | "T"
-    | "TTS"
-    | "W"
-    | "WC"
-    | "WO"
-    | "Y"
-    ;
-
-/** Planet classes */
-export type PlanetClass
-    = "Ammonia world"
-    | "Earthlike body"
-    | "Gas giant with ammonia based life"
-    | "Gas giant with water based life"
-    | "Helium rich gas giant"
-    | "High metal content body"
-    | "Icy body"
-    | "Metal rich body"
-    | "Rocky ice body"
-    | "Rocky body"
-    | "Sudarsky class I gas giant"
-    | "Sudarsky class II gas giant"
-    | "Sudarsky class III gas giant"
-    | "Sudarsky class IV gas giant"
-    | "Sudarsky class V gas giant"
-    | "Water giant"
-    | "Water world"
-    ;
+import type { PlanetClass } from "../types/PlanetClass.js";
+import type { StarType } from "../types/StarType.js";
 
 /**
  * Written on basic or detailed discovery scan of a star, planet or moon.
