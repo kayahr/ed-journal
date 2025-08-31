@@ -61,7 +61,7 @@ function bigintToNumber(obj: unknown): void {
     }
 }
 
-const journal = await Journal.open({ position, watch: true });
+const journal = await Journal.open({ position, watch: false });
 process.on("SIGINT", () => {
     void journal.close();
 });
@@ -87,6 +87,10 @@ for await (const event of journal) {
         validator = ajv.compile(narrowedSchema);
         validators.set(event.event, validator);
     }
+    // if (event.event === "Scan" && event.StarType != null && event.AbsoluteMagnitude > 0) {
+    //     console.log(event);
+    //     break;
+    // }
     // AJV cannot validate bigint against integer json type. So we have to convert bigint to number first
     bigintToNumber(event);
     const result = validator(event);

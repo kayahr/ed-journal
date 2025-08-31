@@ -10,7 +10,7 @@ describe("Scan", () => {
         try {
             const event = await journal.next();
             expect(event?.event).toBe("Scan");
-            if (event?.event === "Scan") {
+            if (event?.event === "Scan" && event.PlanetClass != null) {
                 expect(event.Materials).toEqual([
                     { Name: "iron", Percent: 23.0 },
                     { Name: "nickel", Percent: 17.4 },

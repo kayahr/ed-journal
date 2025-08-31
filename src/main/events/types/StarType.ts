@@ -6,6 +6,7 @@
 /** Star types */
 export type StarType
     = "A"
+    | "A_BlueWhiteSuperGiant"
     | "AeBe"
     | "B"
     | "B_BlueWhiteSuperGiant"

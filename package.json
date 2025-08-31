@@ -35,7 +35,7 @@
         "build": "run-s build:*",
         "build:compile": "tsc",
         "build:schema": "run-p build:schema:*",
-        "build:schema:event": "ts-json-schema-generator -e all -f tsconfig.json -t AnyJournalEvent -o lib/journal-event.schema.json",
+        "build:schema:event": "ts-json-schema-generator --no-type-check -e all -f tsconfig.json -t AnyJournalEvent -o lib/journal-event.schema.json",
         "build:schema:backpack": "ts-json-schema-generator -e all -f tsconfig.json -t Backpack -o lib/backpack.schema.json",
         "build:schema:cargo": "ts-json-schema-generator -e all -f tsconfig.json -t Cargo -o lib/cargo.schema.json",
         "build:schema:fcmaterials": "ts-json-schema-generator -e all -f tsconfig.json -t ExtendedFCMaterials -o lib/fcmaterials.schema.json",

@@ -104,6 +104,7 @@ Maglocks
 Margaritus
 materialtrader
 Megaship
+Metalic
 Metallicum
 missionsgenerated
 modulepacks

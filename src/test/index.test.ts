@@ -45,7 +45,7 @@ import type { MultiSellExplorationData } from "../main/events/exploration/MultiS
 import type { NavBeaconScan } from "../main/events/exploration/NavBeaconScan.js";
 import type { SAAScanComplete } from "../main/events/exploration/SAAScanComplete.js";
 import type { SAASignalsFound } from "../main/events/exploration/SAASignalsFound.js";
-import type { Scan, ScanType } from "../main/events/exploration/Scan.js";
+import type { ReserveLevel, Ring, RingClass, Scan, ScanOther, ScanPlanet, ScanStar, ScanType } from "../main/events/exploration/Scan.js";
 import type { ScanBaryCentre } from "../main/events/exploration/ScanBaryCentre.js";
 import type { Screenshot } from "../main/events/exploration/Screenshot.js";
 import type { SellExplorationData } from "../main/events/exploration/SellExplorationData.js";
@@ -430,6 +430,12 @@ describe("core", () => {
         ((): CodexEntry => (({} as exports.CodexEntry)))();
         ((): SAAScanComplete => (({} as exports.SAAScanComplete)))();
         ((): PlanetClass => (({} as exports.PlanetClass)))();
+        ((): ReserveLevel => (({} as exports.ReserveLevel)))();
+        ((): Ring => (({} as exports.Ring)))();
+        ((): RingClass => (({} as exports.RingClass)))();
+        ((): ScanOther => (({} as exports.ScanOther)))();
+        ((): ScanPlanet => (({} as exports.ScanPlanet)))();
+        ((): ScanStar => (({} as exports.ScanStar)))();
         ((): Scan => (({} as exports.Scan)))();
         ((): ScanType => (({} as exports.ScanType)))();
         ((): StarType => (({} as exports.StarType)))();
