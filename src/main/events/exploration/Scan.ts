@@ -97,6 +97,12 @@ export interface ScanBody extends JournalEvent<"Scan"> {
 
     /** Mean anomaly in degrees. Not set in older journal versions. */
     MeanAnomaly?: number;
+
+    /** Axial tilt (in degrees) if rotating. Not set in basic scans. */
+    AxialTilt?: number;
+
+    /** The rings around the body. Not set in basic scans or when there are no rings. */
+    Rings?: Ring[];
 }
 
 /** Scan of a body which is not a star, planet or moon. */
@@ -136,12 +142,6 @@ export interface ScanStar extends ScanBody {
 
     /** Age in millions of years. */
     Age_MY: number;
-
-    /** Rings of the star. Not set if none. */
-    Rings?: Ring[];
-
-    /** Axial tilt if rotating. */
-    AxialTilt?: number;
 }
 
 /**
@@ -158,9 +158,6 @@ export interface ScanPlanet extends ScanBody {
 
     /** The surface temperature in Kelvin. Missing in basic scans. */
     SurfaceTemperature?: number;
-
-    /** The rings of the planet or moon. Not set in basic scans or if there are no rings. */
-    Rings?: Ring[];
 
     /** True if planet/moon is tidally locked. Not set in basic scans. */
     TidalLock?: boolean;
@@ -222,32 +219,8 @@ export interface ScanPlanet extends ScanBody {
     /** The resource reserve level. */
     ReserveLevel?: ReserveLevel;
 
-    /** Axial tilt (in degrees) if rotating. Not set in basic scans. */
-    AxialTilt?: number;
-
-    /** The semi major axis in meters. Not set in basic scans. */
-    SemiMajorAxis?: number;
-
-    /** Orbital eccentricity. */
-    Eccentricity: number;
-
-    /** Orbital inclination in degrees. */
-    OrbitalInclination: number;
-
-    /** Argument of periapsis in degrees. */
-    Periapsis: number;
-
-    /** Orbital period in seconds. */
-    OrbitalPeriod: number;
-
     /** Earth masses. */
     MassEM: number;
-
-    /** Ascending node in degrees. Not set in older journal versions. */
-    AscendingNode?: number;
-
-    /** Mean anomaly in degrees. Not set in older journal versions. */
-    MeanAnomaly?: number;
 }
 
 /**
