@@ -172,6 +172,14 @@ try {
 }
 ```
 
+64 bit number handling
+----------------------
+
+Some IDs in the Journal (Like `SystemAddress` for example) are 64 bit integers. But the JavaScript `number` type can only handle integers up to 53 bit. So when a number exceeds this range then it is interpreted as a large floating point number which looses precision, which is very bad for IDs. To fix this problem ed-journal uses a special JSON reviver when parsing the journal logs to convert numbers, which are too large for JavaScript, into the `BigInt` type. So the value type of an ID-like property like `SystemAddress` for example can either be `number` or `BigInt`, depending on how many bits the number actually needs. The typescript typings use an `ID` type for these properties to express that.
+
+`BigInt` values cannot be serialized. So when you need to serialize a journal event, which was read with ed-journal, back into a JSON string, then it is recommended to use the [json-with-bigint] library, which automatically handles this and writes the correct 64 bit numbers into the JSON string.
+
+
 Journal directory location
 --------------------------
 
@@ -225,3 +233,4 @@ JSON Schemas
 [watchShipyard]: https://kayahr.github.io/ed-journal/classes/Journal.html#watchShipyard
 [readStatus]: https://kayahr.github.io/ed-journal/classes/Journal.html#readStatus
 [watchStatus]: https://kayahr.github.io/ed-journal/classes/Journal.html#watchStatus
+[json-with-bigint]: https://www.npmjs.com/package/json-with-bigint
