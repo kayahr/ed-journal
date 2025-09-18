@@ -329,7 +329,7 @@ describe("Journal", () => {
         }
     });
 
-    it("throws error when watching inaccessible directory", async () => {
+    it("throws error when on read when watching inaccessible directory at specific position", async () => {
         if (process.platform === "win32") {
             // No idea how to test this on windows
             return;
@@ -340,7 +340,7 @@ describe("Journal", () => {
             await chmod(parentDirectory, 0);
             const journal = await Journal.open({
                 directory: journalDirectory,
-                position: "start",
+                position: { file: "", line: 1, offset: 0 },
                 watch: true
             });
             try {
@@ -353,6 +353,25 @@ describe("Journal", () => {
             } finally {
                 await journal.close();
             }
+        } finally {
+            await rm(parentDirectory, { recursive: true });
+        }
+    });
+
+    it("throws error on open when watching inaccessible directory at start position", async () => {
+        if (process.platform === "win32") {
+            // No idea how to test this on windows
+            return;
+        }
+        const parentDirectory = await mkdtemp(join(tmpdir(), "ed-journal-test-"));
+        try {
+            const journalDirectory = join(parentDirectory, "journal");
+            await chmod(parentDirectory, 0);
+            await expect(Journal.open({
+                directory: journalDirectory,
+                position: "start",
+                watch: true
+            })).rejects.toThrow();
         } finally {
             await rm(parentDirectory, { recursive: true });
         }
@@ -439,6 +458,16 @@ describe("Journal", () => {
         });
         it("returns start position when no journal file found", async () => {
             expect(await Journal.findEnd("src/test")).toEqual({ file: "", offset: 0, line: 1 });
+        });
+    });
+
+    describe("findStart", () => {
+        it("returns start position of journal", async () => {
+            expect(await Journal.findStart(journalDir)).toEqual(
+                { file: "Journal.200101000000.01.log", offset: 0, line: 1 });
+        });
+        it("returns empty start position when no journal file found", async () => {
+            expect(await Journal.findStart("src/test")).toEqual({ file: "", offset: 0, line: 1 });
         });
     });
 
@@ -533,6 +562,24 @@ describe("Journal", () => {
                 events.push(event);
             }
             expect(events.length).toBe(0);
+        });
+    });
+
+    describe("getLastPosition", () => {
+        it("returns the position of the last read event", async () => {
+            const events = [];
+            const journal = await Journal.open({ directory: journalDir, position: "start" });
+            try {
+                let lastPosition = journal.getPosition();
+                for await (const event of journal) {
+                    expect(journal.getLastPosition()).toEqual(lastPosition);
+                    lastPosition = journal.getPosition();
+                    events.push(event);
+                }
+                expect(events.length).toBe(9);
+            } finally {
+                await journal.close();
+            }
         });
     });
 

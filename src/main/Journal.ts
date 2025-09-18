@@ -130,6 +130,9 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
     /** The journal directory. */
     private readonly directory: string;
 
+    /** The journal position pointing to the last read event. */
+    private lastPosition: JournalPosition;
+
     /** The current journal position pointing to the next event to read. */
     private position: JournalPosition;
 
@@ -152,6 +155,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
     private constructor(directory: string, position: JournalPosition, watch: boolean) {
         this.directory = directory;
         this.position = position;
+        this.lastPosition = position;
         this.abortController = new AbortController();
         this.generator = this.createGenerator(watch);
     }
@@ -167,7 +171,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
     public static async open({ directory, position = "start", watch = false }: JournalOptions = {}): Promise<Journal> {
         directory ??= await this.findDirectory();
         if (position === "start") {
-            position = { file: "", offset: 0, line: 1 };
+            position = await this.findStart(directory);
         } else if (position === "end") {
             position = await this.findEnd(directory);
         } else if (typeof position === "string") {
@@ -228,6 +232,15 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
     }
 
     /**
+     * Returns the journal position which points to the last read event.
+     *
+     * @return The journal position of the last read event.
+     */
+    public getLastPosition(): JournalPosition {
+        return { ...this.lastPosition };
+    }
+
+    /**
      * Closes the journal by stopping the watcher (if any) and closing the line reader.
      */
     public async close(): Promise<void> {
@@ -270,6 +283,16 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
             }
         }
         return lastEventPosition ?? this.findEnd(directory);
+    }
+
+    /**
+     * Finds the end position of the journal and returns it.
+     *
+     * @return End position of the journal.
+     */
+    public static async findStart(directory: string): Promise<JournalPosition> {
+        const filename = (await readdir(directory)).filter(isJournalFile).sort(journalTimeCompare)[0];
+        return { file: filename ?? "", offset: 0, line: 1 };
     }
 
     /**
@@ -432,6 +455,11 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
         // has been read this loop waits until the files generator reports the current journal file again when it has
         // been changed or a new journal file was found. Reading is then continued at this point.
         for await (const file of files) {
+            // When position is empty then initialize with first file we have seen
+            if (this.position.file === "") {
+                this.position.file = file;
+            }
+
             // Create line reader or replace it when new journal file has been opened
             let lineReader = this.lineReader;
             if (lineReader == null || file !== this.position.file) {
@@ -444,13 +472,14 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
             }
 
             // Iterate over all lines of the journal file
+            this.lastPosition = { file, offset: lineReader.getOffset(), line: lineReader.getLine() };
             for await (const line of lineReader) {
                 if (signal.aborted) {
                     break;
                 }
 
-                // Remember current journal position for error messages
-                const position = this.position;
+                // Remember last read journal position for error messages and getLastPosition method
+                const lastPosition = this.lastPosition = this.position;
 
                 // Set position of next journal event
                 this.position = { file, offset: lineReader.getOffset(), line: lineReader.getLine() };
@@ -458,8 +487,9 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
                 try {
                     // Parse the journal event and yield it
                     yield this.parseJournalEvent(line);
+                    // this.lastPosition = position;
                 } catch (error) {
-                    throw new JournalError(`Parse error in ${position.file}:${position.line}: `
+                    throw new JournalError(`Parse error in ${lastPosition.file}:${lastPosition.line}: `
                         + `${getErrorMessage(error)}: ${line.trim()}`);
                 }
             }
