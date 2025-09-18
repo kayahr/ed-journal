@@ -1,0 +1,11 @@
+{
+    "depcheck": {
+        "ignoreMatches": [
+            "@types/node",
+            "@vitest/coverage-v8",
+            "cspell",
+            "rimraf",
+            "typedoc-github-theme"
+        ]
+    }
+}
