@@ -74,6 +74,9 @@ export interface ScanBody extends JournalEvent<"Scan"> {
     /** Set to true if planet has been mapped by someone already. */
     WasMapped?: boolean;
 
+    /** Set to true if someone already set foot on this body. */
+    WasFootfalled?: boolean;
+
     /** Array of BodyType:BodyID pairs describing the body hierarchy from direct parent to root. */
     Parents?: Array<{ [K in BodyType]: Record<K, number> & Partial<Record<Exclude<BodyType, K>, never>> }[BodyType]>;
 
