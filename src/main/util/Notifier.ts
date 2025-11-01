@@ -53,7 +53,7 @@ export class Notifier {
     /**
      * Waits until some other process calls the {@link notify} or {@link abort} method.
      *
-     * @return Promise resolved with {@link notify} was called or rejected when {@link abort} has been called.
+     * @returns Promise resolved with {@link notify} was called or rejected when {@link abort} has been called.
      */
     public async wait(): Promise<void> {
         if (this.error != null) {

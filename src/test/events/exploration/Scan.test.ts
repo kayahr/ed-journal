@@ -1,6 +1,7 @@
-import { describe, expect, it } from "vitest";
+import { describe, it } from "node:test";
 
-import { Journal } from "../../../main/Journal.js";
+import { Journal } from "../../../main/Journal.ts";
+import { assertEquals, assertSame } from "@kayahr/assert";
 
 const directory = "src/test/data/events/Scan";
 
@@ -9,19 +10,19 @@ describe("Scan", () => {
         const journal = await Journal.open({ directory });
         try {
             const event = await journal.next();
-            expect(event?.event).toBe("Scan");
+            assertSame(event?.event, "Scan");
             if (event?.event === "Scan" && event.PlanetClass != null) {
-                expect(event.Materials).toEqual([
-                    { Name: "iron", Percent: 23.0 },
+                assertEquals(event.Materials, [
+                    { Name: "iron", Percent: 23 },
                     { Name: "nickel", Percent: 17.4 },
-                    { Name: "sulphur", Percent: 16.0 },
+                    { Name: "sulphur", Percent: 16 },
                     { Name: "carbon", Percent: 13.5 },
                     { Name: "chromium", Percent: 10.3 },
                     { Name: "phosphorus", Percent: 8.6 },
                     { Name: "vanadium", Percent: 5.6 },
                     { Name: "arsenic", Percent: 2.1 },
                     { Name: "cadmium", Percent: 1.8 },
-                    { Name: "mercury", Percent: 1.0 },
+                    { Name: "mercury", Percent: 1 },
                     { Name: "polonium", Percent: 0.6 }
                 ]);
             }

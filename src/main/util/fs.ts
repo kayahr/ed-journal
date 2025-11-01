@@ -10,7 +10,7 @@ import { access, stat } from "node:fs/promises";
  * Checks if given path is readable.
  *
  * @param path - The path to check.
- * @return True if path is readable, false if not.
+ * @returns True if path is readable, false if not.
  */
 export async function isPathReadable(path: string): Promise<boolean> {
     try {
@@ -25,7 +25,7 @@ export async function isPathReadable(path: string): Promise<boolean> {
  * Checks if given path is a directory.
  *
  * @param path - The path to check.
- * @return True if path is a directory, false if not.
+ * @returns True if path is a directory, false if not.
  */
 export async function isDirectory(path: string): Promise<boolean> {
     return (await stat(path)).isDirectory();

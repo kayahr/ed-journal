@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent.js";
+import type { JournalEvent } from "../../JournalEvent.ts";
 
 /**
  * Written when player is rewarded for taking part in a combat zone.

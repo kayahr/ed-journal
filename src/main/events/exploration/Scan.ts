@@ -3,11 +3,11 @@
  * See LICENSE.md for licensing information.
  */
 
-import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
-import type { BodyType } from "../types/BodyType.js";
-import type { ID } from "../types/ID.js";
-import type { PlanetClass } from "../types/PlanetClass.js";
-import type { StarType } from "../types/StarType.js";
+import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.ts";
+import type { BodyType } from "../types/BodyType.ts";
+import type { ID } from "../types/ID.ts";
+import type { PlanetClass } from "../types/PlanetClass.ts";
+import type { StarType } from "../types/StarType.ts";
 
 /**
  * The scan type.
@@ -233,7 +233,7 @@ export type Scan = ScanStar | ScanPlanet | ScanOther;
 
 interface DeprecatedScan extends JournalEvent<"Scan"> {
     // Changed from an object to an array of objects in newer versions.
-    Materials?: { [ name: string ]: number };
+    Materials?: Record<string, number>;
 }
 
 registerJournalEventUpdate<DeprecatedScan, Scan>("Scan", (from, to)  => {

@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent.js";
+import type { JournalEvent } from "../../JournalEvent.ts";
 
 /** TODO Verify by getting destroyed and selling the ship. */
 export interface SellShipOnRebuy extends JournalEvent<"SellShipOnRebuy"> {

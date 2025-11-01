@@ -3,8 +3,8 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent.js";
-import type { ID } from "../types/ID.js";
+import type { JournalEvent } from "../../JournalEvent.ts";
+import type { ID } from "../types/ID.ts";
 
 /**
  * Written when the player's SRV is destroyed.

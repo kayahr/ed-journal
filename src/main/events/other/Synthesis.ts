@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
+import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.ts";
 
 export interface Synthesis extends JournalEvent<"Synthesis"> {
     Materials: Array<{
@@ -16,7 +16,7 @@ export interface Synthesis extends JournalEvent<"Synthesis"> {
 }
 
 interface DeprecatedSynthesis extends JournalEvent<"Synthesis"> {
-    Materials?: { [ name: string ]: number };
+    Materials?: Record<string, number>;
 }
 
 registerJournalEventUpdate("Synthesis", (json: DeprecatedSynthesis | Synthesis)  => {

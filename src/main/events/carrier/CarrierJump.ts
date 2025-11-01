@@ -3,14 +3,14 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent.js";
-import type { BodyType } from "../types/BodyType.js";
-import type { ConflictFaction } from "../types/ConflictFaction.js";
-import type { ConflictProgress } from "../types/ConflictProgress.js";
-import type { ID } from "../types/ID.js";
-import type { PowerState } from "../types/PowerState.js";
-import type { StationService } from "../types/StationService.js";
-import type { StationType } from "../types/StationType.js";
+import type { JournalEvent } from "../../JournalEvent.ts";
+import type { BodyType } from "../types/BodyType.ts";
+import type { ConflictFaction } from "../types/ConflictFaction.ts";
+import type { ConflictProgress } from "../types/ConflictProgress.ts";
+import type { ID } from "../types/ID.ts";
+import type { PowerState } from "../types/PowerState.ts";
+import type { StationService } from "../types/StationService.ts";
+import type { StationType } from "../types/StationType.ts";
 
 export interface CarrierJump extends JournalEvent<"CarrierJump"> {
     Docked: boolean;

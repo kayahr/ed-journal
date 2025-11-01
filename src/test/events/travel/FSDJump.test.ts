@@ -1,6 +1,7 @@
-import { describe, expect, it } from "vitest";
+import { describe, it } from "node:test";
 
-import { Journal } from "../../../main/Journal.js";
+import { Journal } from "../../../main/Journal.ts";
+import { assertEquals, assertNotHasProperty, assertSame } from "@kayahr/assert";
 
 const directory = "src/test/data/events/FSDJump";
 
@@ -9,26 +10,26 @@ describe("FSDJump", () => {
         const journal = await Journal.open({ directory, position: "start" });
         try {
             const event = await journal.next();
-            expect(event?.event).toBe("FSDJump");
+            assertSame(event?.event, "FSDJump");
             if (event?.event === "FSDJump") {
-                expect(event.SystemFaction).toEqual({ Name: "Wu Guinagi Crimson Creative Corp", FactionState: "Boom" });
-                expect(event.SystemGovernment).toBe("$government_Corporate;");
-                expect(event.SystemGovernment_Localised).toBe("Corporate");
-                expect(event.SystemEconomy).toBe("$economy_Industrial;");
-                expect(event.SystemEconomy_Localised).toBe("Industrial");
-                expect(event.SystemSecurity).toBe("$SYSTEM_SECURITY_medium;");
-                expect(event.SystemSecurity_Localised).toBe("Medium Security");
-                expect(event.SystemAllegiance).toBe("Empire");
-                expect(event).not.toHaveProperty("Faction");
-                expect(event).not.toHaveProperty("Faction_Localised");
-                expect(event).not.toHaveProperty("Government");
-                expect(event).not.toHaveProperty("Government_Localised");
-                expect(event).not.toHaveProperty("Economy");
-                expect(event).not.toHaveProperty("Economy_Localised");
-                expect(event).not.toHaveProperty("Security");
-                expect(event).not.toHaveProperty("Security_Localised");
-                expect(event).not.toHaveProperty("Allegiance");
-                expect(event).not.toHaveProperty("FactionState");
+                assertEquals(event.SystemFaction, { Name: "Wu Guinagi Crimson Creative Corp", FactionState: "Boom" });
+                assertSame(event.SystemGovernment, "$government_Corporate;");
+                assertSame(event.SystemGovernment_Localised, "Corporate");
+                assertSame(event.SystemEconomy, "$economy_Industrial;");
+                assertSame(event.SystemEconomy_Localised, "Industrial");
+                assertSame(event.SystemSecurity, "$SYSTEM_SECURITY_medium;");
+                assertSame(event.SystemSecurity_Localised, "Medium Security");
+                assertSame(event.SystemAllegiance, "Empire");
+                assertNotHasProperty(event, "Faction");
+                assertNotHasProperty(event, "Faction_Localised");
+                assertNotHasProperty(event, "Government");
+                assertNotHasProperty(event, "Government_Localised");
+                assertNotHasProperty(event, "Economy");
+                assertNotHasProperty(event, "Economy_Localised");
+                assertNotHasProperty(event, "Security");
+                assertNotHasProperty(event, "Security_Localised");
+                assertNotHasProperty(event, "Allegiance");
+                assertNotHasProperty(event, "FactionState");
             }
         } finally {
             await journal.close();
@@ -41,10 +42,10 @@ describe("FSDJump", () => {
         });
         try {
             const event = await journal.next();
-            expect(event?.event).toBe("FSDJump");
+            assertSame(event?.event, "FSDJump");
             if (event?.event === "FSDJump") {
-                expect(event.SystemFaction).toEqual({ Name: "Omega Mining Corporation", FactionState: "Investment" });
-                expect(event).not.toHaveProperty("FactionState");
+                assertEquals(event.SystemFaction, { Name: "Omega Mining Corporation", FactionState: "Investment" });
+                assertNotHasProperty(event, "FactionState");
             }
         } finally {
             await journal.close();

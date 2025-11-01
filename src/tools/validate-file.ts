@@ -11,15 +11,15 @@
  * 'shipyard' or 'status'
  */
 
-import "source-map-support/register.js";
+import "source-map-support/register.ts";
 
 import { Ajv, type Schema } from "ajv";
-import { readFile } from "fs/promises";
+import { readFile } from "node:fs/promises";
 import { JSONStringify } from "json-with-bigint";
-import { join } from "path";
+import { join } from "node:path";
 
-import { Journal } from "../main/Journal.js";
-import type { JournalEvent } from "../main/JournalEvent.js";
+import { Journal } from "../main/Journal.ts";
+import type { JournalEvent } from "../main/JournalEvent.ts";
 
 const type = (process.argv[2] ?? "status");
 const schemaFile = `${type}.schema.json`;

@@ -3,12 +3,12 @@
  * See LICENSE.md for licensing information.
  */
 
-import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
-import type { BodyType } from "../types/BodyType.js";
-import type { ConflictFaction } from "../types/ConflictFaction.js";
-import type { ConflictProgress } from "../types/ConflictProgress.js";
-import type { ID } from "../types/ID.js";
-import type { PowerState } from "../types/PowerState.js";
+import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.ts";
+import type { BodyType } from "../types/BodyType.ts";
+import type { ConflictFaction } from "../types/ConflictFaction.ts";
+import type { ConflictProgress } from "../types/ConflictProgress.ts";
+import type { ID } from "../types/ID.ts";
+import type { PowerState } from "../types/PowerState.ts";
 
 /**
  * Written when jumping from one star to another.

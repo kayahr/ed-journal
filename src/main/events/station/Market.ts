@@ -3,9 +3,9 @@
  * See LICENSE.md for licensing information.
  */
 
-import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
-import type { ID } from "../types/ID.js";
-import type { StationType } from "../types/StationType.js";
+import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.ts";
+import type { ID } from "../types/ID.ts";
+import type { StationType } from "../types/StationType.ts";
 
 export interface Market extends JournalEvent<"Market"> {
     MarketID: ID;

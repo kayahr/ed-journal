@@ -9,16 +9,16 @@
  * `position` can be "start", "end" or the name of a specific Journal file to start at.
  */
 
-import "source-map-support/register.js";
+import "source-map-support/register.ts";
 
 import { Ajv, type Schema, type ValidateFunction } from "ajv";
-import { readFile } from "fs/promises";
+import { readFile } from "node:fs/promises";
 import { JSONStringify } from "json-with-bigint";
-import { join } from "path";
+import { join } from "node:path";
 
-import type { AnyJournalEvent } from "../main/AnyJournalEvent.js";
-import { Journal } from "../main/Journal.js";
-import type { JournalPosition, NamedJournalPosition } from "../main/JournalPosition.js";
+import type { AnyJournalEvent } from "../main/AnyJournalEvent.ts";
+import { Journal } from "../main/Journal.ts";
+import type { JournalPosition, NamedJournalPosition } from "../main/JournalPosition.ts";
 
 const arg = process.argv[2] ?? "start";
 let position: JournalPosition | NamedJournalPosition;

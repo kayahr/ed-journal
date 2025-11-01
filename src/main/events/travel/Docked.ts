@@ -3,10 +3,10 @@
  * See LICENSE.md for licensing information.
  */
 
-import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
-import type { ID } from "../types/ID.js";
-import { correctStationService, type StationService } from "../types/StationService.js";
-import type { StationType } from "../types/StationType.js";
+import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.ts";
+import type { ID } from "../types/ID.ts";
+import { type StationService, correctStationService } from "../types/StationService.ts";
+import type { StationType } from "../types/StationType.ts";
 
 /**
  * Written when landing at landing pad in a space station, output, or surface settlement.

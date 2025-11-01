@@ -6,5 +6,21 @@
         "doc/api": true
     },
     "typescript.tsdk": "node_modules/typescript/lib",
-    "task.allowAutomaticTasks": "on"
+    "task.allowAutomaticTasks": "on",
+    "nodejs-testing.extensions": [
+        {
+            "extensions": [ "ts" ],
+            "filePatterns": [
+                "src/test/**/*.test.ts"
+            ],
+            "parameters": [
+                "--experimental-test-coverage"
+            ]
+        }
+    ],
+    "oxc.typeAware": true,
+    "coverage-gutters.coverageFileNames": [
+        "lib/test/lcov.info"
+    ],
+    "oxc.enable": true
 }

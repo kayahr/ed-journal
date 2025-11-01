@@ -1,6 +1,7 @@
-import { describe, expect, it } from "vitest";
+import { describe, it } from "node:test";
 
-import { Journal } from "../../../main/Journal.js";
+import { Journal } from "../../../main/Journal.ts";
+import { assertSame } from "@kayahr/assert";
 
 const directory = "src/test/data/events/CarrierStats";
 
@@ -9,11 +10,11 @@ describe("CarrierStats", () => {
         const journal = await Journal.open({ directory });
         try {
             const event = await journal.next();
-            expect(event?.event).toBe("CarrierStats");
+            assertSame(event?.event, "CarrierStats");
             if (event?.event === "CarrierStats") {
-                expect(event.Finance.TaxRate_rearm).toBe(25);
-                expect(event.Finance.TaxRate_refuel).toBe(25);
-                expect(event.Finance.TaxRate_repair).toBe(25);
+                assertSame(event.Finance.TaxRate_rearm, 25);
+                assertSame(event.Finance.TaxRate_refuel, 25);
+                assertSame(event.Finance.TaxRate_repair, 25);
             }
         } finally {
             await journal.close();

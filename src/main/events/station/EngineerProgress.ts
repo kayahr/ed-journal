@@ -3,8 +3,8 @@
  * See LICENSE.md for licensing information.
  */
 
-import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
-import type { ID } from "../types/ID.js";
+import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.ts";
+import type { ID } from "../types/ID.ts";
 
 /** The possible progress states of an engineer. */
 export type EngineerProgressState = "Known" | "Invited" | "Unlocked";
@@ -67,7 +67,7 @@ registerJournalEventUpdate<DeprecatedEngineerProgress, EngineerProgress>("Engine
     if (from.Engineer != null) {
         // Convert single engineer into array
         to.Engineers = [
-            from.Progress == "Unlocked"
+            from.Progress === "Unlocked"
                 ? {
                     Engineer: from.Engineer,
                     EngineerID: from.EngineerID,

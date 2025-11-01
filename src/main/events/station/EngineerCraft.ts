@@ -3,8 +3,8 @@
  * See LICENSE.md for licensing information.
  */
 
-import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.js";
-import type { ID } from "../types/ID.js";
+import { type JournalEvent, registerJournalEventUpdate } from "../../JournalEvent.ts";
+import type { ID } from "../types/ID.ts";
 
 export interface EngineerCraft extends JournalEvent<"EngineerCraft"> {
     timestamp: string;
@@ -36,7 +36,7 @@ export interface EngineerCraft extends JournalEvent<"EngineerCraft"> {
 }
 
 interface DeprecatedEngineerCraft extends JournalEvent<"EngineerCraft"> {
-    Ingredients?: { [ name: string ]: number };
+    Ingredients?: Record<string, number>;
 }
 
 registerJournalEventUpdate("EngineerCraft", (json: DeprecatedEngineerCraft | EngineerCraft)  => {

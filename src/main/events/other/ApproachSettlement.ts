@@ -3,9 +3,9 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent.js";
-import type { ID } from "../types/ID.js";
-import type { StationService } from "../types/StationService.js";
+import type { JournalEvent } from "../../JournalEvent.ts";
+import type { ID } from "../types/ID.ts";
+import type { StationService } from "../types/StationService.ts";
 
 export interface ApproachSettlement extends JournalEvent<"ApproachSettlement"> {
     MarketID?: ID;

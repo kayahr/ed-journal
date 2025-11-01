@@ -1,6 +1,7 @@
-import { describe, expect, it } from "vitest";
+import { describe, it } from "node:test";
 
-import { Journal } from "../../../main/Journal.js";
+import { Journal } from "../../../main/Journal.ts";
+import { assertEquals, assertSame } from "@kayahr/assert";
 
 const directory = "src/test/data/events/Synthesis";
 
@@ -9,9 +10,9 @@ describe("Synthesis", () => {
         const journal = await Journal.open({ directory });
         try {
             const event = await journal.next();
-            expect(event?.event).toBe("Synthesis");
+            assertSame(event?.event, "Synthesis");
             if (event?.event === "Synthesis") {
-                expect(event.Materials).toEqual([
+                assertEquals(event.Materials, [
                     { Name: "iron", Percent: 1 },
                     { Name: "zinc", Percent: 2 },
                     { Name: "phosphorus", Percent: 3 },

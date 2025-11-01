@@ -3,8 +3,8 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent.js";
-import type { ID } from "../types/ID.js";
+import type { JournalEvent } from "../../JournalEvent.ts";
+import type { ID } from "../types/ID.ts";
 
 /**
  * Written in Supercruise, and distance from planet drops to within the 'Orbital Cruise' zone.

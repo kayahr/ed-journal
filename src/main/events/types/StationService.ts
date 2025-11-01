@@ -52,7 +52,7 @@ export type StationService
  * Corrects an older station service string to correct new value.
  *
  * @param service - The station service which may be out-of-date.
- * @return The new station service name.
+ * @returns The new station service name.
  */
 export function correctStationService(service: string): StationService {
     if (service < "a") {

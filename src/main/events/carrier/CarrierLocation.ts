@@ -3,9 +3,9 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent.js";
-import type { CarrierType } from "../types/CarrierType.js";
-import type { ID } from "../types/ID.js";
+import type { JournalEvent } from "../../JournalEvent.ts";
+import type { CarrierType } from "../types/CarrierType.ts";
+import type { ID } from "../types/ID.ts";
 
 export interface CarrierLocation extends JournalEvent<"CarrierLocation"> {
     CarrierID: ID;

@@ -3,9 +3,9 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent.js";
-import type { ID } from "../types/ID.js";
-import type { MicroResource } from "../types/MicroResource.js";
+import type { JournalEvent } from "../../JournalEvent.ts";
+import type { ID } from "../types/ID.ts";
+import type { MicroResource } from "../types/MicroResource.ts";
 
 export interface SellMicroResources extends JournalEvent<"SellMicroResources"> {
     TotalCount: number;

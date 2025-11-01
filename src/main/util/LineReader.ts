@@ -10,7 +10,7 @@ import { type FileHandle, open } from "node:fs/promises";
  *
  * @param a - First byte array.
  * @param b - Second byte array.
- * @return The concatenated byte array.
+ * @returns The concatenated byte array.
  */
 function concat(a: Uint8Array, b: Uint8Array): Uint8Array {
     const aSize = a.length;
@@ -40,10 +40,10 @@ export class LineReader implements AsyncIterable<string>, AsyncDisposable {
     private currentLine: number;
 
     /** The current start index in the buffer. */
-    private bufferStart: number = 0;
+    private bufferStart = 0;
 
     /** The current end index in the buffer. */
-    private bufferEnd: number = 0;
+    private bufferEnd = 0;
 
     /** The buffered line. */
     private bufferedLine: Uint8Array | null = null;
@@ -67,7 +67,7 @@ export class LineReader implements AsyncIterable<string>, AsyncDisposable {
         this.buffer = new Uint8Array(bufferSize);
     }
 
-    /** @inheritDoc */
+    /** @inheritdoc */
     public async [Symbol.asyncDispose](): Promise<void> {
         await this.close();
     }
@@ -79,7 +79,7 @@ export class LineReader implements AsyncIterable<string>, AsyncDisposable {
      * @param offset     - The file offset to start reading from. Defaults to 0 (Beginning of file).
      * @param line       - The line number to start counting with. Defaults to 1 (First line).
      * @param bufferSize - The size of the read buffer in bytes. Defaults to 8 KB.
-     * @return The created line reader.
+     * @returns The created line reader.
      */
     public static async create(filename: string, offset = 0, line = 1, bufferSize = 8192): Promise<LineReader> {
         const file = await open(filename, "r");
@@ -89,7 +89,7 @@ export class LineReader implements AsyncIterable<string>, AsyncDisposable {
     /**
      * Returns the byte offset from which the next line will be read.
      *
-     * @return The byte offset from which the next line will be read.
+     * @returns The byte offset from which the next line will be read.
      */
     public getOffset(): number {
         return this.currentOffset;
@@ -98,7 +98,7 @@ export class LineReader implements AsyncIterable<string>, AsyncDisposable {
     /**
      * Returns the line from which the next line will be read.
      *
-     * @return The line from which the next line will be read.
+     * @returns The line from which the next line will be read.
      */
     public getLine(): number {
         return this.currentLine;
@@ -117,7 +117,7 @@ export class LineReader implements AsyncIterable<string>, AsyncDisposable {
      * case the file is still growing). The returned string includes the line terminated (LF or CRLF) so you have to
      * strip it yourself if necessary.
      *
-     * @return The read line or null if no more complete lines are currently present.
+     * @returns The read line or null if no more complete lines are currently present.
      */
     public async next(): Promise<string | null> {
         // Fill buffer if empty
@@ -141,9 +141,9 @@ export class LineReader implements AsyncIterable<string>, AsyncDisposable {
         const buffer = this.buffer.subarray(this.bufferStart, this.bufferEnd);
 
         // Search for line break in text
-        const newLineIndex = buffer.findIndex(value => value === 0x0a);
+        const newLineIndex = buffer.indexOf(0x0a);
 
-        if (newLineIndex >= 0) {
+        if (newLineIndex !== -1) {
             // When line break was found then construct line and return it and prepare state for next line
             const subBuffer = buffer.subarray(0, newLineIndex + 1);
             const bytes = this.bufferedLine != null ? concat(this.bufferedLine, subBuffer) : subBuffer;
@@ -164,7 +164,7 @@ export class LineReader implements AsyncIterable<string>, AsyncDisposable {
     /**
      * Reads all lines until the end of the file.
      *
-     * @return The read lines as a generator.
+     * @yields The read lines as a generator.
      */
     public async *[Symbol.asyncIterator](): AsyncGenerator<string> {
         let line: string | null;

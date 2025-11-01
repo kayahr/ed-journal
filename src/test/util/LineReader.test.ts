@@ -1,8 +1,9 @@
-import { readFile } from "fs/promises";
-import { join } from "path";
-import { describe, expect, it } from "vitest";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+import { describe, it } from "node:test";
 
-import { LineReader } from "../../main/util/LineReader.js";
+import { LineReader } from "../../main/util/LineReader.ts";
+import { assertNotNull, assertNull, assertSame } from "@kayahr/assert";
 
 const textsDir = "src/test/data/texts";
 const testTxt = join(textsDir, "test.txt");
@@ -14,11 +15,11 @@ describe("LineReader", () => {
         try {
             let text = "";
             for await (const line of reader) {
-                expect(line.endsWith("\n")).toBe(true);
+                assertSame(line.endsWith("\n"), true);
                 text += line;
             }
             const origText = (await readFile(testTxt)).toString();
-            expect(text).toBe(origText);
+            assertSame(text, origText);
         } finally {
             await reader.close();
         }
@@ -27,22 +28,22 @@ describe("LineReader", () => {
         await using reader = await LineReader.create(testTxt);
         let text = "";
         for await (const line of reader) {
-            expect(line.endsWith("\n")).toBe(true);
+            assertSame(line.endsWith("\n"), true);
             text += line;
         }
         const origText = (await readFile(testTxt)).toString();
-        expect(text).toBe(origText);
+        assertSame(text, origText);
     });
     it("works with buffer size 1", async () => {
         const reader = await LineReader.create(smallTxt, 0, 1, 1);
         try {
             let text = "";
             for await (const line of reader) {
-                expect(line.endsWith("\n")).toBe(true);
+                assertSame(line.endsWith("\n"), true);
                 text += line;
             }
             const origText = (await readFile(smallTxt)).toString();
-            expect(text).toBe(origText);
+            assertSame(text, origText);
         } finally {
             await reader.close();
         }
@@ -50,7 +51,7 @@ describe("LineReader", () => {
     it("can start at arbitrary offsets", async () => {
         const reader = await LineReader.create(testTxt, 42997, 16);
         try {
-            expect(await reader.next()).toBe("End\n");
+            assertSame(await reader.next(), "End\n");
         } finally {
             await reader.close();
         }
@@ -59,17 +60,17 @@ describe("LineReader", () => {
         it("reads next line of a file", async () => {
             const reader = await LineReader.create(testTxt);
             try {
-                expect(await reader.next()).toBe("a\n");
-                expect(await reader.next()).toBe("\n");
-                expect(await reader.next()).toBe("ab\n");
-                expect(await reader.next()).toBe("abc\n");
+                assertSame(await reader.next(), "a\n");
+                assertSame(await reader.next(), "\n");
+                assertSame(await reader.next(), "ab\n");
+                assertSame(await reader.next(), "abc\n");
                 let test = "Test text öäüßá";
                 for (let i = 1; i < 12; i++) {
-                    expect(await reader.next()).toBe(`${test}\n`);
+                    assertSame(await reader.next(), `${test}\n`);
                     test = `${test} ${test}`;
                 }
-                expect(await reader.next()).toBe("End\n");
-                expect(await reader.next()).toBeNull();
+                assertSame(await reader.next(), "End\n");
+                assertNull(await reader.next());
             } finally {
                 await reader.close();
             }
@@ -77,7 +78,7 @@ describe("LineReader", () => {
         it("returns null whn file handle has already been closed", async () => {
             const reader = await LineReader.create(testTxt, 21493, 15);
             await reader.close();
-            expect(await reader.next()).toBeNull();
+            assertNull(await reader.next());
         });
     });
     describe("getLine", () => {
@@ -85,13 +86,13 @@ describe("LineReader", () => {
             const reader = await LineReader.create(testTxt);
             try {
                 for (let i = 1; i < 17; i++) {
-                    expect(reader.getLine()).toBe(i);
-                    expect(await reader.next()).not.toBeNull();
+                    assertSame(reader.getLine(), i);
+                    assertNotNull(await reader.next());
                 }
-                expect(reader.getLine()).toBe(17);
-                expect(await reader.next()).toBeNull();
-                expect(reader.getLine()).toBe(17);
-                expect(await reader.next()).toBeNull();
+                assertSame(reader.getLine(), 17);
+                assertNull(await reader.next());
+                assertSame(reader.getLine(), 17);
+                assertNull(await reader.next());
             } finally {
                 await reader.close();
             }
@@ -103,11 +104,11 @@ describe("LineReader", () => {
             const reader = await LineReader.create(testTxt);
             try {
                 let offset = 0;
-                expect(reader.getOffset()).toBe(offset);
+                assertSame(reader.getOffset(), offset);
                 for await (const line of reader) {
                     const len = encoder.encode(line).length;
                     offset += len;
-                    expect(reader.getOffset()).toBe(offset);
+                    assertSame(reader.getOffset(), offset);
                 }
             } finally {
                 await reader.close();

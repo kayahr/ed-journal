@@ -1,24 +1,27 @@
-import { describe, expect, it } from "vitest";
+import { describe, it } from "node:test";
 
-import { getErrorMessage, toError } from "../../main/util/error.js";
+import { getErrorMessage, toError } from "../../main/util/error.ts";
+import { assertSame } from "@kayahr/assert";
 
 describe("error", () => {
     describe("getErrorMessage", () => {
         it("returns message from Error", () => {
-            expect(getErrorMessage(new Error("Pi is exactly 3!"))).toBe("Pi is exactly 3!");
+            assertSame(getErrorMessage(new Error("Pi is exactly 3!")), "Pi is exactly 3!");
         });
         it("returns parameter as string if not Error", () => {
-            expect(getErrorMessage(1234)).toBe("1234");
+            assertSame(getErrorMessage(1234), "1234");
         });
     });
 
     describe("toError", () => {
         it("returns argument when error", () => {
             const e = new Error("test");
-            expect(toError(e)).toBe(e);
+            assertSame(toError(e), e);
         });
         it("returns error with argument as message if not error", () => {
-            expect(toError(1234)).toEqual(new Error("1234"));
+            const error = toError(1234);
+            assertSame(error.constructor, Error);
+            assertSame(error.message, "1234");
         });
     });
 });

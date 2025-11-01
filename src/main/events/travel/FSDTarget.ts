@@ -3,9 +3,9 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEvent } from "../../JournalEvent.js";
-import type { ID } from "../types/ID.js";
-import type { StarType } from "../types/StarType.js";
+import type { JournalEvent } from "../../JournalEvent.ts";
+import type { ID } from "../types/ID.ts";
+import type { StarType } from "../types/StarType.ts";
 
 /**
  * Written when selecting a star system to jump to.

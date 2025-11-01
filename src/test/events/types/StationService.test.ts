@@ -1,18 +1,19 @@
-import { describe, expect, it } from "vitest";
+import { describe, it } from "node:test";
 
-import { correctStationService } from "../../../main/events/types/StationService.js";
+import { correctStationService } from "../../../main/events/types/StationService.ts";
+import { assertSame } from "@kayahr/assert";
 
 describe("StationService", () => {
     describe("correctStationService", () => {
         it("corrects old station service names to new ones", () => {
-            expect(correctStationService("BlackMarket")).toBe("blackmarket");
-            expect(correctStationService("Workshop")).toBe("engineer");
-            expect(correctStationService("SearchAndRescue")).toBe("searchrescue");
-            expect(correctStationService("TechBroker")).toBe("techBroker");
-            expect(correctStationService("StationMenu")).toBe("stationMenu");
+            assertSame(correctStationService("BlackMarket"), "blackmarket");
+            assertSame(correctStationService("Workshop"), "engineer");
+            assertSame(correctStationService("SearchAndRescue"), "searchrescue");
+            assertSame(correctStationService("TechBroker"), "techBroker");
+            assertSame(correctStationService("StationMenu"), "stationMenu");
         });
         it("does not change service names starting with lower-case character", () => {
-            expect(correctStationService("whatEver")).toBe("whatEver");
+            assertSame(correctStationService("whatEver"), "whatEver");
         });
     });
 });

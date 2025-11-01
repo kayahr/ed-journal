@@ -4,46 +4,46 @@
  */
 
 // Import events which registers event updates
-import "./events/carrier/CarrierNameChange.js";
-import "./events/carrier/CarrierStats.js";
-import "./events/travel/Docked.js";
-import "./events/station/EngineerCraft.js";
-import "./events/station/EngineerProgress.js";
-import "./events/station/Market.js";
-import "./events/travel/FSDJump.js";
-import "./events/travel/Location.js";
-import "./events/exploration/Scan.js";
-import "./events/startup/Statistics.js";
-import "./events/other/Synthesis.js";
+import "./events/carrier/CarrierNameChange.ts";
+import "./events/carrier/CarrierStats.ts";
+import "./events/travel/Docked.ts";
+import "./events/station/EngineerCraft.ts";
+import "./events/station/EngineerProgress.ts";
+import "./events/station/Market.ts";
+import "./events/travel/FSDJump.ts";
+import "./events/travel/Location.ts";
+import "./events/exploration/Scan.ts";
+import "./events/startup/Statistics.ts";
+import "./events/other/Synthesis.ts";
 
-import { open, readdir, readFile, watch } from "node:fs/promises";
+import { open, readFile, readdir, watch } from "node:fs/promises";
 import { homedir } from "node:os";
 import { join, resolve } from "node:path";
 
-import type { AnyJournalEvent, JournalEventName } from "./AnyJournalEvent.js";
-import type { Backpack } from "./events/odyssey/Backpack.js";
-import type { ExtendedFCMaterials } from "./events/odyssey/FCMaterials.js";
-import type { ExtendedModuleInfo } from "./events/other/ModuleInfo.js";
-import type { Status } from "./events/other/Status.js";
-import type { ExtendedMarket } from "./events/station/Market.js";
-import type { ExtendedOutfitting } from "./events/station/Outfitting.js";
-import type { ExtendedShipyard } from "./events/station/Shipyard.js";
-import type { ExtendedNavRoute } from "./events/travel/NavRoute.js";
-import { JournalError } from "./JournalError.js";
-import { type JournalEvent, updateJournalEvent } from "./JournalEvent.js";
-import type { JournalPosition, NamedJournalPosition } from "./JournalPosition.js";
-import { sleep } from "./util/async.js";
-import { getErrorMessage, toError } from "./util/error.js";
-import { isDirectory, isPathReadable } from "./util/fs.js";
-import { LineReader } from "./util/LineReader.js";
-import { Notifier } from "./util/Notifier.js";
+import type { AnyJournalEvent, JournalEventName } from "./AnyJournalEvent.ts";
+import type { Backpack } from "./events/odyssey/Backpack.ts";
+import type { ExtendedFCMaterials } from "./events/odyssey/FCMaterials.ts";
+import type { ExtendedModuleInfo } from "./events/other/ModuleInfo.ts";
+import type { Status } from "./events/other/Status.ts";
+import type { ExtendedMarket } from "./events/station/Market.ts";
+import type { ExtendedOutfitting } from "./events/station/Outfitting.ts";
+import type { ExtendedShipyard } from "./events/station/Shipyard.ts";
+import type { ExtendedNavRoute } from "./events/travel/NavRoute.ts";
+import { JournalError } from "./JournalError.ts";
+import { type JournalEvent, updateJournalEvent } from "./JournalEvent.ts";
+import type { JournalPosition, NamedJournalPosition } from "./JournalPosition.ts";
+import { sleep } from "./util/async.ts";
+import { getErrorMessage, toError } from "./util/error.ts";
+import { isDirectory, isPathReadable } from "./util/fs.ts";
+import { LineReader } from "./util/LineReader.ts";
+import { Notifier } from "./util/Notifier.ts";
 
 /**
  * Compare function to sort journal file names by time. Empty string is always earlier than any journal file.
  *
  * @param a - First filename to compare.
  * @param b - Second filename to compare.
- * @return The comparison result to sort the journal file names fro oldest to newest.
+ * @returns The comparison result to sort the journal file names fro oldest to newest.
  */
 function journalTimeCompare(a: string, b: string): number {
     if (a.length === b.length) {
@@ -62,7 +62,7 @@ const journalFileRegExp = /^Journal\.\d{12}|\d{4}-\d{2}-\d{2}T\d{6}\.\d{2}\.log$
  * Checks if given filename is a journal file.
  *
  * @param The filename to check.
- * @return True if filename is a journal file, false it not.
+ * @returns True if filename is a journal file, false it not.
  */
 function isJournalFile(filename: string): boolean {
     return journalFileRegExp.test(filename);
@@ -160,7 +160,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
         this.generator = this.createGenerator(watch);
     }
 
-    /** @inheritDoc */
+    /** @inheritdoc */
     public [Symbol.asyncDispose](): PromiseLike<void> {
         return this.close();
     }
@@ -189,7 +189,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
      *
      * If you know more common journal locations then please let me know so I can improve the search.
      *
-     * @return The found journal directory.
+     * @returns The found journal directory.
      * @throws JournalError - When journal directory was not found.
      */
     public static async findDirectory(): Promise<string> {
@@ -216,7 +216,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
     /**
      * Returns the journal directory.
      *
-     * @return The journal directory.
+     * @returns The journal directory.
      */
     public getDirectory(): string {
         return this.directory;
@@ -225,7 +225,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
     /**
      * Returns the current journal position which points to the next event to read.
      *
-     * @return The current journal position.
+     * @returns The current journal position.
      */
     public getPosition(): JournalPosition {
         return { ...this.position };
@@ -234,7 +234,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
     /**
      * Returns the journal position which points to the last read event.
      *
-     * @return The journal position of the last read event.
+     * @returns The journal position of the last read event.
      */
     public getLastPosition(): JournalPosition {
         return { ...this.lastPosition };
@@ -257,7 +257,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
      *
      * @param directory - The journal directory.
      * @param eventName - The event name to look for.
-     * @return Last position of given event in latest journal file or end of journal if not found.
+     * @returns Last position of given event in latest journal file or end of journal if not found.
      */
     public static async findLastEvent(directory: string, eventName: JournalEventName): Promise<JournalPosition> {
         const files = (await readdir(directory)).filter(isJournalFile).sort(journalTimeCompare).reverse();
@@ -288,7 +288,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
     /**
      * Finds the end position of the journal and returns it.
      *
-     * @return End position of the journal.
+     * @returns End position of the journal.
      */
     public static async findStart(directory: string): Promise<JournalPosition> {
         const filename = (await readdir(directory)).filter(isJournalFile).sort(journalTimeCompare)[0];
@@ -298,7 +298,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
     /**
      * Finds the end position of the journal and returns it.
      *
-     * @return End position of the journal.
+     * @returns End position of the journal.
      */
     public static async findEnd(directory: string): Promise<JournalPosition> {
         const filename = (await readdir(directory)).filter(isJournalFile).sort(journalTimeCompare).reverse()[0];
@@ -336,14 +336,14 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
      *
      * @param startFile - Optional starting file. If not specified then the watcher starts with the oldest available
      *                    journal file.
-     * @return New/changed journal files in chronological order.
+     * @yields New/changed journal files in chronological order.
      */
     private async *watchJournalFiles(startFile: string): AsyncGenerator<string> {
         const signal = this.abortController.signal;
         const notifier = new Notifier(signal);
         const directory = resolve(this.directory);
         const files: string[] = [];
-        let error: Error | null = null;
+        let lastError: Error | null = null;
         let initialized = false;
 
         // Monitors journal directory for changes. This starts immediately, even when initial directories are still read, so we don't miss any changed or
@@ -360,13 +360,13 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
                                 files.push(filename);
                                 notifier.notify();
                             }
-                        } /* v8 ignore next 2 (hard to time this situation in unit test) */ else {
+                        } /* node:coverage ignore next 2 */ /* Hard to time this situation in unit test */ else {
                             files.push(filename);
                         }
                     }
-                } /* v8 ignore next (for loop never exits, throws exception when cancelled) */
-            } catch (e) {
-                error = toError(e);
+                }
+            } catch (error) {
+                lastError = toError(error);
                 notifier.notify();
             }
         })();
@@ -385,16 +385,16 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
                 startFile = files.at(-1) ?? "";
                 initialized = true;
                 notifier.notify();
-            } catch (e) {
-                error = toError(e);
+            } catch (error) {
+                lastError = toError(error);
                 notifier.notify();
             }
         })();
 
         // Waits for reported new/changed files and yields them. Aborts on error and simply exits when user aborts the watcher.
         while (!signal.aborted) {
-            if (error != null) {
-                throw error as Error;
+            if (lastError != null) {
+                throw lastError as Error;
             }
             const nextFile = files.shift();
             if (nextFile != null) {
@@ -415,7 +415,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
      *
      * @param startFile - Optional starting file. If not specified then the reader starts with the oldest available
      *                    journal file.
-     * @return The found journal files.
+     * @returns The found journal files.
      */
     private async listJournalFiles(startFile: string): Promise<string[]> {
         return (await readdir(this.directory))
@@ -428,7 +428,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
      * updates old properties in the journal event to new ones if needed.
      *
      * @param line - The JSON line to parse.
-     * @return The parsed journal event.
+     * @returns The parsed journal event.
      */
     private parseJournalEvent(line: string): AnyJournalEvent {
         const json = JSON.parse(line, jsonReviver) as AnyJournalEvent;
@@ -440,7 +440,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
      * Creates the journal event generator.
      *
      * @param watch - True to watch the journal instead of just reading it.
-     * @return The created journal event generator.
+     * @yields The created journal event generator.
      */
     private async *createGenerator(watch: boolean): AsyncGenerator<AnyJournalEvent> {
         // Get the list of journal files to read/watch. In watch mode this is a generator which produces changed/new
@@ -499,7 +499,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
     /**
      * Returns async iterator for the journal events.
      *
-     * @return Async iterator for the events in this journal.
+     * @returns Async iterator for the events in this journal.
      */
     public [Symbol.asyncIterator](): AsyncGenerator<AnyJournalEvent> {
         return this.generator;
@@ -510,7 +510,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
      * until a new event arrives. When not in watch mode or when journal is closed this method returns null when no
      * more events are available.
      *
-     * @return The next journal event or null when end is reached.
+     * @returns The next journal event or null when end is reached.
      */
     public async next(): Promise<AnyJournalEvent | null> {
         const result = await this.generator.next();
@@ -521,7 +521,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
      * Reads the given JSON file, parses it as at a journal event and returns it.
      *
      * @param filename - The filename of the JSON file to read. Relative to journal directory.
-     * @return The parsed journal event. Null when file is not present.
+     * @returns The parsed journal event. Null when file is not present.
      */
     private async readFile<T extends JournalEvent>(filename: string): Promise<T | null> {
         const path = join(this.directory, filename);
@@ -543,7 +543,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
      * first change.
      *
      * @param filename - The filename of the JSON file to read and watch. Relative to journal directory.
-     * @return Async iterator watching content changes.
+     * @yields Async iterator watching content changes.
      */
     private async *watchFile(filename: string): AsyncGenerator<string> {
         const signal = this.abortController.signal;
@@ -553,7 +553,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
                 if (event.filename === filename) {
                     yield filename;
                 }
-            } /* v8 ignore next (for loop never exits, throws exception when cancelled) */
+            }
         } catch {
             // Ignoring watch abort, generator still stops yielding values
         }
@@ -571,7 +571,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
     /**
      * Returns the current backpack inventory read from the Backpack.json file.
      *
-     * @return The current backpack inventory. Null if Backpack.json file does not exist or is not readable.
+     * @returns The current backpack inventory. Null if Backpack.json file does not exist or is not readable.
      */
     public readBackpack(): Promise<Backpack | null> {
         return this.readFile("Backpack.json");
@@ -581,7 +581,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
      * Watches the Backpack.json file for changes and reports any new data. It always reports the current data as
      * first change.
      *
-     * @return Async iterator watching backpack inventory changes.
+     * @returns Async iterator watching backpack inventory changes.
      */
     public watchBackpack(): AsyncGenerator<Backpack> {
         return this.watchFileContent("Backpack.json");
@@ -590,7 +590,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
     /**
      * Returns the current cargo data read from the Cargo.json file.
      *
-     * @return The current cargo data. Null if Cargo.json file does not exist or is not readable.
+     * @returns The current cargo data. Null if Cargo.json file does not exist or is not readable.
      */
     public readCargo(): Promise<Backpack | null> {
         return this.readFile("Cargo.json");
@@ -600,7 +600,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
      * Watches the Cargo.json file for changes and reports any new data. It always reports the current data as
      * first change.
      *
-     * @return Async iterator watching cargo changes.
+     * @returns Async iterator watching cargo changes.
      */
     public watchCargo(): AsyncGenerator<Backpack> {
         return this.watchFileContent("Cargo.json");
@@ -609,7 +609,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
     /**
      * Returns the current fleet carrier materials data read from the FCMaterials.json file.
      *
-     * @return The current fleet carrier materials data. Null if FCMaterials.json file does not exist or
+     * @returns The current fleet carrier materials data. Null if FCMaterials.json file does not exist or
      *         is not readable.
      */
     public readFCMaterials(): Promise<ExtendedFCMaterials | null> {
@@ -620,7 +620,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
      * Watches the FCMaterials.json file for changes and reports any new data. It always reports the current data as
      * first change.
      *
-     * @return Async iterator watching fleet carrier materials data changes.
+     * @returns Async iterator watching fleet carrier materials data changes.
      */
     public watchFCMaterials(): AsyncGenerator<ExtendedFCMaterials> {
         return this.watchFileContent("FCMaterials.json");
@@ -629,7 +629,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
     /**
      * Returns the current market data read from the Market.json file.
      *
-     * @return The current market data. Null if Market.json file does not exist or is not readable.
+     * @returns The current market data. Null if Market.json file does not exist or is not readable.
      */
     public readMarket(): Promise<ExtendedMarket | null> {
         return this.readFile("Market.json");
@@ -639,7 +639,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
      * Watches the Market.json file for changes and reports any new data. It always reports the current data as
      * first change.
      *
-     * @return Async iterator watching market data changes.
+     * @returns Async iterator watching market data changes.
      */
     public watchMarket(): AsyncGenerator<ExtendedMarket> {
         return this.watchFileContent("Market.json");
@@ -648,7 +648,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
     /**
      * Returns the current modules info read from the ModulesInfo.json file.
      *
-     * @return The current modules info. Null if ModulesInfo.json file does not exist or is not readable.
+     * @returns The current modules info. Null if ModulesInfo.json file does not exist or is not readable.
      */
     public readModulesInfo(): Promise<ExtendedModuleInfo | null> {
         return this.readFile("ModulesInfo.json");
@@ -658,7 +658,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
      * Watches the ModulesInfo.json file for changes and reports any new data. It always reports the current data as
      * first change.
      *
-     * @return Async iterator watching modules info changes.
+     * @returns Async iterator watching modules info changes.
      */
     public watchModulesInfo(): AsyncGenerator<ExtendedModuleInfo> {
         return this.watchFileContent("ModulesInfo.json");
@@ -667,7 +667,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
     /**
      * Returns the current nav route read from the NavRoute.json file.
      *
-     * @return The current nav route data. Null if NavRoute.json file does not exist or is not readable.
+     * @returns The current nav route data. Null if NavRoute.json file does not exist or is not readable.
      */
     public readNavRoute(): Promise<ExtendedNavRoute | null> {
         return this.readFile("NavRoute.json");
@@ -677,7 +677,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
      * Watches the NavRoute.json file for changes and reports any new data. It always reports the current data as
      * first change.
      *
-     * @return Async iterator watching nav route data changes.
+     * @returns Async iterator watching nav route data changes.
      */
     public watchNavRoute(): AsyncGenerator<ExtendedNavRoute> {
         return this.watchFileContent("NavRoute.json");
@@ -686,7 +686,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
     /**
      * Returns the current outfitting data read from the Outfitting.json file.
      *
-     * @return The current outfitting data. Null if Outfitting.json file does not exist or is not readable.
+     * @returns The current outfitting data. Null if Outfitting.json file does not exist or is not readable.
      */
     public readOutfitting(): Promise<ExtendedOutfitting | null> {
         return this.readFile("Outfitting.json");
@@ -696,7 +696,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
      * Watches the Outfitting.json file for changes and reports any new data. It always reports the current data as
      * first change.
      *
-     * @return Async iterator watching outfitting data changes.
+     * @returns Async iterator watching outfitting data changes.
      */
     public watchOutfitting(): AsyncGenerator<ExtendedOutfitting> {
         return this.watchFileContent("Outfitting.json");
@@ -705,7 +705,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
     /**
      * Returns the current contents of the ship locker from the ShipLocker.json file.
      *
-     * @return The current ship locker content. Null if ShipLocker.json file does not exist or is not readable.
+     * @returns The current ship locker content. Null if ShipLocker.json file does not exist or is not readable.
      */
     public readShipLocker(): Promise<ExtendedShipyard | null> {
         return this.readFile("ShipLocker.json");
@@ -715,7 +715,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
      * Watches the ShipLocker.json file for changes and reports any new data. It always reports the current data as
      * first change.
      *
-     * @return Async iterator watching ship locker content changes.
+     * @returns Async iterator watching ship locker content changes.
      */
     public watchShipLocker(): AsyncGenerator<ExtendedShipyard> {
         return this.watchFileContent("ShipLocker.json");
@@ -724,7 +724,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
     /**
      * Returns the current shipyard data read from the Shipyard.json file.
      *
-     * @return The current shipyard data. Null if Shipyard.json file does not exist or is not readable.
+     * @returns The current shipyard data. Null if Shipyard.json file does not exist or is not readable.
      */
     public readShipyard(): Promise<ExtendedShipyard | null> {
         return this.readFile("Shipyard.json");
@@ -734,7 +734,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
      * Watches the Shipyard.json file for changes and reports any new data. It always reports the current data as
      * first change.
      *
-     * @return Async iterator watching shipyard data changes.
+     * @returns Async iterator watching shipyard data changes.
      */
     public watchShipyard(): AsyncGenerator<ExtendedShipyard> {
         return this.watchFileContent("Shipyard.json");
@@ -743,7 +743,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
     /**
      * Returns the current status read from the Status.json file.
      *
-     * @return The current status. Null if Status.json file does not exist or is not readable.
+     * @returns The current status. Null if Status.json file does not exist or is not readable.
      */
     public readStatus(): Promise<Status | null> {
         return this.readFile("Status.json");
@@ -753,7 +753,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
      * Watches the Status.json file for changes and reports any new status. It always reports the current status as
      * first change.
      *
-     * @return Async iterator watching status changes.
+     * @returns Async iterator watching status changes.
      */
     public watchStatus(): AsyncGenerator<Status> {
         return this.watchFileContent("Status.json");

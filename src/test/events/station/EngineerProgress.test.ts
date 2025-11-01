@@ -1,7 +1,8 @@
-import { describe, expect, it } from "vitest";
+import { describe, it } from "node:test";
 
-import type { Engineer } from "../../../main/events/station/EngineerProgress.js";
-import { Journal } from "../../../main/Journal.js";
+import type { Engineer } from "../../../main/events/station/EngineerProgress.ts";
+import { Journal } from "../../../main/Journal.ts";
+import { assertEquals, assertSame } from "@kayahr/assert";
 
 const engineers: Engineer[] = [
     {
@@ -43,18 +44,18 @@ describe("EngineerProgress", () => {
         await using journal = await Journal.open({ directory: "src/test/data/events/EngineerProgress" });
         for (const engineer of engineers) {
             const event = await journal.next();
-            expect(event?.event).toBe("EngineerProgress");
+            assertSame(event?.event, "EngineerProgress");
             if (event?.event === "EngineerProgress") {
-                expect(event.Engineers).toEqual([ engineer ]);
+                assertEquals(event.Engineers, [ engineer ]);
             }
         }
     });
     it("removes broken engineer objects where crucial engineer name is missing", async () => {
         await using journal = await Journal.open({ directory: "src/test/data/events/EngineerProgress2" });
         const event = await journal.next();
-        expect(event?.event).toBe("EngineerProgress");
+        assertSame(event?.event, "EngineerProgress");
         if (event?.event === "EngineerProgress") {
-            expect(event.Engineers).toEqual(engineers);
+            assertEquals(event.Engineers, engineers);
         }
     });
 });

@@ -1,0 +1,357 @@
+exports[`Journal > can watch new journal events only 1`] = `
+[
+  {
+    "timestamp": "2023-01-01T00:00:02Z",
+    "event": "Continued",
+    "Part": 2
+  },
+  {
+    "timestamp": "2023-01-01T00:00:03Z",
+    "event": "Died"
+  }
+]
+`;
+
+exports[`Journal > picks up new journal files changed/created while still initializing the watcher 1`] = `
+[
+  {
+    "timestamp": "2020-01-01T00:00:00Z",
+    "event": "Fileheader",
+    "part": 1,
+    "language": "English\\\\UK",
+    "Odyssey": true,
+    "gameversion": "4.0.0.600",
+    "build": "r271793/r0 "
+  },
+  {
+    "timestamp": "2020-01-01T00:00:01Z",
+    "event": "Shutdown"
+  },
+  {
+    "timestamp": "2021-01-01T00:00:00Z",
+    "event": "Fileheader",
+    "part": 1,
+    "language": "English\\\\UK",
+    "Odyssey": true,
+    "gameversion": "4.0.0.600",
+    "build": "r271793/r0 "
+  },
+  {
+    "timestamp": "2021-01-01T00:00:01Z",
+    "event": "Shutdown"
+  },
+  {
+    "timestamp": "2022-01-01T00:00:00Z",
+    "event": "Fileheader",
+    "part": 1,
+    "language": "English\\\\UK",
+    "Odyssey": true,
+    "gameversion": "4.0.0.600",
+    "build": "r271793/r0 "
+  },
+  {
+    "timestamp": "2022-01-01T00:00:01Z",
+    "event": "Commander",
+    "FID": "F1234",
+    "Name": "Jameson"
+  },
+  {
+    "timestamp": "2022-01-01T00:00:02Z",
+    "event": "Shutdown"
+  },
+  {
+    "timestamp": "2023-01-01T00:00:00Z",
+    "event": "Fileheader",
+    "part": 1,
+    "language": "English\\\\UK",
+    "Odyssey": true,
+    "gameversion": "4.0.0.600",
+    "build": "r271793/r0 "
+  },
+  {
+    "timestamp": "2023-01-01T00:00:01Z",
+    "event": "Shutdown"
+  },
+  {
+    "timestamp": "2023-01-01T00:00:02Z",
+    "event": "Continued",
+    "Part": 2
+  },
+  {
+    "timestamp": "2023-01-01T00:00:03Z",
+    "event": "Died"
+  }
+]
+`;
+
+exports[`Journal > reads a journal in chronological order 1`] = `
+[
+  {
+    "timestamp": "2020-01-01T00:00:00Z",
+    "event": "Fileheader",
+    "part": 1,
+    "language": "English\\\\UK",
+    "Odyssey": true,
+    "gameversion": "4.0.0.600",
+    "build": "r271793/r0 "
+  },
+  {
+    "timestamp": "2020-01-01T00:00:01Z",
+    "event": "Shutdown"
+  },
+  {
+    "timestamp": "2021-01-01T00:00:00Z",
+    "event": "Fileheader",
+    "part": 1,
+    "language": "English\\\\UK",
+    "Odyssey": true,
+    "gameversion": "4.0.0.600",
+    "build": "r271793/r0 "
+  },
+  {
+    "timestamp": "2021-01-01T00:00:01Z",
+    "event": "Shutdown"
+  },
+  {
+    "timestamp": "2022-01-01T00:00:00Z",
+    "event": "Fileheader",
+    "part": 1,
+    "language": "English\\\\UK",
+    "Odyssey": true,
+    "gameversion": "4.0.0.600",
+    "build": "r271793/r0 "
+  },
+  {
+    "timestamp": "2022-01-01T00:00:01Z",
+    "event": "Commander",
+    "FID": "F1234",
+    "Name": "Jameson"
+  },
+  {
+    "timestamp": "2022-01-01T00:00:02Z",
+    "event": "Shutdown"
+  },
+  {
+    "timestamp": "2023-01-01T00:00:00Z",
+    "event": "Fileheader",
+    "part": 1,
+    "language": "English\\\\UK",
+    "Odyssey": true,
+    "gameversion": "4.0.0.600",
+    "build": "r271793/r0 "
+  },
+  {
+    "timestamp": "2023-01-01T00:00:01Z",
+    "event": "Shutdown"
+  }
+]
+`;
+
+exports[`Journal > reads a journal starting at given event 1`] = `
+[
+  {
+    "timestamp": "2022-01-01T00:00:01Z",
+    "event": "Commander",
+    "FID": "F1234",
+    "Name": "Jameson"
+  },
+  {
+    "timestamp": "2022-01-01T00:00:02Z",
+    "event": "Shutdown"
+  },
+  {
+    "timestamp": "2023-01-01T00:00:00Z",
+    "event": "Fileheader",
+    "part": 1,
+    "language": "English\\\\UK",
+    "Odyssey": true,
+    "gameversion": "4.0.0.600",
+    "build": "r271793/r0 "
+  },
+  {
+    "timestamp": "2023-01-01T00:00:01Z",
+    "event": "Shutdown"
+  }
+]
+`;
+
+exports[`Journal > reads a journal starting at given position 1`] = `
+[
+  {
+    "timestamp": "2021-01-01T00:00:01Z",
+    "event": "Shutdown"
+  },
+  {
+    "timestamp": "2022-01-01T00:00:00Z",
+    "event": "Fileheader",
+    "part": 1,
+    "language": "English\\\\UK",
+    "Odyssey": true,
+    "gameversion": "4.0.0.600",
+    "build": "r271793/r0 "
+  },
+  {
+    "timestamp": "2022-01-01T00:00:01Z",
+    "event": "Commander",
+    "FID": "F1234",
+    "Name": "Jameson"
+  },
+  {
+    "timestamp": "2022-01-01T00:00:02Z",
+    "event": "Shutdown"
+  },
+  {
+    "timestamp": "2023-01-01T00:00:00Z",
+    "event": "Fileheader",
+    "part": 1,
+    "language": "English\\\\UK",
+    "Odyssey": true,
+    "gameversion": "4.0.0.600",
+    "build": "r271793/r0 "
+  },
+  {
+    "timestamp": "2023-01-01T00:00:01Z",
+    "event": "Shutdown"
+  }
+]
+`;
+
+exports[`Journal > reports lines in correct order when new file is created right before changing the current file 1`] = `
+[
+  {
+    "timestamp": "2025-03-03T00:00:01Z",
+    "event": "Shutdown"
+  },
+  {
+    "timestamp": "2025-03-03T00:00:02Z",
+    "event": "Continued",
+    "Part": 2
+  },
+  {
+    "timestamp": "2025-03-03T00:00:03Z",
+    "event": "Died"
+  }
+]
+`;
+
+exports[`Journal > watches a journal in chronological order 1`] = `
+[
+  {
+    "timestamp": "2020-01-01T00:00:00Z",
+    "event": "Fileheader",
+    "part": 1,
+    "language": "English\\\\UK",
+    "Odyssey": true,
+    "gameversion": "4.0.0.600",
+    "build": "r271793/r0 "
+  },
+  {
+    "timestamp": "2020-01-01T00:00:01Z",
+    "event": "Shutdown"
+  },
+  {
+    "timestamp": "2021-01-01T00:00:00Z",
+    "event": "Fileheader",
+    "part": 1,
+    "language": "English\\\\UK",
+    "Odyssey": true,
+    "gameversion": "4.0.0.600",
+    "build": "r271793/r0 "
+  },
+  {
+    "timestamp": "2021-01-01T00:00:01Z",
+    "event": "Shutdown"
+  },
+  {
+    "timestamp": "2022-01-01T00:00:00Z",
+    "event": "Fileheader",
+    "part": 1,
+    "language": "English\\\\UK",
+    "Odyssey": true,
+    "gameversion": "4.0.0.600",
+    "build": "r271793/r0 "
+  },
+  {
+    "timestamp": "2022-01-01T00:00:01Z",
+    "event": "Commander",
+    "FID": "F1234",
+    "Name": "Jameson"
+  },
+  {
+    "timestamp": "2022-01-01T00:00:02Z",
+    "event": "Shutdown"
+  },
+  {
+    "timestamp": "2023-01-01T00:00:00Z",
+    "event": "Fileheader",
+    "part": 1,
+    "language": "English\\\\UK",
+    "Odyssey": true,
+    "gameversion": "4.0.0.600",
+    "build": "r271793/r0 "
+  },
+  {
+    "timestamp": "2023-01-01T00:00:01Z",
+    "event": "Shutdown"
+  },
+  {
+    "timestamp": "2023-01-01T00:00:02Z",
+    "event": "Continued",
+    "Part": 2
+  },
+  {
+    "timestamp": "2023-01-01T00:00:03Z",
+    "event": "Died"
+  }
+]
+`;
+
+exports[`Journal > watches a journal starting at given position 1`] = `
+[
+  {
+    "timestamp": "2021-01-01T00:00:01Z",
+    "event": "Shutdown"
+  },
+  {
+    "timestamp": "2022-01-01T00:00:00Z",
+    "event": "Fileheader",
+    "part": 1,
+    "language": "English\\\\UK",
+    "Odyssey": true,
+    "gameversion": "4.0.0.600",
+    "build": "r271793/r0 "
+  },
+  {
+    "timestamp": "2022-01-01T00:00:01Z",
+    "event": "Commander",
+    "FID": "F1234",
+    "Name": "Jameson"
+  },
+  {
+    "timestamp": "2022-01-01T00:00:02Z",
+    "event": "Shutdown"
+  },
+  {
+    "timestamp": "2023-01-01T00:00:00Z",
+    "event": "Fileheader",
+    "part": 1,
+    "language": "English\\\\UK",
+    "Odyssey": true,
+    "gameversion": "4.0.0.600",
+    "build": "r271793/r0 "
+  },
+  {
+    "timestamp": "2023-01-01T00:00:01Z",
+    "event": "Shutdown"
+  },
+  {
+    "timestamp": "2023-01-01T00:00:02Z",
+    "event": "Continued",
+    "Part": 2
+  },
+  {
+    "timestamp": "2023-01-01T00:00:03Z",
+    "event": "Died"
+  }
+]
+`;

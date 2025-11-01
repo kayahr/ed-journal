@@ -1,6 +1,7 @@
-import { describe, expect, it } from "vitest";
+import { describe, it } from "node:test";
 
-import { Journal } from "../../../main/Journal.js";
+import { Journal } from "../../../main/Journal.ts";
+import { assertEquals, assertNotHasProperty, assertSame } from "@kayahr/assert";
 
 const directory = "src/test/data/events/Docked";
 
@@ -9,23 +10,23 @@ describe("Docked", () => {
         const journal = await Journal.open({ directory, position: "start" });
         try {
             const event = await journal.next();
-            expect(event?.event).toBe("Docked");
+            assertSame(event?.event, "Docked");
             if (event?.event === "Docked") {
-                expect(event.StationFaction).toEqual({ Name: "Wu Guinagi Crimson Creative Corp",
+                assertEquals(event.StationFaction, { Name: "Wu Guinagi Crimson Creative Corp",
                     FactionState: "Boom" });
-                expect(event.StationGovernment).toBe("$government_Corporate;");
-                expect(event.StationGovernment_Localised).toBe("Corporate");
-                expect(event.StationEconomy).toBe("$economy_Industrial;");
-                expect(event.StationEconomy_Localised).toBe("Industrial");
-                expect(event.StationAllegiance).toBe("Empire");
-                expect(event).not.toHaveProperty("Faction");
-                expect(event).not.toHaveProperty("Faction_Localised");
-                expect(event).not.toHaveProperty("Government");
-                expect(event).not.toHaveProperty("Government_Localised");
-                expect(event).not.toHaveProperty("Economy");
-                expect(event).not.toHaveProperty("Economy_Localised");
-                expect(event).not.toHaveProperty("Allegiance");
-                expect(event).not.toHaveProperty("FactionState");
+                assertSame(event.StationGovernment, "$government_Corporate;");
+                assertSame(event.StationGovernment_Localised, "Corporate");
+                assertSame(event.StationEconomy, "$economy_Industrial;");
+                assertSame(event.StationEconomy_Localised, "Industrial");
+                assertSame(event.StationAllegiance, "Empire");
+                assertNotHasProperty(event, "Faction");
+                assertNotHasProperty(event, "Faction_Localised");
+                assertNotHasProperty(event, "Government");
+                assertNotHasProperty(event, "Government_Localised");
+                assertNotHasProperty(event, "Economy");
+                assertNotHasProperty(event, "Economy_Localised");
+                assertNotHasProperty(event, "Allegiance");
+                assertNotHasProperty(event, "FactionState");
             }
         } finally {
             await journal.close();
@@ -38,10 +39,10 @@ describe("Docked", () => {
         });
         try {
             const event = await journal.next();
-            expect(event?.event).toBe("Docked");
+            assertSame(event?.event, "Docked");
             if (event?.event === "Docked") {
-                expect(event.StationFaction).toEqual({ Name: "Omega Mining Corporation", FactionState: "Investment" });
-                expect(event).not.toHaveProperty("FactionState");
+                assertEquals(event.StationFaction, { Name: "Omega Mining Corporation", FactionState: "Investment" });
+                assertNotHasProperty(event, "FactionState");
             }
         } finally {
             await journal.close();
@@ -54,9 +55,9 @@ describe("Docked", () => {
         });
         try {
             const event = await journal.next();
-            expect(event?.event).toBe("Docked");
+            assertSame(event?.event, "Docked");
             if (event?.event === "Docked") {
-                expect(event.StationServices).toEqual([
+                assertEquals(event.StationServices, [
                     "dock",
                     "autodock",
                     "blackmarket",

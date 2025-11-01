@@ -3,7 +3,7 @@
  * See LICENSE.md for licensing information.
  */
 
-import type { JournalEventName } from "./AnyJournalEvent.js";
+import type { JournalEventName } from "./AnyJournalEvent.ts";
 
 /**
  * A position within the journal indicated by file and byte offset. Also keeps track of the line number within the
