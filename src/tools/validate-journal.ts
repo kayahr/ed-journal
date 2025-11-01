@@ -9,8 +9,6 @@
  * `position` can be "start", "end" or the name of a specific Journal file to start at.
  */
 
-import "source-map-support/register.ts";
-
 import { Ajv, type Schema, type ValidateFunction } from "ajv";
 import { readFile } from "node:fs/promises";
 import { JSONStringify } from "json-with-bigint";

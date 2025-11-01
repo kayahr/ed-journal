@@ -89,6 +89,8 @@ import type { ApproachSettlement } from "./events/other/ApproachSettlement.ts";
 import type { CargoTransfer } from "./events/other/CargoTransfer.ts";
 import type { ChangeCrewRole } from "./events/other/ChangeCrewRole.ts";
 import type { CockpitBreached } from "./events/other/CockpitBreached.ts";
+import type { ColonisationConstructionDepot } from "./events/other/ColonisationConstructionDepot.ts";
+import type { ColonisationContribution } from "./events/other/ColonisationContribution.ts";
 import type { CommitCrime } from "./events/other/CommitCrime.ts";
 import type { Continued } from "./events/other/Continued.ts";
 import type { CrewLaunchFighter } from "./events/other/CrewLaunchFighter.ts";
@@ -304,6 +306,8 @@ export type AnyJournalEvent
     | ChangeCrewRole
     | ClearSavedGame
     | CockpitBreached
+    | ColonisationConstructionDepot
+    | ColonisationContribution
     | CodexEntry
     | CollectCargo
     | CollectItems

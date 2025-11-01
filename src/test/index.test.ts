@@ -86,6 +86,8 @@ import type { ApproachSettlement } from "../main/events/other/ApproachSettlement
 import type { CargoTransfer } from "../main/events/other/CargoTransfer.ts";
 import type { ChangeCrewRole } from "../main/events/other/ChangeCrewRole.ts";
 import type { CockpitBreached } from "../main/events/other/CockpitBreached.ts";
+import type { ColonisationConstructionDepot, ColonisationConstructionResource } from "../main/events/other/ColonisationConstructionDepot.ts";
+import type { ColonisationContribution, ColonisationContributionResource } from "../main/events/other/ColonisationContribution.ts";
 import type { CommitCrime } from "../main/events/other/CommitCrime.ts";
 import type { Continued } from "../main/events/other/Continued.ts";
 import type { CrewLaunchFighter } from "../main/events/other/CrewLaunchFighter.ts";
@@ -391,6 +393,10 @@ describe("core", () => {
         ((): CargoTransfer => (({} as exports.CargoTransfer)))();
         ((): FuelScoop => (({} as exports.FuelScoop)))();
         ((): CockpitBreached => (({} as exports.CockpitBreached)))();
+        ((): ColonisationConstructionDepot => (({} as exports.ColonisationConstructionDepot)))();
+        ((): ColonisationConstructionResource => (({} as exports.ColonisationConstructionResource)))();
+        ((): ColonisationContribution => (({} as exports.ColonisationContribution)))();
+        ((): ColonisationContributionResource => (({} as exports.ColonisationContributionResource)))();
         ((): ProspectedAsteroid => (({} as exports.ProspectedAsteroid)))();
         ((): Shutdown => (({} as exports.Shutdown)))();
         ((): SendText => (({} as exports.SendText)))();

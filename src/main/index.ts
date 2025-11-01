@@ -90,6 +90,8 @@ export type { ApproachSettlement } from "./events/other/ApproachSettlement.ts";
 export type { CargoTransfer } from "./events/other/CargoTransfer.ts";
 export type { ChangeCrewRole } from "./events/other/ChangeCrewRole.ts";
 export type { CockpitBreached } from "./events/other/CockpitBreached.ts";
+export type { ColonisationConstructionDepot, ColonisationConstructionResource } from "./events/other/ColonisationConstructionDepot.ts";
+export type { ColonisationContribution, ColonisationContributionResource } from "./events/other/ColonisationContribution.ts";
 export type { CommitCrime } from "./events/other/CommitCrime.ts";
 export type { Continued } from "./events/other/Continued.ts";
 export type { CrewLaunchFighter } from "./events/other/CrewLaunchFighter.ts";
