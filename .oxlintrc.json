@@ -12,18 +12,5 @@
                 "asType": "asType"
             }
         }
-    },
-    "rules": {
-        "typescript/no-empty-interface": [
-            "warn", {
-                "allow_single_extends": true
-            }
-        ],
-        "typescript/no-empty-object-type": [
-            "warn", {
-                "allowInterfaces": "with-single-extends"
-            }
-        ],
-        "unicorn/filename-case": "off"
     }
 }

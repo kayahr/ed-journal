@@ -75,10 +75,10 @@
         "@kayahr/cspell": "9.2.2-bundle.1",
         "@kayahr/npm-utils": "1.1.1",
         "@kayahr/ntest": "1.2.2",
-        "@kayahr/oxlint-config": "1.9.0",
+        "@kayahr/oxlint-config": "1.10.0",
         "@kayahr/ts-json-schema-generator": "2.4.0-bundle.1",
         "@kayahr/typedoc": "0.28.14-bundle.2",
-        "@types/node": "24.9.2",
+        "@types/node": "24.10.0",
         "ajv": "8.17.1",
         "json-with-bigint": "3.4.4",
         "typescript": "5.9.3"
