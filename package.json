@@ -1,7 +1,7 @@
 {
     "$schema": "http://json.schemastore.org/package",
     "name": "@kayahr/ed-journal",
-    "version": "3.7.0",
+    "version": "3.8.0",
     "type": "module",
     "description": "Typescript library to read/watch the player journal of Frontier's game Elite Dangerous",
     "keywords": [
