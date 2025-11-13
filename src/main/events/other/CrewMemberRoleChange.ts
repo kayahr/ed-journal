@@ -8,4 +8,5 @@ import type { JournalEvent } from "../../JournalEvent.ts";
 export interface CrewMemberRoleChange extends JournalEvent<"CrewMemberRoleChange"> {
     Crew: string;
     Role: string;
+    Telepresence?: boolean;
 }

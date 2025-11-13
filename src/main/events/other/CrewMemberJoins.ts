@@ -7,4 +7,5 @@ import type { JournalEvent } from "../../JournalEvent.ts";
 
 export interface CrewMemberJoins extends JournalEvent<"CrewMemberJoins"> {
     Crew: string;
+    Telepresence?: boolean;
 }

@@ -7,4 +7,5 @@ import type { JournalEvent } from "../../JournalEvent.ts";
 
 export interface EndCrewSession extends JournalEvent<"EndCrewSession"> {
     OnCrime: boolean;
+    Telepresence?: boolean;
 }
