@@ -85,9 +85,6 @@ for await (const event of journal) {
         validator = ajv.compile(narrowedSchema);
         validators.set(event.event, validator);
     }
-    if (event.event !== "ReceiveText") {
-        console.log(event);
-     }
     // AJV cannot validate bigint against integer json type. So we have to convert bigint to number first
     bigintToNumber(event);
     const result = validator(event);
