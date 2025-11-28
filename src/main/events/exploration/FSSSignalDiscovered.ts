@@ -8,7 +8,7 @@ import type { ID } from "../types/ID.ts";
 
 export type SignalType = "Outpost" | "StationCoriolis" | "FleetCarrier" | "StationONeilOrbis" | "NavBeacon" | "Megaship" | "Combat" | "Installation"
     | "StationONeilCylinder" | "Generic" | "ResourceExtraction" | "StationBernalSphere" | "TouristBeacon" | "Titan" | "StationMegaShip" | "USS" | "Codex"
-    | "StationAsteroid" | "SquadronCarrier";
+    | "StationAsteroid" | "SquadronCarrier" | "StationDodec";
 
 /**
  * Written when zooming in on a signal using the FSS scanner.
