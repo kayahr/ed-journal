@@ -741,7 +741,7 @@ describe("Journal", () => {
                     let lastSeen = -1;
                     try {
                         for await (const status of watchMethods[fileType].call(journal)) {
-                            const currentIndex = +status.timestamp;
+                            const currentIndex = Number(status.timestamp);
                             if (currentIndex > lastSeen) {
                                 lastSeen = currentIndex;
                                 assertSame(currentIndex, index);

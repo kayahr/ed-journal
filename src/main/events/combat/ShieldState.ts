@@ -9,6 +9,6 @@ import type { JournalEvent } from "../../JournalEvent.ts";
  * Written when shields are disabled in combat, or recharged.
  */
 export interface ShieldState extends JournalEvent<"ShieldState"> {
-    /** false when disabled, true when restored. */
+    /** False when disabled, true when restored. */
     ShieldsUp: boolean;
 }

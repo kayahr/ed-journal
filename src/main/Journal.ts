@@ -487,7 +487,6 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
                 try {
                     // Parse the journal event and yield it
                     yield this.parseJournalEvent(line);
-                    // this.lastPosition = position;
                 } catch (error) {
                     throw new JournalError(`Parse error in ${lastPosition.file}:${lastPosition.line}: `
                         + `${getErrorMessage(error)}: ${line.trim()}`);
