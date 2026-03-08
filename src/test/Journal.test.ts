@@ -26,16 +26,16 @@ import { assertDefined, assertEquals, assertNull, assertSame, assertThrowWithMes
 const journalDir = "src/test/data/journal";
 
 async function withTmpHome(action: (home: string) => Promise<void>): Promise<void> {
-    const origHome = process.env["HOME"];
-    const origUserProfile = process.env["USERPROFILE"];
+    const origHome = process.env.HOME;
+    const origUserProfile = process.env.USERPROFILE;
     const home = await mkdtemp(join(tmpdir(), "ed-journal-test-"));
-    process.env["HOME"] = home;
-    process.env["USERPROFILE"] = home;
+    process.env.HOME = home;
+    process.env.USERPROFILE = home;
     try {
         await action(home);
     } finally {
-        process.env["HOME"] = origHome;
-        process.env["USERPROFILE"] = origUserProfile;
+        process.env.HOME = origHome;
+        process.env.USERPROFILE = origUserProfile;
         await rm(home, { recursive: true });
     }
 }
@@ -393,12 +393,12 @@ describe("Journal", () => {
 
     describe("findDirectory", () => {
         it("returns journal directory specified by ED_JOURNAL_DIR env variable", async () => {
-            const origEnv = process.env["ED_JOURNAL_DIR"];
+            const origEnv = process.env.ED_JOURNAL_DIR;
             try {
-                process.env["ED_JOURNAL_DIR"] = journalDir;
+                process.env.ED_JOURNAL_DIR = journalDir;
                 assertSame(await Journal.findDirectory(), journalDir);
             } finally {
-                process.env["ED_JOURNAL_DIR"] = origEnv;
+                process.env.ED_JOURNAL_DIR = origEnv;
             }
         });
         it("returns journal directory on windows if present", async () => {
@@ -426,9 +426,9 @@ describe("Journal", () => {
 
     describe("create", () => {
         it("automatically determines journal directory if not specified", async () => {
-            const origEnv = process.env["ED_JOURNAL_DIR"];
+            const origEnv = process.env.ED_JOURNAL_DIR;
             try {
-                process.env["ED_JOURNAL_DIR"] = journalDir;
+                process.env.ED_JOURNAL_DIR = journalDir;
                 const journal = await Journal.open();
                 try {
                     assertSame(journal.getDirectory(), journalDir);
@@ -436,7 +436,7 @@ describe("Journal", () => {
                     await journal.close();
                 }
             } finally {
-                process.env["ED_JOURNAL_DIR"] = origEnv;
+                process.env.ED_JOURNAL_DIR = origEnv;
             }
         });
         it("opens journal in given directory", async () => {
@@ -737,7 +737,7 @@ describe("Journal", () => {
                     };
                     const journal = await Journal.open({ directory: writer.directory });
                     let index = 0;
-                    setTimeout(() => updateData(++index), 25);
+                    setTimeout(() => { updateData(++index) }, 25);
                     let lastSeen = -1;
                     try {
                         for await (const status of watchMethods[fileType].call(journal)) {
@@ -746,7 +746,7 @@ describe("Journal", () => {
                                 lastSeen = currentIndex;
                                 assertSame(currentIndex, index);
                                 if (index < 3) {
-                                    setTimeout(() => updateData(++index), 100);
+                                    setTimeout(() => { updateData(++index) }, 100);
                                 } else {
                                     break;
                                 }

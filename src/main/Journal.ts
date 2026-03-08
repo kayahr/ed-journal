@@ -46,13 +46,11 @@ import { Notifier } from "./util/Notifier.ts";
  * @returns The comparison result to sort the journal file names fro oldest to newest.
  */
 function journalTimeCompare(a: string, b: string): number {
-    if (a.length === b.length) {
+    return a.length === b.length
         // Same length means same date format which we can compare alphabetically
-        return a.localeCompare(b);
-    } else {
+        ? a.localeCompare(b)
         // Different length means the date format has changed. The newer one is longer
-        return a.length - b.length;
-    }
+        : a.length - b.length;
 }
 
 /** Regular expression to match the name of a journal file. */
@@ -200,7 +198,7 @@ export class Journal implements AsyncIterable<AnyJournalEvent>, AsyncDisposable 
             join(nativeHome, eliteDir),
             join(nativeHome, protonHome, eliteDir)
         ];
-        const dirFromEnv = process.env["ED_JOURNAL_DIR"];
+        const dirFromEnv = process.env.ED_JOURNAL_DIR;
         if (dirFromEnv != null) {
             // Check ED_JOURNAL_DIR environment variable first if present
             candidates.unshift(dirFromEnv);

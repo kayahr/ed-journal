@@ -9,22 +9,17 @@
  * `position` can be "start", "end" or the name of a specific Journal file to start at.
  */
 
-import { Ajv, type Schema, type ValidateFunction } from "ajv";
+import { Ajv, type ValidateFunction } from "ajv";
 import { readFile } from "node:fs/promises";
 import { JSONStringify } from "json-with-bigint";
 import { join } from "node:path";
 
 import type { AnyJournalEvent } from "../main/AnyJournalEvent.ts";
 import { Journal } from "../main/Journal.ts";
-import type { JournalPosition, NamedJournalPosition } from "../main/JournalPosition.ts";
+import type { NamedJournalPosition } from "../main/JournalPosition.ts";
 
 const arg = process.argv[2] ?? "start";
-let position: JournalPosition | NamedJournalPosition;
-if (arg.endsWith(".log")) {
-    position = { file: arg, offset: 0, line: 1 };
-} else {
-    position = arg as NamedJournalPosition;
-}
+const position = arg.endsWith(".log") ? { file: arg, offset: 0, line: 1 } : arg as NamedJournalPosition;
 
 class ValidationError extends Error {
     public constructor(message: string, event: AnyJournalEvent) {
@@ -73,15 +68,7 @@ for await (const event of journal) {
     let validator = validators.get(event.event);
     if (validator == null) {
         const definition = schema.definitions?.[event.event];
-        let narrowedSchema: Schema;
-        if (definition != null) {
-            narrowedSchema = {
-                ...schema,
-                $ref: `#/definitions/${event.event}`
-            };
-        } else {
-            narrowedSchema = schema;
-        }
+        const narrowedSchema = definition != null ? { ...schema, $ref: `#/definitions/${event.event}` } : schema;
         validator = ajv.compile(narrowedSchema);
         validators.set(event.event, validator);
     }
