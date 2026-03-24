@@ -16,7 +16,7 @@ export interface EngineerBase {
     /** The engineer's name. */
     Engineer: string;
 
-    /** The engineer ID. Not present in older events, therefor optional. */
+    /** The engineer ID. Not present in older events, therefore optional. */
     EngineerID?: ID;
 
     /** The engineer's progress state. */

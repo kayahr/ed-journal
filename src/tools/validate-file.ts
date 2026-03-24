@@ -11,8 +11,6 @@
  * 'shipyard' or 'status'
  */
 
-import "source-map-support/register.ts";
-
 import { Ajv, type Schema } from "ajv";
 import { readFile } from "node:fs/promises";
 import { JSONStringify } from "json-with-bigint";
