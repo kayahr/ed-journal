@@ -37,6 +37,7 @@ const methods: Record<string, () => AsyncGenerator<JournalEvent>> = {
 class ValidationError extends Error {
     public constructor(message: string, event: JournalEvent) {
         super(`${message}:\n\n${JSONStringify(event, undefined, 4)}`);
+        this.name = "ValidationError";
     }
 }
 
