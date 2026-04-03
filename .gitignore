@@ -6,3 +6,4 @@ node_modules/
 sandbox/
 *.tgz
 .nln
+/.codex
