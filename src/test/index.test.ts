@@ -286,7 +286,7 @@ describe("core", () => {
         });
 
         // Interfaces and types can only be checked by TypeScript
-        ((): JournalOptions => (({} as exports.JournalOptions)))();
+        ((): JournalOptions => ((0 as exports.JournalOptions)))();
         ((): JournalEvent => (({} as exports.JournalEvent)))();
         ((): JournalPosition => (({} as exports.JournalPosition)))();
         ((): NamedJournalPosition => (({} as exports.NamedJournalPosition)))();

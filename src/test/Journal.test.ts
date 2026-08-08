@@ -794,6 +794,7 @@ describe("Journal", () => {
                     await writer.write(`${fileType}.json`, JSON.stringify(initial));
                     const journal = await Journal.open({ directory: writer.directory });
                     try {
+                        // oxlint-disable-next-line no-unreachable-loop (this is intentional to only read the first entry from the stream)
                         for await (const status of watchMethods[fileType].call(journal)) {
                             assertEquals(status, initial);
                             break;
